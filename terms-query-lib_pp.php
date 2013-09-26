@@ -46,15 +46,6 @@ class PP_TermsQueryLib {
 			$term_items[$id][$row->object_id] = isset($term_items[$id][$row->object_id]) ? ++$term_items[$id][$row->object_id] : 1;
 		}
 
-		// All subsequent operations (padding with subterm counts) only apply to hierarchical taxonomies
-		if ( ! $pad_counts || ! is_taxonomy_hierarchical( $taxonomy ) )
-			return;
-
-		$term_hier = _get_term_hierarchy($taxonomy);
-
-		if ( empty($term_hier) )
-			return;
-		
 		// Touch every ancestor's lookup row for each post in each term
 		foreach ( $term_ids as $term_id ) {
 			$child = $term_id;
@@ -71,6 +62,7 @@ class PP_TermsQueryLib {
 		foreach ( (array) $term_items as $id => $items )
 			if ( isset($terms_by_id[$id]) )
 				$terms_by_id[$id]->count = count($items);
+
 	}
 } // end class
 ?>

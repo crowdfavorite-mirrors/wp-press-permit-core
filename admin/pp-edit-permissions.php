@@ -12,19 +12,24 @@ require_once( dirname(__FILE__).'/permissions-ui_pp.php');
 
 $agent_type = ( ! empty($_REQUEST['agent_type']) ) ? pp_sanitize_key($_REQUEST['agent_type']) : 'pp_group';
 
-if ( empty($_REQUEST['agent_id']) )
-	wp_die( __('No user/group specified.', 'pp') );
-
-$agent_id = (int) $_REQUEST['agent_id'];
-$agent = pp_get_agent( $agent_id, $agent_type );
-
+if ( empty($_REQUEST['agent_id']) ) {
+	$agent_id = 0;
+	$agent = (object) array( 'metagroup_type' => '' );
+	
+	if ( 'user' != $agent_type )
+		wp_die( __('No user/group specified.', 'pp') );
+} else {
+	$agent_id = (int) $_REQUEST['agent_id'];
+	$agent = pp_get_agent( $agent_id, $agent_type );
+}
+	
 $metagroup_type = ( ! empty($agent->metagroup_type) ) ? $agent->metagroup_type : '';
 
 if ( 'user' == $agent_type ) {
 	if ( ! current_user_can( 'pp_administer_content' ) || ! current_user_can( 'list_users' ) )
 		wp_die( __( 'You are not permitted to do that.', 'pp' ) );
 
-	if ( empty( $agent->ID ) )
+	if ( $agent_id && empty( $agent->ID ) )
 		wp_die( __('Invalid user ID.', 'pp') );
 } else {
 	if ( ! pp_has_group_cap( 'pp_edit_groups', $agent_id, $agent_type ) )
@@ -109,7 +114,7 @@ if ( ! empty( $pp_admin->errors ) && is_wp_error( $pp_admin->errors ) ) : ?>
 <h2><?php 
 
 if ( 'user' == $agent_type )
-	_e('Edit User Permissions', 'pp' );
+	( $agent_id ) ? _e('Edit User Permissions', 'pp' ) : _e('Add User Permissions', 'pp' );
 	
 elseif( 'wp_role' == $metagroup_type )
 	_e('Edit Permission Group (WP Role)', 'pp' );
@@ -138,7 +143,7 @@ $disabled = ( ! pp_group_type_editable( $agent_type ) || $agent->metagroup_id ) 
 <table class="pp-agent-profile">
 <tr><td>
 <table class="form-table">
-<?php if ( ( 'user' == $agent_type ) && ( $agent->name != $agent->user_login ) ) : ?>
+<?php if ( ( 'user' == $agent_type ) && $agent_id && ( $agent->name != $agent->user_login ) ) : ?>
 <tr>
 	<th><label for="user_login"><?php echo __ppw('User Login:'); ?></label></th>
 	<td><?php echo $agent->user_login;?>
@@ -146,18 +151,20 @@ $disabled = ( ! pp_group_type_editable( $agent_type ) || $agent->metagroup_id ) 
 </tr>
 <?php endif; ?>
 
+<?php if ( $agent_id ) :?>
 <tr>
 	<th><label><!-- <label for="group_name"> --><?php echo __ppw('Name:'); ?></label></th>
 	<td>
 	<?php if ( ( 'user' == $agent_type ) ):
 		echo "<a href='user-edit.php?user_id=$agent_id'>$agent->name</a>";
-	else: ?>
+	else : ?>
 	<input type="text" name="group_name" id="group_name" value="<?php echo esc_attr($agent->name); ?>" class="regular-text" <?php echo $disabled;?> /> 
 	<?php endif; ?>
 	</td>
 </tr>
+<?php endif;?>
 
-<?php if ( 'user' == $agent_type ) :
+<?php if ( ( 'user' == $agent_type ) && $agent_id ) :
 	global $wp_roles;
 	$user = new WP_User($agent_id);
 	$primary_role = reset( $user->roles );
@@ -173,7 +180,7 @@ $disabled = ( ! pp_group_type_editable( $agent_type ) || $agent->metagroup_id ) 
 		</td>
 		</tr>
 	<?php endif; ?>
-<?php else : ?>
+<?php elseif ($agent_id) : ?>
 <tr>
 	<th><label for="description"><?php echo __ppw('Description:', 'pp'); ?></label></th>
 	<td><input type="text" name="description" id="description" value="<?php echo esc_attr($agent->group_description) ?>" class="regular-text" <?php echo $disabled;?> style="width:100%" /></td>
@@ -198,7 +205,7 @@ if ( pp_group_type_editable( $agent_type ) && ( empty($agent->metagroup_type) ||
 
 do_action( 'pp_group_edit_form', $agent_type, $agent_id );
 
-if ( $agent ) {
+if ( $agent_id ) {
 	if ( pp_group_type_editable($agent_type) && ! in_array( $agent->metagroup_type, array( 'wp_role', 'meta_role' ) ) ) {
 		$member_types = array();
 
@@ -208,6 +215,9 @@ if ( $agent ) {
 		if ( $member_types )
 			PP_GroupsUI::_draw_member_checklists( $agent_id, $agent_type, compact( 'member_types' ) );
 	}
+} elseif( 'user' == $agent_type ) {
+	echo '<br />';
+	PP_GroupsUI::_draw_member_checklists( 0, 'pp_group', array( 'suppress_caption' => true ) );
 }
 
 do_action( 'pp_edit_group_profile', $agent_type, $agent_id );
@@ -225,49 +235,60 @@ if ( current_user_can('pp_assign_roles') && pp_bulk_roles_enabled() ) {
 }
 
 
-if ( 'user' == $agent_type ) {
-	// todo: Fix markup properly.  Removal of /div below fixes UI for user permissions edit, but causes markup error for group permissions edit ?>
+if ( 'user' == $agent_type ): ?>
 	<div>
-	<?php
+	<?php if ( $agent_id ) {
+		$roles = array();
+		$user = pp_get_user( $agent_id );
+		$user->retrieve_extra_groups();
+		
+		$post_types = pp_get_enabled_post_types( array(), 'object' );
+		$taxonomies = pp_get_enabled_taxonomies( array(), 'object' );
 
-	$roles = array();
-	$user = pp_get_user( $agent_id );
-	$user->retrieve_extra_groups();
-	
-	$post_types = pp_get_enabled_post_types( array(), 'object' );
-	$taxonomies = pp_get_enabled_taxonomies( array(), 'object' );
-
-	foreach( array_keys( $user->groups ) as $agent_type ) {
-		foreach( array_keys( $user->groups[$agent_type] ) as $_agent_id ) {
-			$args = compact( $post_types, $taxonomies );
-			$args['query_agent_ids'] = array_keys( $user->groups[$agent_type] );
-			$roles = array_merge( $roles, ppc_get_roles( $agent_type, $_agent_id, $args ) );
+		foreach( array_keys( $user->groups ) as $agent_type ) {
+			foreach( array_keys( $user->groups[$agent_type] ) as $_agent_id ) {
+				$args = compact( $post_types, $taxonomies );
+				$args['query_agent_ids'] = array_keys( $user->groups[$agent_type] );
+				$roles = array_merge( $roles, ppc_get_roles( $agent_type, $_agent_id, $args ) );
+			}
 		}
-	}
-	
-	require_once( dirname(__FILE__).'/profile_ui_pp.php');
-	PP_ProfileUI::display_ui_user_groups( false, array('initial_hide' => true, 'selected_only' => true, 'force_display' => true, 'edit_membership_link' => true, 'hide_checkboxes' => true, 'user_id' => $agent_id ) );
+		
+		require_once( dirname(__FILE__).'/profile_ui_pp.php');
+		PP_ProfileUI::display_ui_user_groups( false, array('initial_hide' => true, 'selected_only' => true, 'force_display' => true, 'edit_membership_link' => true, 'hide_checkboxes' => true, 'user_id' => $agent_id ) );
 
-	$role_group_caption = sprintf( __( 'Supplemental Roles %1$s(from primary role or %2$sgroup membership%3$s)%4$s', 'pp' ), '<small>', "<a class='pp-show-groups' href='#'>", '</a>', '</small>' );
-	PP_GroupsUI::_current_roles_ui( $roles, array( 'read_only' => true, 'class' => 'pp-group-roles', 'caption' => $role_group_caption ) );
-	
-	$exceptions = array();
-	
-	$args = array( 'assign_for' => '', 'inherited_from' => 0, 'extra_cols' => array('i.assign_for', 'i.eitem_id'), 'post_types' => array_keys($post_types), 'taxonomies' => array_keys($taxonomies), 'return_raw_results' => true );
+		$role_group_caption = sprintf( __( 'Supplemental Roles %1$s(from primary role or %2$sgroup membership%3$s)%4$s', 'pp' ), '<small>', "<a class='pp-show-groups' href='#'>", '</a>', '</small>' );
+		PP_GroupsUI::_current_roles_ui( $roles, array( 'read_only' => true, 'class' => 'pp-group-roles', 'caption' => $role_group_caption ) );
+		
+		$exceptions = array();
+		
+		$args = array( 'assign_for' => '', 'inherited_from' => 0, 'extra_cols' => array('i.assign_for', 'i.eitem_id'), 'post_types' => array_keys($post_types), 'taxonomies' => array_keys($taxonomies), 'return_raw_results' => true );
 
-	foreach( array_keys( $user->groups ) as $agent_type ) {
-		$args['agent_type'] = $agent_type;
-		$args['ug_clause'] = " AND e.agent_type = '$agent_type' AND e.agent_id IN ('" . implode( "','", array_keys( $user->groups[$agent_type] ) ) . "')";
-		$args['query_agent_ids'] = array_keys( $user->groups[$agent_type] );
+		foreach( array_keys( $user->groups ) as $agent_type ) {
+			$args['agent_type'] = $agent_type;
+			$args['ug_clause'] = " AND e.agent_type = '$agent_type' AND e.agent_id IN ('" . implode( "','", array_keys( $user->groups[$agent_type] ) ) . "')";
+			$args['query_agent_ids'] = array_keys( $user->groups[$agent_type] );
 
-		$exceptions = array_merge( $exceptions, ppc_get_exceptions( $args ) );
-	}
-	PP_GroupsUI::_current_exceptions_ui( $exceptions, array( 'read_only' => true, 'class' => 'pp-group-roles', 'caption' => $role_group_caption ) );
-}
+			$exceptions = array_merge( $exceptions, ppc_get_exceptions( $args ) );
+		}
+		PP_GroupsUI::_current_exceptions_ui( $exceptions, array( 'read_only' => true, 'class' => 'pp-group-roles', 'caption' => $role_group_caption ) );
+	} else {
+		?>
+		<h4>
+		<?php
+		$url = "users.php";
+		printf( __( 'View currently stored user permissions:', 'pp' ) );
+		?>
+		</h4>
+		<ul class="pp-notes">
+		<li><?php printf( __( '%1$sUsers who have Supplemental Roles assigned directly%2$s', 'pp' ), "<a href='$url?pp_user_roles=1'>", '</a>' );?></li>
+		<li><?php printf( __( '%1$sUsers who have Exceptions assigned directly%2$s', 'pp' ), "<a href='$url?pp_user_exceptions=1'>", '</a>' );?></li>
+		<li><?php printf( __( '%1$sUsers who have Supplemental Roles or Exceptions directly%2$s', 'pp' ), "<a href='$url?pp_user_perms=1'>", '</a>' );?></li>
+		</ul>
+		<?php 
+	} // endif ($agent_id) ?>
+	</div>
+<?php endif;
 
-?>
-
-<?php
 if ( pp_bulk_roles_enabled() ) {
 	echo '<div class="pp_exceptions_notes">';
 	echo '<div><strong>' . __('Exceptions Explained:', 'pp') . '</strong>';
@@ -286,7 +307,7 @@ if ( pp_bulk_roles_enabled() ) {
 ?>
 
 <?php if ( 'user' == $agent_type ): ?>
-	</div>
+	<!-- </div> -->
 <?php endif; ?>
 
 </div></div> <?php // #pp_cred_wrap, #group-profile-page ?>

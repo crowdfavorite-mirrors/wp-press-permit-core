@@ -55,6 +55,9 @@ class PP_RoleAssigner {
 		
 		// Before inserting a role, delete any overlooked old assignment.
 		foreach( array_keys($agents) as $agent_id ) {
+			if ( ! $agent_id )
+				continue;
+		
 			if ( $ass_ids = $wpdb->get_col( $wpdb->prepare( "SELECT assignment_id FROM $wpdb->ppc_roles WHERE role_name = %s AND agent_id = %d", $role_name, $agent_id ) ) ) {
 				PP_RoleAssigner::remove_roles_by_id( $ass_ids );
 			}

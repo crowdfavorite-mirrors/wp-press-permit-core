@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Press Permit 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-21 01:37-0500\n"
+"POT-Creation-Date: 2013-09-25 11:31-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kevin Behrens <kevin@agapetry.net>\n"
 "Language-Team: Agapetry Creations LLC <kevin@agapetry.net>\n"
@@ -771,7 +771,7 @@ msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:151
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:158
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:538
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:534
 msgid "Deactivate Key"
 msgstr ""
 
@@ -784,7 +784,7 @@ msgid "Key Activated"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:158
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:537
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:533
 msgid "Activate Key"
 msgstr ""
 
@@ -800,279 +800,279 @@ msgstr ""
 msgid "reload extension links"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:226
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:222
 #, php-format
 msgid "Press Permit Core Version: %1$s %2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:228
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:224
 #, php-format
 msgid "Database Schema Version: %s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:232
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:228
 #, php-format
 msgid "WordPress Version: %s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:235
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:231
 #, php-format
 msgid "PHP Version: %s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:241
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:237
 msgid "Periodically query presspermit.com for available extensions. Your version info will be sent."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:253
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:249
 msgid "refresh"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:261
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:257
 msgid "Create your own WP roles or modify the capabilities defined for any WP Role."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:262
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:258
 msgid "Create your own WP roles or modify the capabilities defined for any WP Role. Not necessary for all installations, but PP interop is particularly important for bbPress and BuddyPress installations."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:281
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:277
 msgid "<strong>Change Log</strong> (since your current version)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:283
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:279
 msgid "Active Extensions:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:326
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:322
 #, php-format
 msgid "%1$sInactive Extensions%2$s:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:345
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:341
 msgid "Available Pro Extensions:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:383
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:379
 msgid "To enable one-click installation and update of extensions, please activate your Press Permit Pro support key above."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:385
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:381
 #, php-format
 msgid "Visit %1$spresspermit.com%2$s for further information on obtaining and installing extensions."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:391
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:387
 msgid "Press Permit Pro extensions supply:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:393
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:389
 #, php-format
 msgid "%1$sContent-specific editing permissions, with Edit Flow, Revisionary and Post Forking support%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:394
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:390
 #, php-format
 msgid "%1$sCustom Post Statuses (for visibility or moderation)%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:395
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:391
 #, php-format
 msgid "%1$sCustomize bbPress forum access%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:396
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:392
 #, php-format
 msgid "%1$sFile URL filtering%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:397
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:393
 #, php-format
 msgid "%1$sRole Scoper import script%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:398
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:394
 #, php-format
 msgid "%1$s...and more%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:401
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:397
 #, php-format
 msgid "For updated availability, enable the \"update info\" option above or visit %1$spresspermit.com%2$s."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:407
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:403
 msgid "Note: Hover over descriptions for more detail. Press Permit extensions can also be maintained on the Plugins screen."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:427
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:423
 msgid "Press Permit Documentation"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:429
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:425
 msgid "Press Permit Support Forums"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:431
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:427
 msgid "Upload site configuration to presspermit.com now"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:437
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:433
 #, php-format
 msgid "%s Site configuration data selected below will be uploaded to presspermit.com:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:448
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:444
 msgid "Version info for server, WP, bbPress, BuddyPress, PP and all extensions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:449
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:445
 msgid "PP Settings and related WP Settings"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:450
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:446
 msgid "Theme name, version and status"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:451
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:447
 msgid "Activated plugins list"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:452
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:448
 msgid "Inactive plugins list"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:453
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:449
 msgid "WordPress Roles, Capabilities, Post Types, Taxonomies and Post Statuses"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:454
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:450
 msgid "Role Assignments and Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:455
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:451
 msgid "Group definitions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:456
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:452
 msgid "Group Membership (id only)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:457
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:453
 msgid "Role Scoper / PP 1.x Configuration and PP Import Results"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:458
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:454
 msgid "Post id, status, author id, parent id, and term ids and taxonomy name (when support accessed from post or term edit form)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:459
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:455
 msgid "PHP Error Log (recent entries, no absolute paths)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:484
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:480
 msgid "<strong>note:</strong> user data, absolute paths, database prefix, post title, post content and post excerpt are <strong>never</strong> uploaded"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:492
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:488
 msgid "Purchase of a support key enables access to the following resources:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:496
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:492
 msgid "Pro Documentation on presspermit.com"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:497
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:493
 msgid "Pro Support Forums on presspermit.com"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:498
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:494
 msgid "Optional uploading of your site configuration to assist troubleshooting"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:505
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:501
 msgid "Note that these resources may be unavailable or incomplete during the project's initial beta phase."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:522
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:518
 msgid "If you have already received a beta update and want to switch back to the current production version, switch off this option and click Update. Then look for an update prompt in the Plugins list."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:539
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:535
 msgid "Connecting to presspermit.com server..."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:540
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:536
 msgid "The request could not be processed due to a connection failure."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:541
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:537
 msgid "Please enter the support key shown on your order receipt."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:542
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:538
 msgid "An unidentified error occurred."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:544
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:540
 msgid "The key has been deactivated."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:545
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:541
 msgid "The key has been activated."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:546
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:542
 msgid "The key has expired."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:547
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:543
 msgid "An unknown activation error occurred."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:548
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:544
 msgid "The key provided is not valid. Please double-check your entry."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:549
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:545
 msgid "This site is not valid to activate the key."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:550
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:556
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:546
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:552
 msgid "The key provided could not be validated by presspermit.com."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:551
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:547
 msgid "The key provided is already active on another site."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:552
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:548
 msgid "The key has already been activated on the allowed number of sites."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:553
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:549
 msgid "An unknown deactivation error occurred."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:554
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:550
 msgid "Unable to deactivate because the provided key is not valid."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:555
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:551
 msgid "This site is not valid to deactivate the key."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:557
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:553
 msgid "The key provided is not active on the specified site."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:562
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:558
 #, php-format
 msgid "If this is incorrect, <a href=\"%s\">request activation help</a>."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:563
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/options-install_pp.php:559
 msgid "Please save settings before uploading site configuration."
 msgstr ""
 
@@ -1080,289 +1080,289 @@ msgstr ""
 msgid "Group Members"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:66
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:69
 msgid "n/a"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:71
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:74
 msgid "Copy Roles and Exceptions from:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:88
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:91
 msgid "Do Clone"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:99
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:189
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:346
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:378
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:102
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:192
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:349
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:381
 msgid "Post Type"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:101
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:104
 msgid "for Statuses"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:121
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:124
 msgid "Status: Private"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:126
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:129
 msgid "Add Role"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:137
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:140
 msgid "To assign roles for custom post statuses, activate the PP Custom Post Statuses plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:139
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:142
 #, php-format
 msgid "To assign roles for custom post statuses, %1$sinstall%2$s the PP Custom Post Statuses plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:141
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:144
 msgid "To assign roles for custom post statuses, %1$senter%2%s or %3$spurchase%4$s a support key and install the PP Custom Post Statuses plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:150
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:153
 msgid "To assign roles for bbPress forums, activate the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:152
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:155
 #, php-format
 msgid "To assign roles for bbPress forums, %1$sinstall%2$s the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:154
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:157
 #, php-format
 msgid "To assign roles for bbPress forums, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:163
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:166
 msgid "To assign Revisionary exceptions, activate the PP Collaborative Editing and PP Compatibility Pack plugins."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:165
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:168
 #, php-format
 msgid "To assign Revisionary exceptions, %1$sinstall%2$s the PP Collaborative Editing and PP Compatibility Pack plugins."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:167
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:170
 #, php-format
 msgid "To assign Revisionary exceptions, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Collaborative Editing and PP Compatibility Pack plugins."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:190
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:193
 msgid "Post Operation"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:191
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:380
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:194
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:383
 msgid "Adjustment"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:192
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:381
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:195
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:384
 msgid "Qualification"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:193
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:196
 msgid "Statuses"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:220
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:223
 msgid "for item"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:243
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:246
 msgid "To assign exceptions for editing, parent selection or term assignment, activate the PP Collaborative Editing plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:245
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:248
 #, php-format
 msgid "To assign exceptions for editing, parent selection or term assignment, %1$sinstall%2$s the PP Collaborative Editing plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:247
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:250
 #, php-format
 msgid "To assign exceptions for editing, parent selection or term assignment, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Collaborative Editing plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:256
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:259
 msgid "To assign exceptions for bbPress forums, activate the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:258
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:261
 #, php-format
 msgid "To assign exceptions for bbPress forums, %1$sinstall%2$s the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:260
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:263
 #, php-format
 msgid "To assign exceptions for bbPress forums, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:297
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:300
 #, php-format
 msgid "Select %s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:348
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:383
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:351
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:386
 msgid "Status"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:360
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:363
 msgid "Save Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:379
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:382
 msgid "Operation"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:395
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:398
 msgid "Save Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:419
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:422
 msgid "Add Supplemental Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:421
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:424
 msgid "Add Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:431
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:434
 msgid "Clone"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:457
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:460
 msgid "Permission Group"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:457
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:460
 msgid "Permission Groups"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:513
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:516
 #, php-format
 msgid "Supplemental Roles %1$s(for user)%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:513
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:516
 msgid "Supplemental Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:574
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:577
 msgid "Term Management"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:578
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:581
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:584
 msgid "objects"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:579
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:582
 msgid "Direct-Assigned"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:582
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:585
 msgid "Disabled Type"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:587
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:590
 #, php-format
 msgid "%s Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:624
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:942
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:627
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:945
 msgid "Apply"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:648
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:651
 #, php-format
 msgid "Exceptions %1$s(for user)%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:648
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:651
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/post-listing-ui_pp.php:56
 msgid "Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:656
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:659
 msgid "(none)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:788
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:791
 msgid "(all post types)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:797
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:800
 #, php-format
 msgid "%1$s (%2$s: %3$s)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:797
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:800
 #, php-format
 msgid "%1$s %2$s %3$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:829
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:832
 msgid "unpublished"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:843
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:846
 #, php-format
 msgid "* %s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:866
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:869
 #, php-format
 msgid "%s:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:908
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:911
 msgid "edit"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:930
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:933
 #, php-format
 msgid "Assign for selected and sub-%s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:931
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:934
 #, php-format
 msgid "Assign for selected %s only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:932
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:935
 #, php-format
 msgid "Assign for sub-%s only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:934
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:937
 msgid "Assign for selected and sub-terms"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:935
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:938
 msgid "Assign for selected term only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:936
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:939
 msgid "Assign for sub-terms only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:952
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:955
 msgid "* = exceptions redundant due to a corresponding &quot;only these&quot; entry"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:959
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:962
 #, php-format
 msgid "note: Exceptions inherited from parent %s are not displayed."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:961
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:964
 #, php-format
 msgid "note: Exceptions inherited from parent %s or terms are not displayed."
 msgstr ""
@@ -1550,103 +1550,126 @@ msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:25
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:95
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:25
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:31
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:34
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:30
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:36
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:39
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-group-new.php:39
 msgid "You are not permitted to do that."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:247
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:262
 msgid "<strong>ERROR</strong>: Please enter a group name."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:250
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:265
 msgid "<strong>ERROR</strong>: This group name is already registered. Please choose another one."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:16
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:20
 msgid "No user/group specified."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:28
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:33
 msgid "Invalid user ID."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:37
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:42
 msgid "Invalid group ID."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:73
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:78
 msgid "Roles updated."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:76
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:81
 msgid "Exceptions updated."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:79
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:84
 msgid "Group updated."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:82
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:94
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:87
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:99
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-group-new.php:49
 msgid "Back to groups list"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:91
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:96
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-group-new.php:47
 msgid "Group created."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:112
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:117
 msgid "Edit User Permissions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:115
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:117
+msgid "Add User Permissions"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:120
 msgid "Edit Permission Group (WP Role)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:118
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:123
 msgid "Edit Permission Group"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:121
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:126
 #, php-format
 msgid "Edit Permissions (%s)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:166
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:173
 msgid "Primary Role:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:189
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:196
 msgid "Update Group"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:251
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:259
 #, php-format
 msgid "Supplemental Roles %1$s(from primary role or %2$sgroup membership%3$s)%4$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:273
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:279
+msgid "View currently stored user permissions:"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:283
+#, php-format
+msgid "%1$sUsers who have Supplemental Roles assigned directly%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:284
+#, php-format
+msgid "%1$sUsers who have Exceptions assigned directly%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:285
+#, php-format
+msgid "%1$sUsers who have Supplemental Roles or Exceptions directly%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:294
 msgid "Exceptions Explained:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:275
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:296
 msgid "Not These : Specified items are not accessible unless an \"Also These\" exception is also stored."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:276
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:297
 msgid "Only These : Item access as defined by user / group role(s) is further limited by these selections. Users will still need sufficient capabilities in their primary or supplemental roles."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:277
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:298
 msgid "Also These : Specified items are accessible regardless of role(s) and other exceptions."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:282
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:303
 msgid "Keep in mind that roles and exceptions can be assigned to WP Roles, BuddyPress Groups, Custom Groups and/or individual Users.  \"Not These\" and \"Only These\" exceptions are unavailable for groups in some contexts."
 msgstr ""
 
@@ -1763,43 +1786,46 @@ msgid "User Permissions"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:16
-#, php-format
-msgid "Both supplemental roles and exceptions can be assigned directly to a single user.  To do so, find the user in this site's %1$sUsers%2$s list and click their \"Site Role\" value.  If you don't see it, make sure the column is enabled in Screen Options.  The following links may be helpful:"
+msgid "Bulk-Add User Permissions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:20
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:22
 #, php-format
-msgid "%1$sUsers%2$s"
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:24
-#, php-format
-msgid "%1$sUsers who already have Supplemental Roles assigned directly%2$s"
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:25
-#, php-format
-msgid "%1$sUsers who already have Exceptions assigned directly%2$s"
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:26
-#, php-format
-msgid "%1$sUsers who already have Supplemental Roles or Exceptions directly%2$s"
+msgid "%1$snote%2$s: If you need to assign the same role or exception to multiple users, grouping them into a WP Role or custom Permission Group usually leads to a cleaner configuration."
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:30
-#, php-format
-msgid "%1$sUsers who already have Supplemental Roles (directly or via group)%2$s"
+msgid "View / Edit User Permissions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:31
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:37
 #, php-format
-msgid "%1$sUsers who already have Exceptions  (directly or via group)%2$s"
+msgid "To assign supplemental roles and exceptions directly to a single user, click their \"Site Role\" cell on the %1$sUsers%2$s screen. The Users listing can be filtered by the following links:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:32
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:41
 #, php-format
-msgid "%1$sUsers who already have Supplemental Roles or Exceptions  (directly or via group)%2$s"
+msgid "%1$sAll Users%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:51
+#, php-format
+msgid "%1$sUsers who have Supplemental Roles (directly or via group)%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:52
+#, php-format
+msgid "%1$sUsers who have Exceptions  (directly or via group)%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:53
+#, php-format
+msgid "%1$sUsers who have Supplemental Roles or Exceptions  (directly or via group)%2$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-users.php:59
+#, php-format
+msgid "%1$snote%2$s: If you don&apos;t see the Site Role column on the Users screen, make sure it is enabled in Screen Options. "
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pro-promo_pp.php:2

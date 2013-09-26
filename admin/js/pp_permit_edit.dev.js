@@ -1,5 +1,5 @@
 jQuery(document).ready( function($) {
-	$(".pp_group-profile div.pp-group_members, .pp_net_group-profile div.pp-group_members").show();
+	$(".pp_group-profile div.pp-group_members, .pp_net_group-profile div.pp-group_members, .permissions_page_pp-edit-permissions div.pp-group_members").show();
 	$("#pp-add-permissions").show();
 	$("#pp_current_roles").show();
 	

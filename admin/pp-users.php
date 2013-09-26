@@ -10,27 +10,56 @@ _e( 'User Permissions', 'pp' );
 ?>
 </h2>
 
-<div style="margin-top:3em">
+<p style="margin-top:50px;">
+<h4><a href="admin.php?page=pp-edit-permissions&amp;action=edit&amp;agent_type=user">
+<?php
+_e( 'Bulk-Add User Permissions', 'pp' );
+?>
+</a>
+</h4>
+<?php if ( pp_get_option( 'display_hints' ) ) : ?>
+<span class="pp-subtext">
+<?php printf( __( '%1$snote%2$s: If you need to assign the same role or exception to multiple users, grouping them into a WP Role or custom Permission Group usually leads to a cleaner configuration.', 'pp' ), '<strong>', '</strong>' ); ?>
+</span>
+<?php endif; ?>
+</p>
+
+<div style="margin-top:50px;">
+<h4>
+<?php
+_e( 'View / Edit User Permissions', 'pp' );
+?>
+</h4>
+
+<div>
 <?php
 $url = "users.php";
-printf( __( 'Both supplemental roles and exceptions can be assigned directly to a single user.  To do so, find the user in this site\'s %1$sUsers%2$s list and click their "Site Role" value.  If you don\'t see it, make sure the column is enabled in Screen Options.  The following links may be helpful:', 'pp' ), "<a href='$url'>", '</a>' );
+printf( __( 'To assign supplemental roles and exceptions directly to a single user, click their "Site Role" cell on the %1$sUsers%2$s screen. The Users listing can be filtered by the following links:', 'pp' ), "<a href='$url'>", '</a>' );
 ?>
 <br /><br />
 <ul class="pp-notes">
-<li><?php printf( __( '%1$sUsers%2$s', 'pp' ), "<a href='$url'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sAll Users%2$s', 'pp' ), "<a href='$url'>", '</a>' );?></li>
 </ul>
 <br />
 <ul class="pp-notes">
-<li><?php printf( __( '%1$sUsers who already have Supplemental Roles assigned directly%2$s', 'pp' ), "<a href='$url?pp_user_roles=1'>", '</a>' );?></li>
-<li><?php printf( __( '%1$sUsers who already have Exceptions assigned directly%2$s', 'pp' ), "<a href='$url?pp_user_exceptions=1'>", '</a>' );?></li>
-<li><?php printf( __( '%1$sUsers who already have Supplemental Roles or Exceptions directly%2$s', 'pp' ), "<a href='$url?pp_user_perms=1'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sUsers who have Supplemental Roles assigned directly%2$s', 'pp' ), "<a href='$url?pp_user_roles=1'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sUsers who have Exceptions assigned directly%2$s', 'pp' ), "<a href='$url?pp_user_exceptions=1'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sUsers who have Supplemental Roles or Exceptions directly%2$s', 'pp' ), "<a href='$url?pp_user_perms=1'>", '</a>' );?></li>
 </ul>
 <br />
 <ul class="pp-notes">
-<li><?php printf( __( '%1$sUsers who already have Supplemental Roles (directly or via group)%2$s', 'pp' ), "<a href='$url?pp_has_roles=1'>", '</a>' );?></li>
-<li><?php printf( __( '%1$sUsers who already have Exceptions  (directly or via group)%2$s', 'pp' ), "<a href='$url?pp_has_exceptions=1'>", '</a>' );?></li>
-<li><?php printf( __( '%1$sUsers who already have Supplemental Roles or Exceptions  (directly or via group)%2$s', 'pp' ), "<a href='$url?pp_has_perms=1'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sUsers who have Supplemental Roles (directly or via group)%2$s', 'pp' ), "<a href='$url?pp_has_roles=1'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sUsers who have Exceptions  (directly or via group)%2$s', 'pp' ), "<a href='$url?pp_has_exceptions=1'>", '</a>' );?></li>
+<li><?php printf( __( '%1$sUsers who have Supplemental Roles or Exceptions  (directly or via group)%2$s', 'pp' ), "<a href='$url?pp_has_perms=1'>", '</a>' );?></li>
 </ul>
+</div>
+
+<?php if ( pp_get_option( 'display_hints' ) ) : ?>
+<span class="pp-subtext">
+<?php printf( __( '%1$snote%2$s: If you don&apos;t see the Site Role column on the Users screen, make sure it is enabled in Screen Options. ', 'pp' ), '<strong>', '</strong>' ); ?>
+</span>
+<?php endif; ?>
+
 </div>
 
 </div>

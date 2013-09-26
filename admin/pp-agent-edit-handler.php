@@ -59,7 +59,7 @@ switch( $action ) {
 		}
 
 		// cludged update of group members on role selection, due to inability to put them in the same form
-		if ( pp_group_type_editable( $agent_type ) && pp_has_group_cap( 'pp_edit_groups', $agent_id, $agent_type ) ) {
+		if ( $agent_id && pp_group_type_editable( $agent_type ) && pp_has_group_cap( 'pp_edit_groups', $agent_id, $agent_type ) ) {
 			_pp_trigger_group_edit( $agent_id, $agent_type );
 		}
 
@@ -151,13 +151,20 @@ function _pp_edit_group_roles( $agent_id, $agent_type ) {
 	if ( isset( $_POST['pp_add_role'] ) ) {
 		// note: group editing capability already verified at this point
 		
-		foreach( $_POST['pp_add_role'] as $add_role ) {
-			extract($add_role);
+		// also support bulk-assignment of user roles
+		$agent_ids = ( ( 'user' == $agent_type ) && ! $agent_id && isset($_REQUEST['member_csv']) ) ? explode( ',', $_REQUEST['member_csv'] ) : array($agent_id);
 
-			if ( $attrib_cond )
-				$attrib_cond = ':' . $attrib_cond;
+		foreach( $agent_ids as $_agent_id ) {
+			if ( $_agent_id ) {
+				foreach( $_POST['pp_add_role'] as $add_role ) {
+					extract($add_role);
 
-			ppc_assign_roles( array( "{$role}{$attrib_cond}" => array( $agent_id => true ) ), $agent_type );
+					if ( $attrib_cond )
+						$attrib_cond = ':' . $attrib_cond;
+
+					ppc_assign_roles( array( "{$role}{$attrib_cond}" => array( $_agent_id => true ) ), $agent_type );
+				}
+			}
 		}
 	}
 }
@@ -202,9 +209,17 @@ function _pp_edit_agent_exceptions( $agent_id, $agent_type ) {
 			$args['for_item_type'] = ( '(all)' == $for_type ) ? '' : $for_type;
 			
 			$agents = array();
-			foreach( array( 'item' => $for_item, 'children' => $for_children ) as $assign_for => $is_assigned ) {
-				if ( $is_assigned )
-					$agents[$assign_for][$_POST['agent_id']] = true;
+			
+			// also support bulk-assignment of user exceptions
+			$agent_ids = ( ( 'user' == $agent_type ) && ! $agent_id && isset($_REQUEST['member_csv']) ) ? explode( ',', $_REQUEST['member_csv'] ) : array($agent_id);
+
+			foreach( $agent_ids as $_agent_id ) {
+				if ( $_agent_id ) {
+					foreach( array( 'item' => $for_item, 'children' => $for_children ) as $assign_for => $is_assigned ) {
+						if ( $is_assigned )
+							$agents[$assign_for][$_agent_id] = true;
+					}
+				}
 			}
 
 			ppc_assign_exceptions( $agents, $agent_type, $args );

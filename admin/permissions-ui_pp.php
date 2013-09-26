@@ -3,31 +3,34 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class PP_GroupsUI {
 	public static function _draw_member_checklists( $group_id, $agent_type, $args = array() ) {
-		$defaults = array( 'member_types' => array( 'member' ) );
+		$defaults = array( 'member_types' => array( 'member' ), 'suppress_caption' => false );
 		$args = array_merge( $defaults, $args );
 		extract( $args, EXTR_SKIP );
 		
 		$captions['member'] = apply_filters( 'pp_group_members_caption', __('Group Members', 'pp') );
 
-		echo '<div class="pp-group-box pp-group_members" style="display:none;float:left;margin-right:20px;">'
-			. '<h3>';
+		echo '<div class="pp-group-box pp-group_members" style="display:none;float:left;margin-right:20px;">';
+		
+		if ( ! $suppress_caption ) {
+			echo '<h3>';
 
-		// note: member_type other than 'member' is never invoked as of PP Core 2.1-beta		
+			// note: member_type other than 'member' is never invoked as of PP Core 2.1-beta		
 
-		$i = 0;
-		foreach( $member_types as $member_type ) {
-			$link_class = ( $i ) ? 'agp-unselected_agent' : 'agp-selected_agent';
-			?>
-			<span class="<?php echo "$link_class pp-member-type pp-$member_type";?>"><a href="#" class="<?php echo "pp-$member_type";?>"><?php echo $captions[$member_type]; ?></a></span>
-			<?php
-			$i++;
-			if ( $i < count($member_types) ) :?>
-				<span> | </span>
-			<?php endif;
+			$i = 0;
+			foreach( $member_types as $member_type ) {
+				$link_class = ( $i ) ? 'agp-unselected_agent' : 'agp-selected_agent';
+				?>
+				<span class="<?php echo "$link_class pp-member-type pp-$member_type";?>"><a href="#" class="<?php echo "pp-$member_type";?>"><?php echo $captions[$member_type]; ?></a></span>
+				<?php
+				$i++;
+				if ( $i < count($member_types) ) :?>
+					<span> | </span>
+				<?php endif;
+			}
+
+			echo '</h3>';
 		}
 
-		echo '</h3>';
-		
 		$i = 0;
 		foreach( $member_types as $member_type ) {
 			$style = ( $i ) ? ' style="display:none"' : '';
@@ -432,7 +435,7 @@ class PP_GroupsUI {
 		}
 
 		// --- add permission tabs ---
-		echo "<div style='clear:both'></div><ul id='pp_add_permission_tabs' class='pp-list_horiz' style='margin-bottom:-2px'>";
+		echo "<div style='clear:both'></div><ul id='pp_add_permission_tabs' class='pp-list_horiz' style='margin-bottom:-3px'>";
 		foreach( $perms as $perm_type => $_caption ) {
 			$class = ( "pp-add-$perm_type" == $current_tab ) ? 'agp-selected_agent' : 'agp-unselected_agent';
 
