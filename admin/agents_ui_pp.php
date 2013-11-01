@@ -57,4 +57,3 @@ class PP_AgentsUI {
 		return $pp_agents_ajax;
 	}
 } // end class
-?>

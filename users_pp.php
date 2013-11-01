@@ -32,4 +32,3 @@ class PP_Users {
 			return $wpdb->get_results( $qry );
 	}
 } // end class
-?>

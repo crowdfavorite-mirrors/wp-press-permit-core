@@ -289,4 +289,3 @@ class PP_Updated {
 		update_option( 'pp_wp_role_sync', true );
 	} // end sync_wproles function
 } // end class
-?>

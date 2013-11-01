@@ -307,4 +307,3 @@ function _pp_edit_group( $group_id = 0, $agent_type = 'pp_group', $members_only 
 	return $group_id;
 }
 
-?>

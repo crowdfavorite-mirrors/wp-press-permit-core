@@ -224,4 +224,3 @@ class PP_TermEditUI {
 		pp_item_edit_js($_REQUEST['taxonomy']);
 	}
 } // end class
-?>

@@ -5,6 +5,10 @@ class PP_QueryInterceptorFront {
 	var $archives_where = '';
 	
 	public function __construct() {
+		if ( ! pp_is_content_administrator() && ( ! defined('PPCE_VERSION') || version_compare( PPCE_VERSION, '2.1.9', '>' ) ) ) { // previously, this code was in PPCE
+			require_once( dirname(__FILE__).'/qry-front_non-administrator_pp.php');
+		}
+		
 		add_filter( 'get_previous_post_where', array(&$this, 'flt_adjacent_post_where') );
 		add_filter( 'get_next_post_where', array(&$this, 'flt_adjacent_post_where') );
 
@@ -12,12 +16,28 @@ class PP_QueryInterceptorFront {
 
 		add_filter( 'option_sticky_posts', array(&$this, 'flt_sticky_posts') );
 
+		add_filter( 'shortcode_atts_gallery', array( &$this, 'flt_atts_gallery' ), 10, 3 );
+		
 		if ( ! empty( $_REQUEST['preview'] ) )
 			add_filter( 'wp_link_pages_link', array( &$this, 'flt_wp_link_pages_link' ) );
 		
 		do_action( 'pp_query_interceptor_front' );
 	}
 
+	
+	
+	function flt_atts_gallery( $out, $pairs, $atts ) {
+		if ( ! empty( $atts['include'] ) ) // force subsequent get_posts() query to be filtered for PP exceptions
+			add_action( 'pre_get_posts', array(&$this, 'act_get_gallery_posts' ) );
+
+		return $out;
+	}
+	
+	function act_get_gallery_posts( &$query_obj ) {
+		$query_obj->query_vars['suppress_filters'] = false;
+		remove_action( 'pre_get_posts', array(&$this, 'act_get_gallery_posts' ) );
+	}
+	
 	// custom wrapper to clean up after get_previous_post_where, get_next_post_where nonstandard arg syntax 
 	// (uses alias p for post table, passes "WHERE post_type=...)
 	public function flt_adjacent_post_where( $where ) {
@@ -36,7 +56,7 @@ class PP_QueryInterceptorFront {
 		if ( $limit_statuses )
 			$limit_statuses = array_fill_keys( $limit_statuses, true );
 		
-		$args = array( 'object_types' => $post_type, 'source_alias' => 'p', 'skip_teaser' => true, 'limit_statuses' => $limit_statuses );
+		$args = array( 'post_types' => $post_type, 'source_alias' => 'p', 'skip_teaser' => true, 'limit_statuses' => $limit_statuses );
 		
 		$where = 'WHERE 1=1 ' . $query_interceptor->flt_posts_where( $where, $args );
 		
@@ -106,4 +126,3 @@ class PP_QueryInterceptorFront {
 		return $pagenum_link;
 	}
 }
-?>

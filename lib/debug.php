@@ -230,4 +230,3 @@ function awp_echo_usage_message( $translate = true ) {
 }
 }
 
-?>

@@ -162,4 +162,3 @@ function pp_options( $args = array() ) {
 
 	<?php
 } // end function
-?>

@@ -1,6 +1,6 @@
 <?php
 class PP_Exceptions {
-	function get_exceptions_clause( $operation, $post_type, $args = array() ) {
+	public static function get_exceptions_clause( $operation, $post_type, $args = array() ) {
 		$defaults = array( 'col_id' => 'ID', 'user' => 0 );
 		$args = array_merge( $defaults, $args );
 		extract( $args, EXTR_SKIP );
@@ -27,7 +27,7 @@ class PP_Exceptions {
 		return $where;
 	}
 	
-	function add_exception_clauses( $where, $required_operation, $post_type, $args = array() ) {
+	public static function add_exception_clauses( $where, $required_operation, $post_type, $args = array() ) {
 		$defaults = array( 'source_alias' => '', 'apply_term_restrictions' => true, 'append_post_type_clause' => true, 'additions_only' => false );
 		extract( array_merge( $defaults, $args ), EXTR_SKIP );
 		
@@ -150,7 +150,7 @@ class PP_Exceptions {
 		return $where;
 	}
 	
-	function add_term_restrictions_clause( $required_operation, $post_type, $src_table, $args = array() ) {		
+	public static function add_term_restrictions_clause( $required_operation, $post_type, $src_table, $args = array() ) {		
 		global $wpdb, $pp_current_user;
 		
 		$where = '';
@@ -183,4 +183,3 @@ class PP_Exceptions {
 	
 	
 } // end class
-?>

@@ -7,6 +7,9 @@ add_action( 'pp_duplicate_extension', '_pp_duplicate_extension', 10, 2 );
 
 add_filter( 'pp_default_options', '_pp_default_admin_options', 1 );
 
+if ( defined( 'SSEO_VERSION' ) )
+	require_once( dirname(__FILE__).'/eyes-only-admin_pp.php' );
+
 function _pp_default_admin_options( $options ) {
 	$options['support_data'] = array_fill_keys( array( 'pp_options', 'wp_roles_types', 'theme', 'active_plugins', 'pp_permissions', 'error_log', 'post_data', 'term_data' ), true );
 	return $options;
@@ -201,4 +204,3 @@ function _pp_can_set_exceptions( $operation, $for_item_type, $args = array() ) {
 	require_once( dirname(__FILE__).'/admin-roles_pp.php' );
 	return PP_AdminRoles::can_set_exceptions( $operation, $for_item_type, $args );
 }
-?>

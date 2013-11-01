@@ -47,4 +47,3 @@ class CommentsInterceptor {
 		return $clauses;
 	}
 }
-?>

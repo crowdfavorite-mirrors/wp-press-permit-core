@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.6.1
-Stable tag: 2.1.22
+Tested up to: 3.7
+Stable tag: 2.1.31
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -22,6 +22,7 @@ Core Features include:
   * Control reading access to specified categories [youtube http://www.youtube.com/watch?v=SMnybRf5neY&rel=0&hd=1] 
 
   * Post and term edit screens get a straightforward and uncluttered UI to "enable" or "block" users, roles or groups
+  * Permission Groups integrate with Eyes Only User Access Shortcodes(http://wordpress.org/plugins/eyes-only-user-access-shortcode/) for conditional display of content blocks within a post
 
 Pro [extensions](http://presspermit.com/extensions) are [available](http://presspermit.com/purchase) for [additional access control and features](http://www.youtube.com/playlist?list=PLyelWaWwt1HxuwrZDRBO_c70Tm8A7lfb3):
 	
@@ -47,6 +48,47 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.31 - 30 Oct 2013 =
+* Fixed : Terms were not included in get_terms() output based on user's access to private posts (since 2.1.28)
+
+= 2.1.30 - 29 Oct 2013 =
+* Compat : WP 3.7 - Non-administrators could not access revisions viewer for unpublished posts
+* Compat : WP 3.7 - PHP warnings for undefined capability properties
+* Fixed : wp_list_pages() was not filtered if arguments included nonzero child_of and depth=1 arguments
+
+= 2.1.29 - 25 Oct 2013 =
+* Fixed : CMS Tree Page View - could not expand page tree (since 2.1.28)
+
+= 2.1.28 - 24 Oct 2013 =
+* Fixed : Propagating Category Exceptions were not correctly assigned to subcategories
+* Fixed : Universal Category Exceptions (for all post types) were not applied correctly in some configurations
+* Fixed : Category widget (and other get_terms output) was inconsistent with post reading access in some configurations
+* Compat : JC Submenu and other plugin / theme code which requires get_pages() or get_terms() to order subpages or subcategories immediately after their parent
+* Fixed : Post types not enabled for PP Filtering were stripped out of Nav Menus on the front end
+
+= 2.1.27 - 23 Oct 2013 =
+* Fixed : Nav Menu items (front end display) were not filtered
+
+= 2.1.26 - 22 Oct 2013 =
+* Change : Allow page reading exceptions to be assigned for the All or Anonymous metagroup, but display a warning regarding best practice
+
+= 2.1.25 - 22 Oct 2013 =
+* Feature : Filter WP image galleries based on attachment reading exceptions
+* Feature : Remove unreadable posts from Nav Menus (previously required PP Collaborative Editing extension)
+* Fixed : Permission Groups was inappropriately displayed as an available Post Type when on "Add Exceptions" tab of Edit Permissions screen
+* Compat : Advanced Custom Fields - don't filter ajax queries
+* API : New filter 'pp_exception_type' for use in applying exceptions to externally defined data sources
+
+= 2.1.24 - 15 Oct 2013 =
+* Compat : Eyes Only User Access Shortcode (requires v 1.6)
+* Change : Allow post reading exceptions to be assigned for the All or Anonymous metagroup, but display a warning regarding best practice
+* Fixed : Cannot add Permission Group membership via Edit User screen if that membership was previously expired by a PP Membership date limit but PP Membership plugin is now inactive
+
+= 2.1.23 - 28 Sep 2013 =
+* Fixed : Category/Term exceptions to grant additional access did not affect term listings if parent term was inaccessible
+* Fixed : Add Exceptions UI on Edit Permissions screen inappropriately included "n/a" as a Post Type under some conditions
+* Fixed : Several PHP Strict Notices, mostly for non-static functions
 
 = 2.1.22 - 25 Sep 2013 =
 * Feature : Bulk-assign roles or exceptions to multiple users (link on Permissions > Users screen)

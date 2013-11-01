@@ -44,4 +44,3 @@ class PP_Activation {
 	}
 } // end class
 } // endif
-?>

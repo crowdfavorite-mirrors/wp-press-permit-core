@@ -1,6 +1,6 @@
 <?php
 class PP_AdminHelp {
-	function register_contextual_help() {
+	public static function register_contextual_help() {
 		$screen_obj = get_current_screen();
 		if ( is_object($screen_obj) )
 			$screen = $screen_obj->id;
@@ -31,7 +31,7 @@ class PP_AdminHelp {
 		}
 	}
 	
-	function _pp_show_contextual_help() {
+	public static function _pp_show_contextual_help() {
 		$screen_obj = get_current_screen();
 		
 		$link_section = '';
@@ -89,4 +89,3 @@ class PP_AdminHelp {
 		echo $help;
 	}
 }
-?>

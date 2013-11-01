@@ -161,4 +161,3 @@ function _pp_editable_eitem_ids( $ass_ids ) {
 	// governed universally by pp_bulk_roles_enabled();
 	return $ass_ids;
 }
-?>

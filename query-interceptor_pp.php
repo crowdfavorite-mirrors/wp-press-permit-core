@@ -60,6 +60,16 @@ class PP_QueryInterceptor
 			return $clauses;
 
 		if ( defined('DOING_AJAX') && DOING_AJAX ) { // todo: separate function to eliminate redundancy with PP_Find::find_post_type()
+			if ( in_array( $_REQUEST['action'], (array) apply_filters( 'pp_unfiltered_ajax', array() ) ) )
+				return $clauses;
+
+			$nofilter_prefixes = (array) apply_filters( 'pp_unfiltered_ajax_prefix', array( 'acf/' ) );  // Advanced Custom Fields (conflict with action=acf/fields/relationship/query_posts)
+			foreach( $nofilter_prefixes as $prefix ) {
+				if ( 0 === strpos( $_REQUEST['action'], $prefix ) ) {
+					return $clauses;
+				}
+			}
+
 			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event' ) );
 			
 			foreach( array_keys($ajax_post_types) as $arg ) {
@@ -128,7 +138,7 @@ class PP_QueryInterceptor
 	function flt_posts_where( $where, $args = array() ) {
 		$defaults = array( 	'post_types' => array(),		'source_alias' => false,	 		
 							'skip_teaser' => false,			'retain_status' => false,		/*'or_clause' => '',*/
-							'required_operation' => '',		'alternate_required_ops' => false,	'include_trash' => 0,  'query_contexts' => array(),
+							'required_operation' => '',		'alternate_required_ops' => false,	'include_trash' => 0,  'query_contexts' => array(),  'force_types' => false,
 						);
 		$args = array_merge( $defaults, (array) $args );
 		extract($args, EXTR_SKIP);
@@ -162,7 +172,10 @@ class PP_QueryInterceptor
 			}
 		}
 
-		if ( ! $post_types = array_intersect( $post_types, pp_get_enabled_post_types() ) )
+		if ( ! $force_types )
+			$post_types = array_intersect( $post_types, pp_get_enabled_post_types() );
+
+		if ( ! $post_types )
 			return $where;
 	
 		// If the passed request contains a single status criteria, maintain that status exclusively (otherwise include each available status)
@@ -248,7 +261,7 @@ class PP_QueryInterceptor
 	//
 	function get_posts_where( $args ) {
 		$defaults = array( 	'post_types' => array(),		'source_alias' => false,		'src_table' => '',			'apply_term_restrictions' => true, 		'include_trash' => 0,
-							'required_operation' => '',		'limit_statuses' => false,		'skip_teaser' => false,		'query_contexts' => array(), /*'omit_owner_clause' => false */ );
+							'required_operation' => '',		'limit_statuses' => false,		'skip_teaser' => false,		'query_contexts' => array(), 			'force_types' => false,  /*'omit_owner_clause' => false */ );
 		$args = array_merge( $defaults, (array) $args );
 		extract($args, EXTR_SKIP);
 
@@ -261,7 +274,9 @@ class PP_QueryInterceptor
 			$args['src_table'] = $src_table;
 		}
 
-		$post_types = array_intersect( (array) $post_types, pp_get_enabled_post_types() );
+		if ( ! $force_types )
+			$post_types = array_intersect( (array) $post_types, pp_get_enabled_post_types() );
+		
 		$tease_otypes = array_intersect( $post_types, $this->_get_teaser_post_types($post_types, $args) );
 		
 		if ( ! $required_operation ) {
@@ -347,7 +362,7 @@ class PP_QueryInterceptor
 				if ( $include_trash ) {
 					if ( $type_obj = get_post_type_object($post_type) ) {
 						if ( ( ( 'edit_post' == $meta_cap ) && ! empty( $pp_current_user->allcaps[$type_obj->cap->edit_posts] ) ) || ( ( 'delete_post' == $meta_cap ) && ! empty( $pp_current_user->allcaps[$type_obj->cap->delete_posts] ) ) ) {
-							if ( ! empty( $pp_current_user->allcaps[$type_obj->cap->delete_others_posts] ) )
+							if ( ! isset($type_obj->cap->delete_others_posts) || ! empty( $pp_current_user->allcaps[$type_obj->cap->delete_others_posts] ) )
 								$have_site_caps['user'] []= 'trash';
 							else
 								$have_site_caps['owner'] []= 'trash';
@@ -395,14 +410,18 @@ class PP_QueryInterceptor
 				
 				$where_arr[$post_type] = PP_Exceptions::add_exception_clauses( $where_arr[$post_type], $required_operation, $post_type, $args );
 			}
+
 		} // end foreach post_type
 		
 		if ( ! $pp_where = pp_implode( 'OR', $where_arr ) )
 			$pp_where = '1=1';
 
 		// term restrictions which apply to any post type
-		if ( $apply_term_restrictions )
-			$pp_where .= PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true ) );
+		if ( $apply_term_restrictions ) {
+			if ( $term_exc_where = PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true ) ) ) {
+				$pp_where = "( $pp_where ) $term_exc_where";
+			}
+		}
 		
 		if ( $pp_where )
 			$pp_where = " AND ( $pp_where )";
@@ -510,4 +529,3 @@ function pp_map_meta_cap( $cap_name, $user_id = 0, $post_id = 0, $args = array()
 
 	return $return;
 }
-?>

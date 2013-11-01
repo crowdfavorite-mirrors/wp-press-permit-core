@@ -310,4 +310,3 @@ class PP_Plugin_Status {
 	}
 }
 
-?>

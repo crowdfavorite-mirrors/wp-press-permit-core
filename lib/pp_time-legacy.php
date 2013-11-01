@@ -8,4 +8,3 @@ if ( defined('PPFF_VERSION') && version_compare( 'PPFF_VERSION', '2.0.5-beta', '
 		}
 	}
 }
-?>

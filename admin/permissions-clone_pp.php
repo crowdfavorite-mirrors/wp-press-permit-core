@@ -1,6 +1,6 @@
 <?php
 class PP_Clone {
-	function clone_permissions( $agent_type, $agent_id, $source_agent ) {
+	public static function clone_permissions( $agent_type, $agent_id, $source_agent ) {
 		global $wpdb, $current_user;
 		
 		if ( 'pp_group' != $agent_type )
@@ -78,7 +78,7 @@ class PP_Clone {
 		return true;
 	}
 
-	function get_exception_id( &$stored_exceptions, $data, $merge_data ) {
+	private function get_exception_id( &$stored_exceptions, $data, $merge_data ) {
 		$exception_id = 0;
 
 		foreach( $stored_exceptions as $exc ) {
@@ -101,4 +101,3 @@ class PP_Clone {
 		return $exception_id;
 	}
 }
-?>

@@ -35,6 +35,7 @@ class PP_UserGroupsSave {
 				if ( pp_has_group_cap( 'pp_manage_members', $group_id, $agent_type ) ) {
 					$args = compact( 'agent_type', 'status' );
 					$args = apply_filters( 'pp_add_group_args', $args, $group_id );
+
 					pp_add_group_user( (int) $group_id, $user_id, $args );
 				}
 			}
@@ -60,4 +61,3 @@ class PP_UserGroupsSave {
 		}
 	}
 } // end class
-?>

@@ -105,4 +105,3 @@ class PP_Plugin_Admin {
 	}
 	
 } // end class
-?>

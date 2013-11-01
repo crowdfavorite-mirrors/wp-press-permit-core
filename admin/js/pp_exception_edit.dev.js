@@ -430,6 +430,8 @@ jQuery(document).ready( function($) {
 	var x_ajax_ui_done = function() {
 		$('#pp_add_exception select').prop('disabled',false);
 		$('#pp_add_exception_waiting').hide();
+		
+		$.event.trigger({type: "pp_exceptions_ui"});
 	}
 	
 	var x_ajax_ui_failure = function(data,txtStatus) {

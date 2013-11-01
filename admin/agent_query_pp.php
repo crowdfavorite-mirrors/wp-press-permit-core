@@ -93,4 +93,3 @@ if ( 'user' == $agent_type ) {
 	}
 }
 
-?>

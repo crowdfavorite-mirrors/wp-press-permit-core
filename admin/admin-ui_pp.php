@@ -353,4 +353,3 @@ function pp_key_status() {
 	
 	return false;
 }
-?>

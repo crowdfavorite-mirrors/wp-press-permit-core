@@ -44,4 +44,3 @@ class PP_FiltersUpdateCore {
 		<?php
 	}
 }
-?>

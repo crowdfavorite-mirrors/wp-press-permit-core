@@ -73,6 +73,17 @@ class PP_CapInterceptor
 		
 		$item_id = ( isset( $args[2] ) ) ? $args[2] : 0;
 	
+		if ( ( 'read_post' == $orig_cap ) && ( count($orig_reqd_caps) > 1 || ( 'read' != reset($orig_reqd_caps) ) ) ) {
+			// deal with map_meta_cap() changing 'read_post' requirement to 'edit_post'			
+			$types = get_post_types( array( 'public' => true ), 'object' );
+			foreach( array_keys($types) as $_post_type ) {
+				if ( array_intersect( array_intersect_key( (array) $types[$_post_type]->cap, array_fill_keys( array( 'edit_posts', 'edit_others_posts', 'edit_published_posts', 'edit_private_posts' ), true ) ), $orig_reqd_caps ) ) {
+					$orig_cap = 'edit_post';
+					break;
+				}
+			}
+		}
+
 		if ( is_array($orig_cap) || ! isset( $this->meta_caps[ $orig_cap ] ) ) { // Revisionary may pass array into args[0]
 	
 			// If we would fail a straight post cap check, pass it if appropriate additions stored
@@ -376,4 +387,3 @@ class PP_CapInterceptor
 		return false;
 	}
 } // end class PP_Cap_Interceptor
-?>

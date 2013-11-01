@@ -10,4 +10,3 @@ case 'new_user_groups_ui':
 	PP_ProfileUI::display_ui_user_groups( false );
 	break;
 }
-?>

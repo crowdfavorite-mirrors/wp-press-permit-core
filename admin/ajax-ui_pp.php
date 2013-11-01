@@ -147,4 +147,3 @@ function _pp_get_type_roles( $for_item_source, $for_item_type, $require_caps = f
 	
 	return apply_filters( 'pp_get_type_roles', $type_roles, $for_item_source, $for_item_type );
 }
-?>

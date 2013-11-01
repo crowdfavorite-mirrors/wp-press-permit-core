@@ -13,7 +13,7 @@ class PP_Cap_Helper {
 		
 		$core_meta_caps = array_fill_keys( array( 'read_post', 'edit_post', 'delete_post' ), true );
 		
-		$append_caps = array( 'edit_published_posts' => 'edit_posts', 'edit_private_posts' => 'edit_posts', 'delete_published_posts' => 'delete_posts', 'delete_private_posts' => 'delete_posts', 'read' => 'read' );
+		$append_caps = array( 'edit_published_posts' => 'edit_posts', 'edit_private_posts' => 'edit_posts', 'delete_posts' => 'edit_posts', 'delete_others_posts' => 'delete_posts', 'delete_published_posts' => 'delete_posts', 'delete_private_posts' => 'delete_posts', 'read' => 'read' );
 		
 		if ( $force_create_posts_cap = pp_wp_ver( '3.5-beta' ) && pp_get_option('define_create_posts_cap') ) {
 			foreach( array( 'post', 'page' ) as $post_type ) {
@@ -94,4 +94,3 @@ function pp_plural_name_from_cap( $type_obj ) {
 	
 	return isset( $type_obj->name ) ? $type_obj->name . 's' : '';
 } 
-?>

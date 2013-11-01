@@ -99,4 +99,3 @@ class PP_FrontTags {
 		return apply_filters('pp_get_tags', $results, 'post_tag', $args);
 	}
 } // end class
-?>

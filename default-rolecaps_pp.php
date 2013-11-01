@@ -1,6 +1,6 @@
 <?php
 class PP_Default_Rolecaps {
-	function get_default_rolecaps( $role, $return_default = true ) {
+	public static function get_default_rolecaps( $role, $return_default = true ) {
 		$type_obj = get_post_type_object( 'post' );
 		$cap = $type_obj->cap;
 	
@@ -28,4 +28,3 @@ class PP_Default_Rolecaps {
 		}
 	}
 }	
-?>

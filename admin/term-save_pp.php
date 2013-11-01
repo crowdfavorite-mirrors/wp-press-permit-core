@@ -71,4 +71,3 @@ class PP_TermSave {
 	}
 } // end class
 	
-?>

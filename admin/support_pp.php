@@ -299,7 +299,7 @@ function _pp_support_upload( $args = array() ) {
 	$hashes = array();
 	foreach( array( 'pp_config', 'pp_old', 'error_log' ) as $var ) {
 		if ( ! empty($$var) ) {
-			if ( PP_MULTISITE ) {
+			if ( PP_MULTISITE && ( 'error_log' != $var ) ) {
 				global $blog_id;
 				$$var['site'] = $blog_id;
 			}
@@ -343,4 +343,3 @@ function _pp_get_errlog_path() {
 	return ( empty($log_file) || ! @is_readable($log_file) ) ? false : $log_file;
 }
 
-?>

@@ -194,4 +194,3 @@ class PP_TermsAdmin {
 	<?php
 	}
 } // end class
-?>

@@ -151,6 +151,22 @@ class PP_Hardway
 		}
 		$sort_column = ! empty( $orderby_array ) ? implode( ',', $orderby_array ) : "$wpdb->posts.post_title";
 			
+		// $args can be whatever, only use the args defined in defaults to compute the key
+		$key = md5( serialize( compact(array_keys($defaults)) ) );
+		$last_changed = wp_cache_get( 'last_changed', 'posts' );
+		if ( ! $last_changed ) {
+			$last_changed = microtime();
+			wp_cache_set( 'last_changed', $last_changed, 'posts' );
+		}
+
+		$cache_key = "pp_get_pages:$key:$last_changed";
+		if ( $cache = wp_cache_get( $cache_key, 'posts' ) ) {
+			// Convert to WP_Post instances
+			$pages = array_map( 'get_post', $cache );
+			$pages = apply_filters('pp_get_pages', $pages, $r);
+			return $pages;
+		}
+		
 		$inclusions = '';
 		if ( !empty($include) ) {
 			$child_of = 0; //ignore child_of, parent, exclude, meta_key, and meta_value params if using include
@@ -324,6 +340,9 @@ class PP_Hardway
 			// alternate hook name (WP core already applied get_pages filter)
 			return apply_filters('pp_get_pages', array(), $r);
 		
+		if ( $child_of )
+			$pages = get_page_children( $child_of, $pages );
+		
 		// restore buffered titles in case they were filtered previously
 		pp_restore_property_array( $pages, $titles, 'ID', 'post_title' );
 		//
@@ -384,6 +403,12 @@ class PP_Hardway
 		// re-index the array, just in case anyone cares
         $pages = array_values($pages);
         
+		$page_structure = array();
+		foreach ( $pages as $page )
+			$page_structure[] = $page->ID;
+
+		wp_cache_set( $cache_key, $page_structure, 'posts' );
+		
 		// Convert to WP_Post instances
 		$pages = array_map( 'get_post', $pages );
 		
@@ -407,4 +432,3 @@ function pp_get_terms_children( $taxonomy, $option_value = '' ) {
 	return PP_Ancestry::get_terms_children( $taxonomy, $option_value );
 }
 */
-?>

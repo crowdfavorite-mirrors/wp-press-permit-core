@@ -63,4 +63,3 @@ class PP_QueryAttachments {
 		return apply_filters( 'pp_append_attachment_clause', $where, $clauses, $args );
 	}
 } // end class
-?>

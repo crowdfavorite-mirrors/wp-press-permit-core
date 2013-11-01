@@ -24,4 +24,3 @@ function ppx_force_defaults( $options ) {
 	}
 	return $options;
 }
-?>

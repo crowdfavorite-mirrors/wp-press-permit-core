@@ -216,4 +216,3 @@ class PP_AdminFilters
 		}
 	}
 } // end class
-?>

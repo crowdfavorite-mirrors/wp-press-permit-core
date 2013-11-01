@@ -72,4 +72,3 @@ class PP_Groups_List_Table_Base extends WP_List_Table {
 		return $r;
 	}
 } // end class
-?>

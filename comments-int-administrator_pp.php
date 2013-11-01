@@ -18,4 +18,3 @@ class CommentsInterceptor_Administrator {
 		return $clauses;
 	}
 }
-?>

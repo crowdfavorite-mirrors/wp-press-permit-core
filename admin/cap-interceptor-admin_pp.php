@@ -42,4 +42,3 @@ class PP_CapInterceptorAdmin {
 				);
 	}
 }
-?>

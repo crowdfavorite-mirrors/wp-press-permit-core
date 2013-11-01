@@ -150,4 +150,3 @@ jQuery(document).ready( function($) {
 	} // end function
 
 } // end class
-?>

@@ -11,4 +11,3 @@ class PP_AdminDefaults {
 		return $roles;
 	}
 }
-?>

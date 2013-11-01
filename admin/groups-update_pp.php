@@ -24,12 +24,15 @@ class PP_GroupsUpdate {
 			if ( ! $user_id )
 				continue;
 		
-			if ( $already_member = $wpdb->get_col( $wpdb->prepare( "SELECT user_id FROM $members_table WHERE group_id = %d AND user_id = %d", $group_id, $user_id ) ) )
-				continue;
-
 			$data = compact( 'group_id', 'user_id', 'member_type', 'status', 'date_limited', 'start_date_gmt', 'end_date_gmt' );
-			$data['add_date_gmt'] = current_time( 'mysql', 1 );
-			$wpdb->insert( $members_table, $data );
+		
+			if ( $already_member = $wpdb->get_col( $wpdb->prepare( "SELECT user_id FROM $members_table WHERE group_id = %d AND user_id = %d", $group_id, $user_id ) ) ) {
+				$data = compact( 'status' );
+				$wpdb->update( $members_table, $data, array( 'group_id' => $group_id, 'user_id' => $user_id ) );
+			} else {
+				$data['add_date_gmt'] = current_time( 'mysql', 1 );
+				$wpdb->insert( $members_table, $data );
+			}
 
 			do_action( 'pp_add_group_user', $group_id, $user_id, $args );	
 		}
@@ -185,4 +188,3 @@ class PP_GroupsUpdate {
 		}
 	}
 }
-?>

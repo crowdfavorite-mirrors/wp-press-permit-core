@@ -290,4 +290,3 @@ class PP_Group_Query {
 	}
 }
 
-?>
