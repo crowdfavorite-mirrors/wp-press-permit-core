@@ -48,7 +48,7 @@ class PP_Ancestry {
 		return $title_caption;
 	}
 
-	private function _walk_ancestors($child_id, $ancestors, $parents) {
+	public static function _walk_ancestors($child_id, $ancestors, $parents) {
 		if ( isset($parents[$child_id]) ) {
 			if ( in_array( $parents[$child_id], $ancestors ) )  // prevent infinite recursion if a page has a descendant set as its parent page
 			  return $ancestors;
@@ -108,7 +108,7 @@ class PP_Ancestry {
 	
 		if ( ! $ancestors ) {
 			$ancestors = array();
-				
+
 			$terms = get_terms($taxonomy, array( 'pp_no_filter' => true ) );
 
 			if ( $terms ) {
@@ -119,10 +119,10 @@ class PP_Ancestry {
 						$parents[$term->term_id] = $term->parent;
 		
 				foreach ( $terms as $term ) {
-					$term_id = $term->term_id;
-					$ancestors[$term_id] = self::_walk_ancestors($term_id, array(), $parents);
-					if ( empty( $ancestors[$term_id] ) )
-						unset( $ancestors[$term_id] );
+					$_term_id = $term->term_id;
+					$ancestors[$_term_id] = self::_walk_ancestors($_term_id, array(), $parents);
+					if ( empty( $ancestors[$_term_id] ) )
+						unset( $ancestors[$_term_id] );
 				}
 			}
 		}
@@ -139,15 +139,20 @@ class PP_Ancestry {
 			'child_of' => 0, 			'parent' => -1,
 			'orderby' => 'post_title',	'depth' => 0,
 			'remap_parents' => true, 	'enforce_actual_depth' => true,
-			'exclude' => '',			'remap_thru_excluded_parent' => false
+			'exclude' => '',			'remap_thru_excluded_parent' => false,
+			'col_id' => 'ID',			'col_parent' => 'post_parent',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 		extract($args, EXTR_SKIP);
 
-		if ( defined( 'PPC_NO_PAGE_REMAP' ) )
+		if ( 'ID' == $col_id ) {
+			if ( ( $child_of && ! defined( 'PPC_FORCE_PAGE_REMAP' ) ) || defined( 'PPC_NO_PAGE_REMAP' ) )
+				$remap_parents = false;
+		} elseif ( ( $child_of && ! defined( 'PPC_FORCE_TERM_REMAP' ) ) || defined( 'PPC_NO_TERM_REMAP' ) ) {
 			$remap_parents = false;
-		
+		}
+
 		if ( $depth < 0 )
 			$depth = 0;
 		
@@ -156,7 +161,7 @@ class PP_Ancestry {
 		
 		$filtered_items_by_id = array();
 		foreach ( $items as $item )
-			$filtered_items_by_id[$item->ID] = true;
+			$filtered_items_by_id[$item->$col_id] = true;
 
 		$remapped_items = array();
 
@@ -167,18 +172,10 @@ class PP_Ancestry {
 		$one_if_root = ( $child_of ) ? 0 : 1;
 
 		foreach ( $items as $key => $item ) {
-			if ( ! empty($child_of) ) {
-				if ( ! isset($ancestors[$item->ID]) || ! in_array($child_of, $ancestors[$item->ID]) ) {
-					unset($items[$key]);
-					
-					continue;
-				}
-			}
-			
-			$parent_id = $item->post_parent;
+			$parent_id = $item->$col_parent;
 			
 			if ( $remap_parents ) {
-				$id = $item->ID;
+				$id = $item->$col_id;
 				
 				if ( $parent_id && ( $child_of != $parent_id ) && isset($ancestors[$id]) ) {
 					
@@ -204,7 +201,7 @@ class PP_Ancestry {
 							foreach( $ancestors[$id] as $ancestor_id ) {
 								if ( isset($filtered_items_by_id[$ancestor_id]) || ($ancestor_id == $child_of) ) {
 									// don't remap through a parent which was explicitly excluded
-									if( $exclude && in_array( $items[$key]->post_parent, $exclude ) && ! $remap_thru_excluded_parent )
+									if( $exclude && in_array( $items[$key]->$col_parent, $exclude ) && ! $remap_thru_excluded_parent )
 										break;
 
 									$visible_ancestor_id = $ancestor_id;
@@ -213,10 +210,10 @@ class PP_Ancestry {
 							}
 							
 							if ( $visible_ancestor_id )
-								$items[$key]->post_parent = $visible_ancestor_id;
+								$items[$key]->$col_parent = $visible_ancestor_id;
 
 							elseif ( ! $child_of )
-								$items[$key]->post_parent = 0;
+								$items[$key]->$col_parent = 0;
 	
 							// if using custom ordering, force remapped items to the bottom
 							if ( ( $visible_ancestor_id == $child_of ) && ( false !== strpos( $orderby, 'order' ) ) ) {
@@ -226,7 +223,7 @@ class PP_Ancestry {
 						}	
 					}
 				}
-			} elseif ( $parent_id && ( $depth == 1 ) && ! isset($filtered_items_by_id[$parent_id]) ) { // end if not skipping page parent remap
+			} elseif ( $parent_id && ( $depth == 1 ) && ( $parent_id != $child_of ) && ! isset($filtered_items_by_id[$parent_id]) ) { // end if not skipping page parent remap
 				unset($items[$key]); // Walker will not strip this item out based on wp_list_pages depth argument if its parent is missing
 
 				continue;
@@ -234,7 +231,7 @@ class PP_Ancestry {
 			
 			// temporary WP bug workaround: need to keep track of parent, for reasons described below
 			if (  $child_of && ! $remapped_items ) {
-				if ( ( $first_child_of_match < 0 ) && ( $child_of == $items[$key]->post_parent ) )
+				if ( ( $first_child_of_match < 0 ) && ( $child_of == $items[$key]->$col_parent ) )
 					$first_child_of_match = $key;
 			}
 		}
@@ -242,7 +239,7 @@ class PP_Ancestry {
 		// temporary WP bug workaround
 		if ( $child_of && ( $parent < 0 ) && ( $first_child_of_match > 0 ) ) {
 			if ( $first_item = reset($items) ) {
-				if ( $child_of != $first_item->post_parent ) {
+				if ( $child_of != $first_item->$col_parent ) {
 					// As of WP 2.8.4, Walker class will botch this array because it assumes that the first element in the page array is a child of the display root
 					// To work around, we must move first element with the desired child_of up to the top of the array
 					$_items = array( $items[$first_child_of_match] );
@@ -259,4 +256,3 @@ class PP_Ancestry {
 	} // end function remap_tree
 
 }
-?>

@@ -79,4 +79,3 @@ class PP_PostsAdmin {
 	}
 	
 } // end class
-?>

@@ -226,4 +226,3 @@ function pp_get_metagroup( $metagroup_type, $metagroup_id, $args = array() ) {
 		return ( isset($buffered_groups[$key]) ) ? $buffered_groups[$key] : false;
 	}
 }
-?>

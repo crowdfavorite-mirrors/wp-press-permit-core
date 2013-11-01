@@ -32,4 +32,3 @@ function pp_default_options() {
 
 	return apply_filters( 'pp_default_options', $def );
 }
-?>

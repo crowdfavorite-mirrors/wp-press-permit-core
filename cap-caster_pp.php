@@ -158,4 +158,3 @@ class PP_Cap_Caster {
 		return $add_caps;
 	}
 }
-?>

@@ -78,4 +78,3 @@ function agp_parse_after_WHERE_11( $request, &$pos_where, &$pos_suffix ) {
 	
 	return $where;	
 }
-?>

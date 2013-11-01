@@ -75,4 +75,3 @@ function _pp_flt_get_tags( $results, $taxonomies, $args ) {
 	require_once( dirname(__FILE__).'/front-tags_pp.php');
 	return PP_FrontTags::flt_get_tags( $results, $taxonomies, $args );
 }
-?>

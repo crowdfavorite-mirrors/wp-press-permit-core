@@ -14,4 +14,3 @@ class PP_Permits_Helper {
 		}
 	}
 }
-?>

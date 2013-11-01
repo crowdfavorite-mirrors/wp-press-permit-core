@@ -200,4 +200,3 @@ class PP_TermsInterceptor {
 		return $clauses;
 	}
 }
-?>

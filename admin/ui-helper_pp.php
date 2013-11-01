@@ -87,4 +87,3 @@ class PP_UI_Helper {
 		return $vars;
 	}
 } // end class
-?>

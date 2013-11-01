@@ -92,4 +92,3 @@ class PP_Permits_Handler {
 		} // end switch
 	}
 }
-?>

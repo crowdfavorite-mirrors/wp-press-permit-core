@@ -287,4 +287,3 @@ function pp_count_role_users( $role_name ) {
 	return ( isset( $role_count[$role_name] ) ) ? $role_count[$role_name] : 0;
 }
 
-?>

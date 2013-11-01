@@ -77,4 +77,3 @@ add_action( 'pp_deactivate', '_pp_declare_time_function', 1 );
 function _pp_declare_time_function() {
 	require_once( dirname(__FILE__).'/pp_time-legacy.php');
 }
-?>

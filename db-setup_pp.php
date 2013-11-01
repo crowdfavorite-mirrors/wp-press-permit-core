@@ -366,4 +366,3 @@ function _pp_dbDelta($queries, $execute = true) {	// lifted from MU 2.8.4a becau
 
 	return $for_update;
 }
-?>

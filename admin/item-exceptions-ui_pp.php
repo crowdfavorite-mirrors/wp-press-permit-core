@@ -233,4 +233,3 @@ class PP_ItemExceptionsUI {
 	
 } // end class	
 
-?>

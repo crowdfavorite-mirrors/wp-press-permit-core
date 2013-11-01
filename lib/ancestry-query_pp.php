@@ -58,4 +58,3 @@ function _pp_do_query_descendant_ids( $table_name, $col_id, $col_parent, $parent
 	
 	return $descendant_ids;
 }
-?>

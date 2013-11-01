@@ -57,4 +57,3 @@ function _pp_post_status_promo() {
 		<?php
 	}
 }
-?>

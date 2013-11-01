@@ -149,4 +149,3 @@ class PP_Agents_Checklist {
 		echo '</div></div>';
 	}
 } // end class
-?>

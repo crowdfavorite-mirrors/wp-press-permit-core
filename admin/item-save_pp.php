@@ -22,15 +22,13 @@ class PP_ItemSave {
 		if ( $posted_exceptions && ! $disallow_manual_entry && $can_assign_roles ) {
 			foreach( array_keys($posted_exceptions) as $for_item_type ) {
 				$_for_type = ( '(all)' == $for_item_type ) ? '' : $for_item_type;
-				
-				if ( $_for_type ) {
-					if ( ( 'post' == $for_item_source ) && ! post_type_exists( $_for_type ) )
-						continue;
-					
-					if ( ( 'term' == $for_item_source ) && ! taxonomy_exists( $_for_type ) )
-						continue;
-				}
 
+				if ( $_for_type && ( 'post' == $for_item_source ) && ! post_type_exists( $_for_type ) )
+					continue;
+
+				if ( ( 'term' == $for_item_source ) && ! taxonomy_exists( $_for_type ) )
+					continue;
+				
 				foreach( array_keys($posted_exceptions[$for_item_type]) as $op ) {
 					if ( ! _pp_can_set_exceptions( $op, $for_item_type, compact( 'via_item_source', 'via_item_type', 'item_id', 'for_item_source' ) ) )
 						continue;
@@ -51,7 +49,7 @@ class PP_ItemSave {
 		self::inherit_parent_exceptions( $item_id, compact( 'via_item_source', 'via_item_type', 'set_parent', 'last_parent', 'is_new' ) );
 	} // end function
 	
-	function inherit_parent_exceptions( $item_id, $args = array() ) {
+	public static function inherit_parent_exceptions( $item_id, $args = array() ) {
 		$defaults = array( 'via_item_source' => '', 'via_item_type' => '', 'set_parent' => '', 'last_parent' => '', 'is_new' => true );
 		extract( array_merge( $defaults, $args ), EXTR_SKIP );
 		
@@ -182,4 +180,3 @@ function _pp_get_parent_exceptions( $via_item_source, $item_id, $parent_id ) {
 	// Since this is a new object, propagate roles from parent (if any are marked for propagation)
 	return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->ppc_exception_items AS i INNER JOIN $wpdb->ppc_exceptions AS e ON e.exception_id = i.exception_id WHERE e.via_item_source = %s AND i.assign_for = 'children' AND i.item_id = %d", $via_item_source, $parent_id ) );
 }
-?>

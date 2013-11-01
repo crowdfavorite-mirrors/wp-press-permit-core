@@ -89,4 +89,3 @@ class PP_AdminRoles {
 		}
 	}
 } // end class
-?>

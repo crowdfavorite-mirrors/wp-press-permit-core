@@ -160,4 +160,3 @@ class PP_AdminUsers {
 	}
 	
 } // end class
-?>

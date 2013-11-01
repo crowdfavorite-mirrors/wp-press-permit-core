@@ -49,7 +49,10 @@ class PP_GroupsUI {
 		do_action( 'pp_group_members_ui', $group_id, $agent_type );
 	}
 	
-	public static function draw_type_options( $type_objects, $option_any = false ) {
+	public static function draw_type_options( $type_objects, $args = array() ) {
+		$defaults = array( 'option_any' => false, 'option_na' => false );
+		extract( array_merge( $defaults, $args ), EXTR_SKIP );
+		
 		if ( ! $type_objects ) {
 			//echo "<option>" . __('(none enabled)', 'pp') . '</option>';
 			return;
@@ -64,9 +67,11 @@ class PP_GroupsUI {
 		if ( $option_any )
 			echo "<option value='(all)'>" . __( '(all)', 'pp' ) . '</option>';
 			
-		global $pp_role_defs;
-		if ( $pp_role_defs->direct_roles )
-			echo "<option value='-1'>" . __( 'n/a', 'pp' ) . '</option>';
+		if ( $option_na ) {
+			global $pp_role_defs;
+			if ( $pp_role_defs->direct_roles )
+				echo "<option value='-1'>" . __( 'n/a', 'pp' ) . '</option>';
+		}
 	}
 	
 	public static function _select_clone_ui( $agent ) {
@@ -110,7 +115,7 @@ class PP_GroupsUI {
 		<td>
 		<select name="pp_select_type">
 		<?php 
-		self::draw_type_options( $type_objects );
+		self::draw_type_options( $type_objects, array( 'option_na' => true ) );
 		do_action( 'pp_role_types_dropdown' );
 		?></select></td>
 		
@@ -177,13 +182,8 @@ class PP_GroupsUI {
 	}
 	
 	public static function _select_exceptions_ui( $type_objects, $taxonomy_objects, $args = array() ) {
-		// Don't allow anon/all metagroups to have read exceptions for specific posts. That's what post visibility is for.
-		if ( isset( $args['agent'] ) && ! empty($args['agent']->metagroup_id) && in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) ) {
-			foreach( array_keys($type_objects) as $post_type ) { 
-				if ( ! get_object_taxonomies( $post_type ) )
-					unset( $type_objects[$post_type] );
-			}
-		}
+		// Discourage anon/all metagroups having read exceptions for specific posts. Normally, that's what post visibility is for.
+		$is_all_anon = ( isset( $args['agent'] ) && ! empty($args['agent']->metagroup_id) && in_array( $args['agent']->metagroup_id, array( 'wp_anon', 'wp_all' ) ) );
 	?>
 		<img id="pp_add_exception_waiting" class="waiting" style="display:none;position:absolute" src="<?php echo esc_url( admin_url( 'images/wpspin_light.gif' ) )?>" alt="" />
 		<table id="pp_add_exception">
@@ -200,15 +200,16 @@ class PP_GroupsUI {
 		<tbody>
 		<tr>
 		<td>
+
 		<select name="pp_select_x_for_type">
 		<?php
 		unset( $type_objects['attachment'] ); // may be re-added by extension
-		$type_objects = _pp_order_types( apply_filters( 'pp_exception_types', $type_objects ) );
+		$type_objects = apply_filters( 'pp_append_exception_types', _pp_order_types( apply_filters( 'pp_exception_types', $type_objects ) ) );
 		
 		if ( ! empty($args['external']) )
 			$type_objects = array_merge( $type_objects, $args['external'] );
 		
-		self::draw_type_options( $type_objects, true );
+		self::draw_type_options( $type_objects, array( 'option_any' => true ) );
 		do_action( 'pp_exception_types_dropdown', $args );
 
 		?></select></td>
@@ -238,6 +239,32 @@ class PP_GroupsUI {
 		</tr>
 		</tbody>
 		</table>
+		
+		<?php if ( $is_all_anon ):?>
+		<div id="pp-all-anon-warning" class="pp-red" style="display:none;margin-top:10px;margin-bottom:10px">
+		<?php _e( 'Warning: Content hidden by exceptions will be displayed if PP is deactivated. Consider setting a private Visibility on Edit Post screen instead.', 'pp' ); ?>
+		</div>
+
+		<script type="text/javascript">
+		/* <![CDATA[ */
+		jQuery(document).ready( function($) {
+			$(document).on('change','select[name="pp_select_x_for_type"]',function(){
+				$('#pp-all-anon-warning').hide();
+			});
+
+			var handle_anon_warning = function() {
+				if ( ( 'read' == $('select[name="pp_select_x_operation"]').val() ) && ( 'additional' != $('select[name="pp_select_x_mod_type"]').val() ) && ( 'pp-post-object' == $('select[name="pp_select_x_via_type"] option:selected').attr('class') ) ) {
+					$('#pp-all-anon-warning').show();
+				} else {
+					$('#pp-all-anon-warning').hide();
+				}
+			}
+			
+			$(document).on( 'pp_exceptions_ui', handle_anon_warning );
+			$(document).on('change','select[name="pp_select_x_via_type"]', handle_anon_warning );
+		});
+		</script>
+		<?php endif; ?>
 		
 		<div class='pp-ext-promo'>
 		<?php
@@ -282,20 +309,14 @@ class PP_GroupsUI {
 			//if ( ! defined( 'PP_' . strtoupper($type_obj->name) . '_TRUNCATE_EXCEPTIONS_UI' ) )
 			//	$type_obj->_default_query['posts_per_page'] = 999;	// @todo: support paging in item selection metabox
 
-			if ( isset( $type_obj->taxonomies ) ) {
+			if ( post_type_exists( $type_obj->name ) )
 				$metabox_function = "pp_nav_menu_item_post_type_meta_box";
-			} elseif( taxonomy_exists( $type_obj->name ) ) {
+			elseif( taxonomy_exists( $type_obj->name ) )
 				$metabox_function = "pp_nav_menu_item_taxonomy_meta_box";
-			} elseif ( in_array( $type_obj->name, array( 'pp_group', 'pp_net_group' ) ) )
+			elseif ( in_array( $type_obj->name, array( 'pp_group', 'pp_net_group' ) ) )
 				$metabox_function = "pp_nav_menu_item_group_meta_box";
-			/*
-			else {
-				if ( ! function_exists( "pp_nav_menu_item_{$type_obj->name}_meta_box" ) )
-					continue;
-				else
-					$metabox_function = "pp_nav_menu_item_{$type_obj->name}_meta_box";  // used for WPML integration in PP 1.x
-			}
-			*/
+			elseif ( ! $metabox_function = apply_filters( 'pp_item_select_metabox_function', '', $type_obj ) )
+				continue;
 
 			add_meta_box( "select-exception-{$type_obj->name}", sprintf( __('Select %s', 'pp'), $type_obj->labels->name), $metabox_function, 'edit-exceptions', 'side', 'default', $type_obj );
 		}
@@ -444,7 +465,8 @@ class PP_GroupsUI {
 		echo '</ul>';
 
 		// --- divs for add Roles / Exceptions ---
-		$first_perm_type = reset( array_keys($perms) );
+		$arr = array_keys($perms);
+		$first_perm_type = reset( $arr );
 		foreach( array_keys($perms) as $perm_type ) {
 			$display_style = ( "pp-add-$perm_type" == $current_tab ) ? '' : ';display:none';
 			echo "<div class='pp-group-box pp-add-permissions pp-add-$perm_type' style='clear:both{$display_style}'>";
@@ -456,8 +478,7 @@ class PP_GroupsUI {
 			} elseif ( 'exceptions' == $perm_type ) {
 				if ( ! isset( $args['external'] ) )
 					$args['external'] = array();
-				
-				$args['external']['pp_group'] = (object) array( 'name' => 'pp_group', 'labels' => (object) array( 'singular_name' => __( 'Permission Group', 'pp' ), 'name' => __( 'Permission Groups', 'pp' ) ) );
+
 				self::_select_exceptions_ui( array_diff_key( $post_types, array_fill_keys( array( 'topic', 'reply' ), true ) ), $taxonomies, $args );
 			}
 			?>
@@ -1010,4 +1031,3 @@ class PP_GroupsUI {
 		return PP_Users::get_users( $args );
 	}
 }
-?>

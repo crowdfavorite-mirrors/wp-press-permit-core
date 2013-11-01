@@ -116,4 +116,3 @@ class SqlTokenizer {
         return $result[0];
     }
 }
-?>

@@ -398,32 +398,37 @@ public static function insert_exceptions( $mod_type, $operation, $via_item_sourc
 			}
 
 			$exceptions_by_type = array();
-			$_results = $wpdb->get_results( "$qry_exc_select_type_base AND for_item_type != '' AND agent_id = '$agent_id'" );
+			$_results = $wpdb->get_results( "$qry_exc_select_type_base AND for_item_type = '$for_item_type' AND agent_id = '$agent_id'" );
 			foreach( $_results AS $row )
 				$exceptions_by_type[$row->for_item_type] = $row->exception_id;
-			
-			if ( 'term' == $via_item_source )  // need to allow for descendants of a different post type than parent
+
+			if ( ( 'term' == $via_item_source ) && taxonomy_exists($for_item_type) )  // need to allow for descendants of a different post type than parent
 				$descendant_types = $wpdb->get_results( "SELECT term_taxonomy_id, taxonomy AS for_item_type FROM $wpdb->term_taxonomy WHERE term_taxonomy_id IN ('" . implode( "','", $descendant_ids ) . "')", OBJECT_K );
-			else
+			elseif ( 'post' == $via_item_source )
 				$descendant_types = $wpdb->get_results( "SELECT ID, post_type AS for_item_type FROM $wpdb->posts WHERE ID IN ('" . implode( "','", $descendant_ids ) . "')", OBJECT_K );
+			else
+				$descendant_types = array();
 			
 			foreach ( $descendant_ids as $id ) {
-				// allow for descendants with post type different from parent
-				if ( ! isset( $descendant_types[$id] ) ) {
-					$child_for_item_type = $for_item_type;  // if child type could not be determined, assume parent type
-				
-				} elseif ( 'revision' == $descendant_types[$id]->for_item_type ) {
-					continue;
+				if ( $for_item_type ) {
+					// allow for descendants with post type different from parent
+					if ( ! isset( $descendant_types[$id] ) ) {
+						$child_for_item_type = $for_item_type;  // if child type could not be determined, assume parent type
 					
+					} elseif ( 'revision' == $descendant_types[$id]->for_item_type ) {
+						continue;
+						
+					} else {
+						$child_for_item_type = $descendant_types[$id]->for_item_type;
+					}
 				} else {
-					$child_for_item_type = $descendant_types[$id]->for_item_type;
+					$child_for_item_type = '';
 				}
-
+				
 				if ( ! isset( $exceptions_by_type[$child_for_item_type] ) ) {
 					$insert_exc_data['agent_id'] = $agent_id;
 					$insert_exc_data['for_item_type'] = $child_for_item_type;
 					$wpdb->insert( $wpdb->ppc_exceptions, $insert_exc_data );
-					do_action( 'pp_inserted_exception_item', array_merge( (array) $exc, $insert_exc_data ) );
 					$exceptions_by_type[$child_for_item_type] = $wpdb->insert_id;
 				}
 				
@@ -508,4 +513,3 @@ public static function remove_exception_items_by_id( $eitem_ids ) {
 }
 	
 } // end class
-?>

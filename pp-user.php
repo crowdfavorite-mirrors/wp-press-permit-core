@@ -254,4 +254,3 @@ class PP_User extends WP_User {
 	}
 } // end class PP_User
 }
-?>

@@ -67,15 +67,14 @@ class PP_UpdateWatch {
 		}
 	}
 	
-	function plugin_update( $plugin = '' ) {
+	public static function plugin_update( $plugin = '' ) {
 		require_once( dirname(__FILE__).'/plugin-update_pp.php' );
 		PP_Updater::update( $plugin );
 	}
 
-	function plugin_install( $plugin = '' ) {
+	public static function plugin_install( $plugin = '' ) {
 		require_once( dirname(__FILE__).'/plugin-update_pp.php' );
 		PP_Updater::install( $plugin );
 	}
 } // end class
 
-?>

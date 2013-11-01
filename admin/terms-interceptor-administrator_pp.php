@@ -16,4 +16,3 @@ function _pp_flt_administrator_pad_term_counts( $terms, $taxonomies, $args ) {
 	}
 	return $terms;
 }
-?>

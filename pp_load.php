@@ -45,6 +45,9 @@ if ( PP_MULTISITE )
 
 pp_register_group_type( 'pp_group', is_admin() ? array( 'labels' => (object) array ( 'name' => __('Groups', 'pp'), 'singular_name' => __('Group', 'pp') ) ) : array() );
 
+if ( defined( 'SSEO_VERSION' ) )
+	require_once( dirname(__FILE__).'/eyes-only-helper_pp.php' );
+
 if ( is_admin() )
 	require_once( $dir.'/admin/admin-load_pp.php' );
 
@@ -665,4 +668,3 @@ function pp_get_all_updates_info( $force_refresh = false ) {
 	}
 	return $update_info;
 }
-?>

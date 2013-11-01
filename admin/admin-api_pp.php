@@ -177,4 +177,3 @@ function pp_delete_group( $group_id, $agent_type ) {
 	require_once( dirname(__FILE__).'/groups-update_pp.php');
 	return PP_GroupsUpdate::delete_group($group_id, $agent_type);
 }
-?>

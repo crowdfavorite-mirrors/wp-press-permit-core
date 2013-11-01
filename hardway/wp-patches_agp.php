@@ -20,4 +20,3 @@ function _pp_flt_page_link( $link, $id ) {
 }
 
 add_filter('_get_page_link', '_pp_flt_page_link', 50, 2);
-?>

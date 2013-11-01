@@ -329,4 +329,3 @@ function my_pp_options( $options ) {
 		} // endif multisite
 	} // end function options_ui()
 }
-?>

@@ -23,4 +23,3 @@ function _pp_file_filtering_promo() {
 	</script>
 	<?php
 }
-?>

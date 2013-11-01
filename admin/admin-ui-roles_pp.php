@@ -173,4 +173,3 @@ function _ppc_list_agent_exceptions( $agent_type, $id, $args = array() ) {
 	}
 	return $exc_str;
 }
-?>

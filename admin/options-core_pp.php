@@ -224,4 +224,3 @@ class PP_Options_Core {
 	} // end function options_ui()
 }
 
-?>

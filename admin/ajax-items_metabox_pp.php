@@ -43,4 +43,3 @@ function pp_ajax_menu_get_metabox() {
 	}
 }
 
-?>

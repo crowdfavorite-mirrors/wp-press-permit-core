@@ -98,21 +98,42 @@ class PP_TermCountInterceptor {
 			$term_names = pp_get_property_array( $terms, 'term_id', 'name' );
 		}
 
+		if ( ! empty($child_of) ) {
+			$children = _get_term_hierarchy( reset($taxonomies) );
+			if ( ! empty($children) )
+				$terms = _get_term_children( $child_of, $terms, reset($taxonomies) );
+		}
+		
 		// Replace DB-stored term counts with actual number of posts this user can read.
 		// In addition, without the pp_tally_term_counts() call, WP will hide terms that have no public posts (even if this user can read some of the pvt posts).
 		// Post counts will be incremented to include child terms only if $pad_counts is true
-		if ( ! defined('XMLRPC_REQUEST') ) {
+		if ( ! defined('XMLRPC_REQUEST') && ( 1 == count($taxonomies) ) ) {
 			global $pagenow;
 			if ( ! is_admin() || ! in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
-				PP_TermsQueryLib::tally_term_counts( $terms, reset($taxonomies), compact( 'pad_counts', 'skip_teaser', 'post_type' ) );   // processing of counts is currently only supported for one taxonomy
+				if ( $hide_empty || ! empty( $args['actual_args']['hide_empty'] ) ) {
+					// need to tally for all terms in case some were hidden by core function due to lack of public posts
+					$all_terms = get_terms( reset($taxonomies), array( 'fields' => 'all', 'pp_no_filter' => true, 'hide_empty' => false ) );
+					PP_TermsQueryLib::tally_term_counts( $all_terms, reset($taxonomies), compact( 'pad_counts', 'skip_teaser', 'post_type' ) );
+
+					foreach ( array_keys($terms) as $k ) {
+						foreach( array_keys($all_terms) as $key ) {
+							if ( $all_terms[$key]->term_taxonomy_id == $terms[$k]->term_taxonomy_id ) {
+								$terms[$k]->count = $all_terms[$key]->count;
+								break;
+							}
+						}
+					}
+				} else {
+					PP_TermsQueryLib::tally_term_counts( $terms, reset($taxonomies), compact( 'pad_counts', 'skip_teaser', 'post_type' ) );
+				}
 			}
 		}
 		
-		// Empty terms will be identified via count property set by pp_tally_term_counts() instead of 'count > 0' clause, to reflect logged user's actual post access (including readable private posts)
-		if ( $hide_empty ) {
+		if ( $hide_empty || ! empty( $args['actual_args']['hide_empty'] ) ) {
 			if ( $hierarchical ) {
 				foreach( $taxonomies as $taxonomy ) {
-					$all_terms = get_terms( $taxonomy, array( 'fields' => 'all', 'pp_no_filter' => true ) );
+					if ( empty($all_terms) || ( count($taxonomies) > 1 ) )
+						$all_terms = get_terms( $taxonomy, array( 'fields' => 'all', 'pp_no_filter' => true, 'hide_empty' => false ) );
 					
 					// Remove empty terms, but only if their descendants are all empty too.
 					foreach ( $terms as $k => $term ) {
@@ -135,6 +156,14 @@ class PP_TermCountInterceptor {
 						unset( $terms[$key] );
 			}
 		}
+		
+		if ( $hierarchical && ! $parent && ( count($taxonomies) == 1 ) ) {
+			require_once( PPC_ABSPATH . '/lib/ancestry_lib_pp.php' );
+			$ancestors = PP_Ancestry::get_term_ancestors( reset($taxonomies) ); // array of all ancestor IDs for keyed term_id, with direct parent first
+			$remap_args = array_merge( compact( 'child_of', 'parent', 'exclude' ), array( 'orderby' => 'name', 'col_id' => 'term_id', 'col_parent' => 'parent' ) );
+			PP_Ancestry::remap_tree( $terms, $ancestors, $remap_args );
+		}
+		
 		reset ( $terms );
 		
 		// === Standard WP post-processing for include, fields, number args ===
@@ -166,4 +195,3 @@ class PP_TermCountInterceptor {
 		return $terms;
 	}
 } // end class
-?>

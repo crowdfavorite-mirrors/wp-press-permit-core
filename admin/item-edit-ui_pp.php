@@ -28,4 +28,3 @@ var pp_hier_type='<?php echo $type_obj->hierarchical;?>';
 <?php
 		}
 	}
-?>

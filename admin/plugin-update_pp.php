@@ -457,4 +457,3 @@ class PP_Installer_Skin extends Plugin_Installer_Skin {
 	}
 } // END class PP_Installer_Skin
 
-?>

@@ -168,4 +168,3 @@ if ( $disabled ):?>
 		<?php
 	} // end function
 } // end class
-?>

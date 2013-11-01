@@ -176,4 +176,3 @@ pp_load_agents_js( '<?php echo($args['id_sfx']);?>', '<?php echo($args['agent_ty
 	} // end function ajax_selection_js
 	
 } // end class
-?>

@@ -53,4 +53,3 @@ case 'get_agent_exception_ui':
 	break;
 
 } // end switch
-?>

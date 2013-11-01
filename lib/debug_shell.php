@@ -42,4 +42,3 @@ function dump(&$var, $info = FALSE, $display_objects = true) {
 	return; 
 }
 }
-?>

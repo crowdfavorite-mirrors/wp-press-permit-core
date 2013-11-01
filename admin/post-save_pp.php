@@ -45,7 +45,7 @@ class PP_PostSave {
 		}
 	}
 	
-	function is_new_post( $post_id, $post_obj = false ) {
+	public static function is_new_post( $post_id, $post_obj = false ) {
 		global $pp_admin_filters;
 		
 		if ( ! $post_obj )
@@ -57,7 +57,7 @@ class PP_PostSave {
 			|| ( 'new' == $pp_admin_filters->last_post_status[$post_id] );
 	}
 	
-	function get_post_parent_info( $post_id, $post_obj = false, $update_meta = false ) {
+	public static function get_post_parent_info( $post_id, $post_obj = false, $update_meta = false ) {
 		if ( ! $post_obj )
 			$post_obj = get_post($post_id);
 	
@@ -73,4 +73,3 @@ class PP_PostSave {
 		return compact( 'last_parent', 'set_parent' );
 	}
 } // end class
-?>

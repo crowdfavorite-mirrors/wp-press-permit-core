@@ -456,4 +456,3 @@ class PP_GroupRetrieval {
 		return $except;
 	}
 }
-?>

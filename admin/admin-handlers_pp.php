@@ -21,4 +21,3 @@ if ( ! empty( $_REQUEST['action'] ) || ! empty($_REQUEST['action2']) || ! empty(
 		add_action( 'pp_user_init', create_function( '', $func ) );
 	}
 }
-?>

@@ -577,4 +577,3 @@ function pp_plugin_update_url( $plugin_file, $action='upgrade-plugin' ) {
 	$url = wp_nonce_url($url, "{$action}_$plugin_file");
 	return $url;
 }
-?>
