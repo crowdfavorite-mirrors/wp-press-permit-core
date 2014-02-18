@@ -46,6 +46,13 @@ class PP_ItemSave {
 			}
 		}
 
+		if ( ( 'post' == $via_item_source ) && ( 'post' == $for_item_source ) ) {
+			if ( $post = get_post( $item_id ) ) {
+				if ( 'attachment' == $post->post_type )  // don't propagate page exceptions to attachments
+					return;
+			}
+		}
+		
 		self::inherit_parent_exceptions( $item_id, compact( 'via_item_source', 'via_item_type', 'set_parent', 'last_parent', 'is_new' ) );
 	} // end function
 	
@@ -70,26 +77,36 @@ class PP_ItemSave {
 		if ( isset($set_parent) && ( $set_parent != $last_parent ) || $is_new_term ) {			
 			// retain all explicitly selected exceptions
 			global $wpdb;
-			$retain_exceptions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->ppc_exception_items AS i INNER JOIN $wpdb->ppc_exceptions AS e ON e.exception_id = i.exception_id WHERE i.assign_for = 'item' AND i.inherited_from = '0' AND e.via_item_source = %s AND i.item_id = %d", $via_item_source, $item_id ) );
+			$descendant_ids = pp_get_descendant_ids( $via_item_source, $item_id );
+			if ( $descendant_ids && ( 'term' == $via_item_source ) )
+				$descendant_ids = pp_termid_to_ttid( $descendant_ids, $via_item_type );
+
+			// clear previously propagated role assignments for this item and its branch of sub-items
 	
-			// clear previously propagated role assignments
-			//if ( ! $is_new && ! $roles_customized ) {
 			if ( ! $is_new ) {
 				_pp_clear_exceptions( $via_item_source, $item_id, array( 'inherited_only' => true ) );
+				_pp_clear_exceptions( $via_item_source, $descendant_ids, array( 'inherited_only' => true ) );
 			}
 
-			// apply propagating roles from specific parent
+			// assign propagating exceptions from new parent
 			if ( $set_parent ) {
+				$id_clause = "AND i.item_id IN ('" . implode( "','", array_merge( $descendant_ids, (array) $item_id ) ) . "')";
+				$retain_exceptions = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->ppc_exception_items AS i INNER JOIN $wpdb->ppc_exceptions AS e ON e.exception_id = i.exception_id WHERE i.assign_for = 'item' AND i.inherited_from = '0' AND e.via_item_source = %s $id_clause", $via_item_source ) );
+				
 				if ( 'term' == $via_item_source ) {
 					$parent_term = get_term( $set_parent, $via_item_type );
 					$set_parent = $parent_term->term_taxonomy_id;
 				}
-			
-				//if ( 'object' == $scope )
-				//	_pp_inherit_parent_exceptions( $via_item_source, $item_id, $set_parent, $object_type );
-				//else
-					$any_inserts = _pp_inherit_parent_exceptions( $via_item_source, $item_id, $set_parent, compact( 'retain_exceptions', 'force_for_item_type' ) );
-			}
+
+				// propagate exception from new parent to this item and its branch of sub-items
+				$_args = compact( 'retain_exceptions', 'force_for_item_type' );
+				$_args['parent_exceptions'] = _pp_get_parent_exceptions( $via_item_source, $item_id, $set_parent ); 
+				$any_inserts = _pp_inherit_parent_exceptions( $via_item_source, $item_id, $set_parent, $_args );
+
+				foreach( $descendant_ids as $_descendant_id ) {
+					$any_inserts = $any_inserts || _pp_inherit_parent_exceptions( $via_item_source, $_descendant_id, $set_parent, $_args );
+				}
+			} 
 		} // endif new parent selection (or new item)
 		
 		return ! empty($any_inserts);
@@ -117,7 +134,12 @@ function _pp_clear_exceptions( $via_item_source, $item_id, $args = array() ) {
 	
 	$inherited_clause = ( $inherited_only ) ? "AND inherited_from > 0" : '';
 
-	if ( $ass_ids = $wpdb->get_col( $wpdb->prepare( "SELECT i.eitem_id FROM $wpdb->ppc_exception_items AS i INNER JOIN $wpdb->ppc_exceptions AS e ON e.exception_id = i.exception_id WHERE e.via_item_source = %s $inherited_clause AND i.item_id = %d", $via_item_source, $item_id ) ) ) {
+	if ( is_array( $item_id ) )
+		$id_clause = "AND i.item_id IN ('" . implode( "','", $item_id ) . "')";
+	else
+		$id_clause = $wpdb->prepare( "AND i.item_id = %d", $item_id );
+	
+	if ( $ass_ids = $wpdb->get_col( $wpdb->prepare( "SELECT i.eitem_id FROM $wpdb->ppc_exception_items AS i INNER JOIN $wpdb->ppc_exceptions AS e ON e.exception_id = i.exception_id WHERE e.via_item_source = %s $inherited_clause $id_clause", $via_item_source ) ) ) {
 		require_once( dirname(__FILE__).'/role_assigner_pp.php' );
 		PP_RoleAssigner::remove_exception_items_by_id( $ass_ids );
 	}
@@ -135,7 +157,7 @@ function _pp_inherit_parent_exceptions( $via_item_source, $item_id, $parent_id, 
 		
 	foreach( $retain_exceptions as $r ) {	// can't just compare exception_id because want to avoid inheriting an include exception if an exclude is manually stored, etc.
 		foreach( $parent_exceptions as $ekey => $e ) {
-			if ( $r->item_id == $e->item_id 
+			if ( $r->item_id == $item_id
 			&& $r->via_item_source == $e->via_item_source
 			&& $r->agent_type == $e->agent_type
 			&& $r->agent_id == $e->agent_id

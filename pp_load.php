@@ -50,11 +50,18 @@ if ( defined( 'SSEO_VERSION' ) )
 
 if ( is_admin() )
 	require_once( $dir.'/admin/admin-load_pp.php' );
+else
+	add_action( 'pp_pre_init', '_pp_enable_attachment_metacap_workaround' );
 
 $pp_role_defs = new PP_Role_Defs();
 
 //if ( ! pp_wp_ver( '3.0' ) )
 //	require_once( dirname(__FILE__).'/wp-legacy_pp.php' );
+
+function _pp_enable_attachment_metacap_workaround() {
+	if ( in_array( 'attachment',  pp_get_enabled_post_types() ) )
+		require_once( dirname(__FILE__).'/media-metacap-workaround_pp.php' );
+}
 
 class PP_Role_Defs {
 	var $anon_user_caps = array();

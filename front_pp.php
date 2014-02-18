@@ -1,8 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-add_filter('get_terms', '_pp_flt_get_tags', 50, 3);
-
 if ( pp_is_active_widget_prefix( 'calendar-' ) )
 	add_filter( 'query', '_pp_flt_calendar' );
 
@@ -65,13 +63,3 @@ function _pp_flt_calendar( $query ) {
 	return $query;
 }
 
-function _pp_flt_get_tags( $results, $taxonomies, $args ) {
-	if ( ! is_array($taxonomies) )
-		$taxonomies = (array) $taxonomies;
-
-	if ( ('post_tag' != $taxonomies[0]) || (count($taxonomies) > 1) )
-		return $results;
-
-	require_once( dirname(__FILE__).'/front-tags_pp.php');
-	return PP_FrontTags::flt_get_tags( $results, $taxonomies, $args );
-}

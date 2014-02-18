@@ -1,3 +1,7 @@
+function pp_jqid(selector) {
+    return selector.replace(/:/g, '\\:');
+}
+
 jQuery(document).ready( function($) {
 	$(".pp-hidden-subdiv h3").click( function(e) {
 		e.preventDefault();

@@ -56,7 +56,26 @@ class PP_Updated {
 	
 				break;  // no need to run through version comparisons if no previous version
 			}
+			
+			if ( version_compare( $prev_version, '2.1.35', '<') ) {
+				require_once( dirname(__FILE__).'/update-exceptions_pp.php' );
+				
+				// Previously, page exceptions were propagated to all descendents, including attachments (but this is unnecessary and potentially undesirable)
+				_ppc_delete_propagated_attachment_exceptions();
+				_ppc_expose_attachment_exception_items();  // "include" exceptions for Read/Edit operations are exposed but not deleted, since they affect access to other media 
 
+				// Previously, propagated exceptions were not removed when parent exception assign_for was changed to item only.  Expose them by setting inherited_from to 0
+				_ppc_expose_orphaned_exception_items();
+			} else break;
+
+			if ( version_compare( $prev_version, '2.1.33', '<') ) {
+				if ( $enabled_taxonomies = get_option( 'pp_enabled_taxonomies' ) ) {
+					// previously, post_tag was disabled by default but implicitly enabled for front-end filtering
+					$enabled_taxonomies['post_tag'] = true;
+					update_option( 'pp_enabled_taxonomies', $enabled_taxonomies );
+				}
+			} else break;
+			
 			if ( version_compare( $prev_version, '2.1.16-beta', '<') ) {
 				global $wpdb;
 				$wpdb->query( "UPDATE $wpdb->ppc_exceptions SET for_item_source = 'post' WHERE for_item_source = 'all'" );

@@ -296,7 +296,7 @@ class PP_GroupsUI {
 	<?php
 	}
 	
-	function _item_select_ui( $type_objects ) {
+	static function _item_select_ui( $type_objects ) {
 		add_filter( 'get_terms_args', array( 'PP_GroupsUI', '_term_select_no_paging' ), 50, 2 );
 		add_action( 'admin_print_footer_scripts', array( 'PP_GroupsUI', '_hide_term_select_paging' ) );
 		
@@ -519,8 +519,16 @@ class PP_GroupsUI {
 		self::_current_roles_ui( $roles, $args );
 
 		$post_types[''] = ''; // also retrieve exceptions for (all) post type
-		$exc = ppc_get_exceptions( array( 'assign_for' => '', 'inherited_from' => 0, 'extra_cols' => array('i.assign_for', 'i.eitem_id'), 'agent_type' => $agent_type, 'agent_id' => $agent_id, 'post_types' => array_keys($post_types), 'taxonomies' => array_keys($taxonomies), 'return_raw_results' => true ) );
+		
+		$_args = array( 'assign_for' => '', 'extra_cols' => array('i.assign_for', 'i.eitem_id'), 'agent_type' => $agent_type, 'agent_id' => $agent_id, 'post_types' => array_keys($post_types), 'taxonomies' => array_keys($taxonomies), 'return_raw_results' => true );
+		if ( empty( $_REQUEST['show_propagated'] ) )
+			$_args['inherited_from'] = 0;
+		else
+			$_args['extra_cols'] []= 'i.inherited_from';
+		
+		$exc = ppc_get_exceptions( $_args );
 		$args['class'] = ( 'user' == $agent_type ) ? 'pp-user-roles' : 'pp-group-roles';
+		
 		self::_current_exceptions_ui( $exc, $args );
 		
 		do_action( 'pp_group_roles_ui', $agent_type, $agent_id );
@@ -619,7 +627,7 @@ class PP_GroupsUI {
 					$_arr = $type_roles[$src_name][$object_type];
 					ksort( $_arr );
 					foreach( array_keys($_arr) as $role_name ) {
-						$role_title = ppc_get_role_title( $role_name );
+						$role_title = ppc_get_role_title( $role_name, array( 'include_warnings' => true ) );
 						
 						if ( $read_only ) {
 							$inputs []= "<label>$role_title</label>";
@@ -745,6 +753,9 @@ class PP_GroupsUI {
 				$exceptions[$row->via_item_source][$via_type][$row->for_item_type][$row->operation][$row->mod_type][$row->for_item_status][$row->item_id] = array();
 				
 			$exceptions[$row->via_item_source][$via_type][$row->for_item_type][$row->operation][$row->mod_type][$row->for_item_status][$row->item_id][$row->assign_for] = $row->eitem_id;
+			
+			if ( ! empty($row->inherited_from) )
+				$exceptions[$row->via_item_source][$via_type][$row->for_item_type][$row->operation][$row->mod_type][$row->for_item_status][$row->item_id]['inherited_from'] = $row->inherited_from;
 		}
 		
 		echo '<div style="clear:both;"></div>'
@@ -819,6 +830,8 @@ class PP_GroupsUI {
 	
 						if ( 'assign' == $operation )
 							$op_caption = ( $for_type ) ? sprintf( __('%1$s (%2$s: %3$s)', 'pp'), $operation_obj->label, $for_type_obj->labels->singular_name, $via_type_caption ) : sprintf( __('%1$s %2$s %3$s', 'pp'), $operation_obj->label, $via_type_caption, $for_type_obj->labels->singular_name );
+						elseif ( in_array( $operation, array( 'manage', 'associate' ) ) )
+							$op_caption = sprintf( __('%1$s %2$s', 'pp'), $operation_obj->label, $via_type_caption );
 						else
 							$op_caption = sprintf( __('%1$s %2$s', 'pp'), $operation_obj->label, $for_type_obj->labels->singular_name );
 						
@@ -879,7 +892,7 @@ class PP_GroupsUI {
 
 								echo "<div class='pp-role-terms-wrapper pp-role-terms-{$via_type}'>";
 
-								if ( 'term' == $via_src ) {
+								if ( ( 'term' == $via_src ) && ! in_array( $operation, array( 'manage', 'associate' ) ) ) {
 									if ( taxonomy_exists( $via_type ) ) {
 										// "Categories:"
 										$tx_obj = get_taxonomy($via_type);
@@ -902,18 +915,23 @@ class PP_GroupsUI {
 									//$assignment = $roles[$scope][$role_name][$item_source][$item_type][$item_id];
 									$assignment = $exceptions[$via_src][$via_type][$for_type][$operation][$mod_type][$status][$item_id];
 									
+									$classes = array();
+									
 									if ( isset($assignment['children']) ) {
 										if ( isset($assignment['item']) ) {
 											$ass_id = $assignment['item'] . ',' . $assignment['children'];
-											$class = "class='role_both'";
+											$classes []= 'role_both';
+											$any_both = true;
 										} else {
 											$ass_id = '0,' . $assignment['children'];
-											$class = "class='role_ch'";
+											$classes []= 'role_ch';
+											$any_child_only = true;
 										}
 									} else {
 										$ass_id = $assignment['item'];
-										$class = '';
 									}
+									
+									$class = ( $classes ) ? "class='" . implode( ' ', $classes ) . "'" : '';
 								
 									if ( $read_only ) {
 										if ( $item_links ) {
@@ -924,7 +942,17 @@ class PP_GroupsUI {
 											echo "<div><span $class>$item_path</span></div>";
 									} else {
 										$cb_id = 'pp_edit_exception_' . str_replace( ',', '_', $ass_id );
-										$lbl_class = ( $tr_class ) ? $tr_class : $class; // apply fading for redundantly stored exclusions
+										
+										if ( ! empty($assignment['inherited_from']) ) {
+											$classes []= 'inherited';
+											$classes []= "from_{$assignment['inherited_from']}";
+										}
+										
+										if ( $tr_class ) // apply fading for redundantly stored exclusions
+											$classes []= $tr_class;
+										
+										$lbl_class = ( $classes ) ? "class='" . implode( ' ', $classes ) . "'" : '';
+										
 										if ( 'term' == $via_src )
 											$edit_url = admin_url( "edit-tags.php?taxonomy={$via_type}&action=edit&tag_ID=" . pp_ttid_to_termid( $item_id, $via_type ) . "&post_type=$for_type" );
 										else
@@ -979,10 +1007,28 @@ class PP_GroupsUI {
 				if ( ! empty($via_type_obj->hierarchical) ) {
 					$_caption = strtolower($via_type_obj->labels->name);
 					
-					if ( 'term' == $via_src )
-						echo '<div class="pp-current-roles-note">' . sprintf( __('note: Exceptions inherited from parent %s are not displayed.', 'pp'), $_caption ) . '</div>';
-					else
-						echo '<div class="pp-current-roles-note">' . sprintf( __('note: Exceptions inherited from parent %s or terms are not displayed.', 'pp'), $_caption ) . '</div>';
+					if ( ! empty($any_both) || ! empty($any_child_only) ) :?>
+						<div class="pp-current-roles-note">
+
+						<?php 
+						if ( ! empty( $any_both ) )
+							echo '<span class="role_both" style="padding-right:20px">' . sprintf( __('... = assigned for %1$s and sub-%1$s', 'pp'), $_caption ) . '</span>';
+					
+						if ( ! empty( $any_child_only ) )
+							echo '<span>' . sprintf( __('* = assigned for sub-%s only', 'pp'), $_caption ) . '</span>';
+						?>
+						</div>
+					<?php endif;
+						
+					$show_all_url = esc_url( add_query_arg( 'show_propagated', '1', $_SERVER['REQUEST_URI'] ) );
+					$show_all_link = "&nbsp;&nbsp;<a href='$show_all_url'>";
+					
+					if ( empty( $_REQUEST['show_propagated'] ) ) {
+						if ( 'term' == $via_src )
+							echo '<div class="pp-current-roles-note">' . sprintf( __('note: Exceptions inherited from parent %1$s are not displayed. %2$sshow all%3$s', 'pp'), $_caption, $show_all_link, '</a>' ) . '</div>';
+						else
+							echo '<div class="pp-current-roles-note">' . sprintf( __('note: Exceptions inherited from parent %1$s or terms are not displayed. %2$sshow all%3$s', 'pp'), $_caption, $show_all_link, '</a>' ) . '</div>';
+					}
 				}
 				
 				echo '</div>';  // pp-current-exceptions

@@ -70,7 +70,7 @@ class PP_QueryInterceptor
 				}
 			}
 
-			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event' ) );
+			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event', 'tribe_calendar' => 'tribe_events' ) );
 			
 			foreach( array_keys($ajax_post_types) as $arg ) {
 				if ( ! empty( $_REQUEST[$arg] ) || ( $arg == $_REQUEST['action'] ) ) {
@@ -343,8 +343,8 @@ class PP_QueryInterceptor
 					$reqd_caps = pp_map_meta_cap( $meta_cap, $pp_current_user->ID, 0, compact( 'post_type', 'status', 'query_contexts' ) );
 					if ( $flag_meta_caps ) { $pp_meta_caps->do_status_cap_map = false; }
 					
-					if ( $reqd_caps ) {
-						if ( array_diff( $reqd_caps, array_keys( $pp_current_user->allcaps ) ) ) {
+					if ( $reqd_caps ) {  // note: this function is called only for listing query filters (not for user_has_cap filter)
+						if ( $missing_caps = apply_filters( 'pp_query_missing_caps', array_diff( $reqd_caps, array_keys( $pp_current_user->allcaps ) ), $reqd_caps, $post_type, $meta_cap ) ) {
 							$owner_reqd_caps = $this->get_base_caps( $reqd_caps, $post_type );  // remove "others" and "private" cap requirements for post author
 
 							if ( ( $owner_reqd_caps != $reqd_caps ) && $pp_current_user->ID ) {// && ! $omit_owner_clause 
@@ -418,7 +418,7 @@ class PP_QueryInterceptor
 
 		// term restrictions which apply to any post type
 		if ( $apply_term_restrictions ) {
-			if ( $term_exc_where = PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true ) ) ) {
+			if ( $term_exc_where = PP_Exceptions::add_term_restrictions_clause( $required_operation, '', $src_table, array( 'merge_universals' => true, 'merge_additions' => true, 'exempt_post_types' => $tease_otypes ) ) ) {
 				$pp_where = "( $pp_where ) $term_exc_where";
 			}
 		}

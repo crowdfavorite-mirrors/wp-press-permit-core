@@ -29,7 +29,7 @@ class PP_ItemExceptionsRenderUI {
 		$this->options['includes'][1] = $this->opt_labels['unblocked'];
 		$this->options['includes'][2] = $this->opt_labels['enabled'];
 	
-		if ( in_array( $agent_type, array( 'wp_role', 'user' ) ) ) {
+		if ( in_array( $agent_type, array( 'wp_role', 'user' ) ) || defined( 'PP_GROUP_RESTRICTIONS' ) ) {
 			$this->options['standard'][''] = (  ( 'user' == $agent_type ) || ( 'edit-tags.php' == $pagenow ) ) ? $this->opt_labels['no_setting'] : $this->opt_labels['default'];
 			$this->options['standard'][0] = $this->opt_labels['blocked'];
 			$this->options['standard'][2] = $this->opt_labels['enabled'];

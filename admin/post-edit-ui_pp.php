@@ -101,7 +101,7 @@ class PP_PostEditUI {
 	
 	function draw_settings_ui( $object, $box ) {
 		if ( $type_obj = get_post_type_object( $object->post_type ) ) :?>
-			<label for="pp_enable_post_type"><input type="checkbox" name="pp_enable_post_type" /> <?php printf( __( 'enable custom permissions for %s', 'pp' ), $type_obj->labels->name );?></label>
+			<label for="pp_enable_post_type"><input type="checkbox" name="pp_enable_post_type" id="pp_enable_post_type" /> <?php printf( __( 'enable custom permissions for %s', 'pp' ), $type_obj->labels->name );?></label>
 		<?php endif;
 	}
 	

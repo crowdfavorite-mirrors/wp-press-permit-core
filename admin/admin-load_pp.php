@@ -11,7 +11,7 @@ if ( defined( 'SSEO_VERSION' ) )
 	require_once( dirname(__FILE__).'/eyes-only-admin_pp.php' );
 
 function _pp_default_admin_options( $options ) {
-	$options['support_data'] = array_fill_keys( array( 'pp_options', 'wp_roles_types', 'theme', 'active_plugins', 'pp_permissions', 'error_log', 'post_data', 'term_data' ), true );
+	$options['support_data'] = array_fill_keys( array( 'pp_options', 'wp_roles_types', 'theme', 'active_plugins', 'pp_permissions', 'pp_group_members', 'error_log', 'post_data', 'term_data' ), true );
 	return $options;
 }
 

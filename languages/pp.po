@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Press Permit 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-15 10:59-0500\n"
+"POT-Creation-Date: 2013-12-18 15:06-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kevin Behrens <kevin@agapetry.net>\n"
 "Language-Team: Agapetry Creations LLC <kevin@agapetry.net>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "X-Poedit-SearchPath-4: E:\\wwwsubs\\wp-content\\plugins\\press-permit-core\\admin\\includes\n"
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/eyes-only-helper_pp.php:4
-msgid "Press Permit Group"
+msgid "Permission Group"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/groups-retrieval_pp.php:238
@@ -128,14 +128,19 @@ msgstr ""
 msgid "Thanks for activating Press Permit Core. Please go to %1$sPermissions > Settings%2$s and indicate which Post Types and Taxonomies should be filtered."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-roles_pp.php:81
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-roles_pp.php:66
 #, php-format
-msgid "%1$s&nbsp;%2$s&nbsp;<span class=\"pp_nolink\">-&nbsp;%3$s</span>"
+msgid "(using default capabilities due to invalid %s definition)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-roles_pp.php:83
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-roles_pp.php:86
 #, php-format
-msgid "%1$s&nbsp;%2$s"
+msgid "%1$s&nbsp;%2$s&nbsp;<span class=\"pp_nolink\">-&nbsp;%3$s</span>%4$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-roles_pp.php:88
+#, php-format
+msgid "%1$s&nbsp;%2$s&nbsp;%3$s"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui-roles_pp.php:68
@@ -153,35 +158,35 @@ msgstr ""
 msgid "%s, more..."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:211
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:217
 msgid "Permissions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:220
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:226
 msgid "Add New Permission Group"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:224
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:230
 msgid "Users"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:230
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:236
 msgid "Settings"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:236
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:242
 msgid "Edit Permissions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:243
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:249
 msgid "About Press Permit"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:243
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:249
 msgid "About"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:297
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/admin-ui_pp.php:303
 msgid "Press Permit"
 msgstr ""
 
@@ -240,9 +245,8 @@ msgstr ""
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:44
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:64
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:89
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:149
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:181
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-item_ui_pp.php:12
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:137
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:164
 msgid "(login timed out)"
 msgstr ""
 
@@ -250,25 +254,25 @@ msgstr ""
 msgid "select..."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:108
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:97
 msgid "selected:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:160
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:143
 #, php-format
 msgid "selected %s:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:165
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:148
 #, php-format
 msgid "sub-%s of:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:187
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:170
 msgid "(all)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:198
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ajax-exceptions_ui_pp.php:181
 #, php-format
 msgid "%s Visibility"
 msgstr ""
@@ -313,15 +317,6 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/eyes-only-admin_pp.php:18
-#, php-format
-msgid "By %s"
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/eyes-only-admin_pp.php:18
-msgid "Permission Group"
-msgstr ""
-
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/filters-update-core_pp.php:40
 #, php-format
 msgid "%1$sPress Permit%2$s: %3$s%4$s update available%5$s"
@@ -357,6 +352,34 @@ msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-render-ui_pp.php:17
 msgid "Unblocked"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui-hints_pp.php:5
+msgid "To block direct access to unreadable files, activate the PP File URL Filter plugin."
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui-hints_pp.php:7
+#, php-format
+msgid "To block direct access to unreadable files, %1$sinstall%2$s the PP File URL Filter plugin."
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui-hints_pp.php:9
+#, php-format
+msgid "To block direct access to unreadable files, %1$spurchase a support key%2$s and install the PP File URL Filter plugin."
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui-hints_pp.php:16
+msgid "To customize editing permissions, activate the PP Collaborative Editing plugin."
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui-hints_pp.php:18
+#, php-format
+msgid "To customize editing permissions, %1$sinstall%2$s the PP Collaborative Editing plugin."
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui-hints_pp.php:20
+#, php-format
+msgid "To customize editing permissions, %1$spurchase a support key%2$s and install the PP Collaborative Editing plugin."
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui_pp.php:31
@@ -409,21 +432,7 @@ msgstr ""
 msgid "create group"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui_pp.php:217
-msgid "To customize editing permissions, activate the PP Collaborative Editing plugin."
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui_pp.php:219
-#, php-format
-msgid "To customize editing permissions, %1$sinstall%2$s the PP Collaborative Editing plugin."
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui_pp.php:221
-#, php-format
-msgid "To customize editing permissions, %1$spurchase a support key%2$s and install the PP Collaborative Editing plugin."
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui_pp.php:229
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/item-exceptions-ui_pp.php:223
 msgid "To customize <strong>for a specific post status</strong>, edit the desired role / group / user permissions directly (Permissions > Groups or Users)"
 msgstr ""
 
@@ -1106,9 +1115,9 @@ msgid "Do Clone"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:107
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:199
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:382
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:414
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:192
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:370
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:402
 msgid "Post Type"
 msgstr ""
 
@@ -1165,158 +1174,154 @@ msgstr ""
 msgid "To assign Revisionary exceptions, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Collaborative Editing and PP Compatibility Pack plugins."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:200
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:193
 msgid "Post Operation"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:201
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:416
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:194
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:404
 msgid "Adjustment"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:202
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:417
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:195
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:405
 msgid "Qualification"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:203
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:196
 msgid "Statuses"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:230
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:224
 msgid "for item"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:251
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:245
 msgid "Warning: Content hidden by exceptions will be displayed if PP is deactivated. Consider setting a private Visibility on Edit Post screen instead."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:279
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:273
 msgid "To assign exceptions for editing, parent selection or term assignment, activate the PP Collaborative Editing plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:281
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:275
 #, php-format
 msgid "To assign exceptions for editing, parent selection or term assignment, %1$sinstall%2$s the PP Collaborative Editing plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:283
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:277
 #, php-format
 msgid "To assign exceptions for editing, parent selection or term assignment, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Collaborative Editing plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:292
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:286
 msgid "To assign exceptions for bbPress forums, activate the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:294
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:288
 #, php-format
 msgid "To assign exceptions for bbPress forums, %1$sinstall%2$s the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:296
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:290
 #, php-format
 msgid "To assign exceptions for bbPress forums, %1$senter%2$s or %3$spurchase%4$s a support key and install the PP Compatibility Pack plugin."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:333
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:321
 #, php-format
 msgid "Select %s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:384
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:419
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:372
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:407
 msgid "Status"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:396
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:384
 msgid "Save Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:415
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:403
 msgid "Operation"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:431
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:419
 msgid "Save Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:455
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:443
 msgid "Add Supplemental Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:457
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:445
 msgid "Add Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:467
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:455
 msgid "Clone"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:494
-msgid "Permission Groups"
-msgstr ""
-
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:550
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:545
 #, php-format
 msgid "Supplemental Roles %1$s(for user)%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:550
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:545
 msgid "Supplemental Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:611
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:606
 msgid "Term Management"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:615
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:618
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:610
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:613
 msgid "objects"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:616
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:611
 msgid "Direct-Assigned"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:619
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:614
 msgid "Disabled Type"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:624
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:619
 #, php-format
 msgid "%s Roles"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:661
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:979
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:656
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:994
 msgid "Apply"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:685
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:680
 #, php-format
 msgid "Exceptions %1$s(for user)%2$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:685
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:680
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/post-listing-ui_pp.php:56
 msgid "Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:693
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:688
 msgid "(none)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:825
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:823
 msgid "(all post types)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:834
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:832
 #, php-format
 msgid "%1$s (%2$s: %3$s)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:834
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:832
 #, php-format
 msgid "%1$s %2$s %3$s"
 msgstr ""
@@ -1335,49 +1340,59 @@ msgstr ""
 msgid "%s:"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:945
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:960
 msgid "edit"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:967
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:982
 #, php-format
 msgid "Assign for selected and sub-%s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:968
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:983
 #, php-format
 msgid "Assign for selected %s only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:969
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:984
 #, php-format
 msgid "Assign for sub-%s only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:971
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:986
 msgid "Assign for selected and sub-terms"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:972
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:987
 msgid "Assign for selected term only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:973
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:988
 msgid "Assign for sub-terms only"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:989
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:1004
 msgid "* = exceptions redundant due to a corresponding &quot;only these&quot; entry"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:996
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:1015
 #, php-format
-msgid "note: Exceptions inherited from parent %s are not displayed."
+msgid "... = assigned for %1$s and sub-%1$s"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:998
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:1018
 #, php-format
-msgid "note: Exceptions inherited from parent %s or terms are not displayed."
+msgid "* = assigned for sub-%s only"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:1028
+#, php-format
+msgid "note: Exceptions inherited from parent %1$s are not displayed. %2$sshow all%3$s"
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/permissions-ui_pp.php:1030
+#, php-format
+msgid "note: Exceptions inherited from parent %1$s or terms are not displayed. %2$sshow all%3$s"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update-watch_pp.php:31
@@ -1398,23 +1413,23 @@ msgstr ""
 msgid "You do not have sufficient permissions to install plugins for this site."
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:388
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:312
 msgid "Reload Press Permit Install Screen"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:391
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:315
 msgid "Return to Plugins page"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:443
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:367
 msgid "Activate Plugin"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:446
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:370
 msgid "Network Activate"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:450
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/plugin-update_pp.php:374
 msgid "Reload PP Install Screen"
 msgstr ""
 
@@ -1563,6 +1578,12 @@ msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:25
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-agent-edit-handler.php:95
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:30
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:36
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-edit-permissions.php:39
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-group-new.php:39
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-permits-handler.php:33
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-permits-handler.php:76
 msgid "You are not permitted to do that."
 msgstr ""
 
@@ -1730,6 +1751,11 @@ msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-groups.php:111
 msgid "New group created."
+msgstr ""
+
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-groups.php:137
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/profile_ui_pp.php:170
+msgid "Permission Groups"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/pp-groups.php:166
@@ -1955,41 +1981,41 @@ msgstr ""
 msgid "note: BuddyPress Groups and other externally defined groups are not listed here, even if they modify permissions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:71
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:76
 #, php-format
 msgid "%1$s %2$s %3$s Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:71
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:76
 #, php-format
 msgid "%1$s %2$s Exceptions (all post types)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:73
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:78
 #, php-format
 msgid "%1$s %2$s Exceptions (all post statuses)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:73
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:78
 #, php-format
 msgid "%1$s Exceptions (all post types, statuses)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:75
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:80
 #, php-format
 msgid "%1$s %2$s Exceptions"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:75
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:80
 #, php-format
 msgid "%1$s Exceptions (all post types)"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:133
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:138
 msgid "Update"
 msgstr ""
 
-#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:161
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/term-edit-ui_pp.php:176
 #, php-format
 msgid "Displayed exceptions are those assigned for the \"%1$s\" type. You can also %2$sdefine universal %3$s exceptions which apply to all related post types%4$s."
 msgstr ""
@@ -2068,6 +2094,8 @@ msgid "No items selected!"
 msgstr ""
 
 #: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/ui-helper_pp.php:79
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/includes/item-menu_pp.php:216
+#: E:\wwwsubs\wp-content\plugins\press-permit-core/admin/includes/item-menu_pp.php:672
 msgid "No results found."
 msgstr ""
 

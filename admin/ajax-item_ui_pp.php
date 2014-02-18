@@ -11,7 +11,7 @@ switch ( $_GET['pp_ajax_item_ui'] ) {
 case 'get_agent_exception_ui':
 	if ( ! is_user_logged_in() ) { echo '<option>' . __('(login timed out)', 'pp') . '</option>'; exit; }
 
-	if ( ! $arr_sfx = explode( '-', pp_sanitize_csv($_GET['id_sfx']) ) )
+	if ( ! $arr_sfx = explode( ':', pp_sanitize_csv($_GET['id_sfx']) ) )
 		return '';
 	
 	$op = $arr_sfx[0];

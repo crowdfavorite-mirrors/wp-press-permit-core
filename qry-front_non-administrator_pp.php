@@ -9,7 +9,27 @@ if ( is_object($wp_query) && method_exists($wp_query, 'is_tax') && $wp_query->is
 
 do_action( 'pp_query_interceptor_front_non_administrator' );
 
+// Slidedeck temporary workaround: can't currently filter it properly in iframe or with ress
+add_filter( 'widget_display_callback', array('PP_QueryInterceptorFront_NonAdmin', 'flt_slidedeck_widget'), 10, 3 );
+
 class PP_QueryInterceptorFront_NonAdmin {
+	public static function flt_slidedeck_widget( $instance, $this, $args) {
+		if ( is_array( $instance ) && isset( $instance['slidedeck_id'] ) ) {
+			foreach( array_keys($instance) as $key ) {
+				if ( ! strpos( $key, 'slidedeck' ) )
+					continue;
+				
+				if ( strpos( $key, 'deploy_as_iframe' ) )
+					unset( $instance[$key] );
+				
+				if ( strpos( $key, 'use_ress' ) )
+					unset( $instance[$key] );
+			}
+		}
+		
+		return $instance;
+	}
+	
 	// force scoping filter to process the query a second time, to handle the p2 clause imposed by WP core for custom taxonomy requirements
 	public static function flt_p2_request( $request ) {
 		if ( strpos( $request, 'p2.post_status' ) )

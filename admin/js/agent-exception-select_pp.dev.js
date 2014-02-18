@@ -1,5 +1,7 @@
 function pp_load_agents_js( id_sfx, agent_type, context, agent_id, suppress_selection_js ) {
 	jQuery(document).ready( function($) {
+		id_sfx = pp_jqid(id_sfx);
+		
 		if ( ! suppress_selection_js) {
 			$("#select_agents_" + id_sfx).click(function(e) {
 				e.preventDefault();

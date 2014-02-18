@@ -80,4 +80,3 @@ class PP_OptionsUI {
 		}
 	}
 }
-

@@ -13,7 +13,7 @@ class PP_User extends WP_User {
 	var $groups = array(); 		// $groups[agent_type][group id] = 1
 	var $site_roles = array();	
 								// note: nullstring for_item_type means all post types
-	var $except = array();	    // $except[{operation}_{for_item_source}][iva_item_source][via_item_type]['include' or 'exclude'][for_item_type] = array of stored IDs / term_taxonomy_ids
+	var $except = array();	    // $except[{operation}_{for_item_source}][via_item_source][via_item_type]['include' or 'exclude'][for_item_type][for_item_status] = array of stored IDs / term_taxonomy_ids
 	var $cfg = array();
 	
 	function __construct($id = 0, $name = '', $args = array()) {
@@ -30,7 +30,6 @@ class PP_User extends WP_User {
 		
 		if ( ! empty($args['filter_usergroups']) && ! empty($args['filter_usergroups'][$agent_type]) )  // assist group admin
 			$this->groups[$agent_type] = array_intersect_key($this->groups[$agent_type], $args['filter_usergroups'][$agent_type]);
-
 
 		$this->site_roles = $this->get_site_roles();	// @todo: eliminate redundant call - get_user_typecast_caps()
 

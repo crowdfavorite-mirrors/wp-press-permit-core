@@ -29,6 +29,9 @@ class PP_TermsInterceptor {
 		if ( $terms ) {
 			global $pp_current_user;
 		
+			if ( defined( 'PP_GET_TERMS_SHORTCUT' ) && ! did_action( 'wp_head' ) )  // experimental theme-specific workaround
+				return $terms;
+		
 			if ( ! $_post = get_post( $post_id ) )
 				return $terms;
 		
@@ -182,7 +185,7 @@ class PP_TermsInterceptor {
 			
 				// include terms were specified for all post types
 				if ( count($taxonomies) == 1 )
-					$clauses['where'] .= " AND tt.term_taxonomy_id IN ('" . implode( "','", array_unique($included_ttids) ) . "')";
+					$clauses['where'] = " ( " . $clauses['where'] . " ) AND tt.term_taxonomy_id IN ('" . implode( "','", array_unique($included_ttids) ) . "')";
 				else
 					$clauses['where'] .= " AND ( tt.taxonomy != '$taxonomy' OR tt.term_taxonomy_id IN ('" . implode( "','", array_unique($included_ttids) ) . "') )";
 			}

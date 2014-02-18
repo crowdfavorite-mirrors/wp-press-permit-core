@@ -72,7 +72,7 @@ case 'get_mod_options':
 	if ( ! $is_wp_role || ! in_array( $group->metagroup_id, array( 'wp_anon', 'wp_all' ) ) )
 		$modes['additional'] = __('Also these:', 'pp');
 	
-	if ( ( 'user' == $agent_type ) || $is_wp_role || ( 'assign' == $operation ) ) {
+	if ( ( 'user' == $agent_type ) || $is_wp_role || ( 'assign' == $operation ) || defined( 'PP_GROUP_RESTRICTIONS' ) ) {
 		$modes['exclude'] = __('Not these:', 'pp');
 	}
 	

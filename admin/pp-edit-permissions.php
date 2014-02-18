@@ -183,7 +183,7 @@ $disabled = ( ! pp_group_type_editable( $agent_type ) || $agent->metagroup_id ) 
 <?php elseif ($agent_id) : ?>
 <tr>
 	<th><label for="description"><?php echo __ppw('Description:', 'pp'); ?></label></th>
-	<td><input type="text" name="description" id="description" value="<?php echo esc_attr($agent->group_description) ?>" class="regular-text" <?php echo $disabled;?> style="width:100%" /></td>
+	<td><input type="text" name="description" id="description" value="<?php echo esc_attr($agent->group_description) ?>" class="regular-text" <?php echo $disabled;?> style="width:95%" /></td>
 </tr>
 <?php endif; ?>
 </table>
@@ -312,4 +312,3 @@ if ( pp_bulk_roles_enabled() ) {
 
 </div></div> <?php // #pp_cred_wrap, #group-profile-page ?>
 <?php
-?>

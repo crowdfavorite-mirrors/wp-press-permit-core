@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class PP_ProfileUI {
-	private function abbreviated_exceptions_ui( $agent_type, $agent_id, $args = array() ) {
+	static function abbreviated_exceptions_ui( $agent_type, $agent_id, $args = array() ) {
 		$defaults = array( 'caption' => '', 'edit_url' => '', 'join_groups' => false, 'class' => 'pp-user-roles', 'new_permissions_link' => false, 'maybe_display_note' => true );
 		$args = array_merge( $defaults, $args );
 		extract( $args, EXTR_SKIP );

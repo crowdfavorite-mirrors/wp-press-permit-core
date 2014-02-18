@@ -56,7 +56,7 @@ class PP_Updater {
 			$url = "update.php?action={$slug}&plugin=" . $plugin;
 
 			$upgrader = new PP_Core_Upgrader( new PP_Upgrader_Skin( compact('title', 'nonce', 'url', 'plugin') ) );
-			$upgrader->upgrade($plugin);
+			$upgrader->upgrade_pp_package($plugin);
 
 			define('UPDATED_PP_PLUGIN', true);
 			
@@ -104,7 +104,7 @@ class PP_Updater {
 </style>
 <?php
 			$upgrader = new PP_Core_Upgrader( new PP_Installer_Skin( compact('title', 'url', 'nonce', 'plugin') ) );
-			$upgrader->install( $plugin, "http://presspermit.com/index.php?PPServerRequest=download&update=$slug&version=VERSION&key=KEY&site=URL" );
+			$upgrader->install_pp_package( $plugin, "http://presspermit.com/index.php?PPServerRequest=download&update=$slug&version=VERSION&key=KEY&site=URL" );
 		}
 	}
 
@@ -143,88 +143,13 @@ class PP_Upgrader extends Plugin_Upgrader {
 		$values = array( urlencode(PPC_VERSION), urlencode($key_arg), urlencode( get_option('siteurl') ) );
 		$package = str_replace( $vars, $values, $package );
 
-		$download_file = $this->download_url($package);
+		$download_file = download_url($package);
 
 		if ( is_wp_error($download_file) )
 			return new WP_Error('download_failed', $this->strings['download_failed'], $download_file->get_error_message());
 
 		return $download_file;
 	}
-
-	function download_url ( $url ) {
-		//WARNING: The file is not automatically deleted, The script must unlink() the file.
-		if ( ! $url )
-			return new WP_Error('http_no_url', __ppw('Invalid URL Provided'));
-
-		$request = parse_url($url);
-		parse_str($request['query'],$query);
-		$tmpfname = wp_tempnam( $query['update'] . ".zip" );
-		if ( ! $tmpfname )
-			return new WP_Error('http_no_file', __ppw('Could not create Temporary file'));
-
-		$handle = @fopen($tmpfname, 'wb');
-		if ( ! $handle )
-			return new WP_Error('http_no_file', __ppw('Could not create Temporary file'));
-
-		$response = wp_remote_get($url, array('timeout' => 300));
-
-		if ( is_wp_error($response) ) {
-			fclose($handle);
-			unlink($tmpfname);
-			return $response;
-		}
-
-		if ( $response['response']['code'] != '200' ){
-			fclose($handle);
-			unlink($tmpfname);
-			return new WP_Error('http_404', trim($response['response']['message']));
-		}
-
-		fwrite($handle, $response['body']);
-		fclose($handle);
-
-		return $tmpfname;
-	}
-
-	function unpack_package($package, $delete_package = true, $clear_working = true) {
-		global $wp_filesystem;
-
-		$this->skin->feedback('unpack_package');
-
-		$upgrade_folder = $wp_filesystem->wp_content_dir() . 'upgrade/';
-
-		//Clean up contents of upgrade directory beforehand.
-		if ($clear_working) {
-			$upgrade_files = $wp_filesystem->dirlist($upgrade_folder);
-			if ( !empty($upgrade_files) ) {
-				foreach ( $upgrade_files as $file )
-					$wp_filesystem->delete($upgrade_folder . $file['name'], true);
-			}
-		}
-
-		//We need a working directory
-		$working_dir = $upgrade_folder . basename($package, '.zip');
-
-		// Clean up working directory
-		if ( $wp_filesystem->is_dir($working_dir) )
-			$wp_filesystem->delete($working_dir, true);
-
-		// Unzip package to working directory
-		$result = unzip_file($package, $working_dir); // @todo optimizations, Copy when Move/Rename would suffice?
-
-		// Once extracted, delete the package if required.
-		if ( $delete_package )
-			unlink($package);
-
-		if ( is_wp_error($result) ) {
-			$wp_filesystem->delete($working_dir, true);
-			return $result;
-		}
-		$this->working_dir = $working_dir;
-
-		return $working_dir;
-	}
-
 }
 
 /**
@@ -241,8 +166,7 @@ class PP_Upgrader extends Plugin_Upgrader {
  * @author Kevin Behrens
  **/
 class PP_Core_Upgrader extends PP_Upgrader {
-
-	function upgrade_strings($plugin) {
+	function upgrade_strings() {
 		$title = '';
 		
 		global $pp_extensions;
@@ -264,7 +188,7 @@ class PP_Core_Upgrader extends PP_Upgrader {
 		}
 	}
 	
-	function install_strings($plugin) {
+	function install_pp_strings($plugin) {
 		if ( $title = pp_pretty_slug( $plugin ) ) {
 			$this->strings['no_package'] = __ppw('Install package not available.');
 			$this->strings['downloading_package'] = sprintf(__ppw('Downloading install package from <span class="code">%s</span>&#8230;'),untrailingslashit('http://presspermit.com/'));
@@ -275,9 +199,9 @@ class PP_Core_Upgrader extends PP_Upgrader {
 		}
 	}
 	
-	function install( $slug, $package_url ) {
+	function install_pp_package( $slug, $package_url ) {
 		$this->init();
-		$this->install_strings($slug);
+		$this->install_pp_strings($slug);
 
 		add_filter('upgrader_source_selection', array(&$this, 'check_package') );
 
@@ -302,9 +226,9 @@ class PP_Core_Upgrader extends PP_Upgrader {
 		return true;
 	}
 
-	function upgrade($plugin) {
+	function upgrade_pp_package($plugin) {
 		$this->init();
-		$this->upgrade_strings($plugin);
+		$this->upgrade_strings();
 
 		$current = get_site_transient('ppc_update_info');
 	

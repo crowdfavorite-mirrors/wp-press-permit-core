@@ -42,10 +42,10 @@ class PP_Exceptions {
 				if ( $append_clause = apply_filters( 'pp_append_query_clause', '', $post_type, $required_operation, $args ) ) {
 					$where .= $append_clause;
 				}
-					
+				
 				foreach( array( 'include' => 'IN', 'exclude' => 'NOT IN' ) as $mod => $logic ) {
 					if ( $ids = $pp_current_user->get_exception_posts( $required_operation, $mod, $exc_post_type ) ) {
-						$_args = compact( 'mod', 'ids', 'src_table', 'logic' );
+						$_args = array_merge( $args, compact( 'mod', 'ids', 'src_table', 'logic' ) );
 						$where .= " AND " . apply_filters( 'pp_exception_clause', "$src_table.ID $logic ('" . implode( "','", $ids ) . "')", $required_operation, $post_type, $_args );
 						break;  // don't use both include and exclude clauses
 					}
@@ -153,21 +153,33 @@ class PP_Exceptions {
 	public static function add_term_restrictions_clause( $required_operation, $post_type, $src_table, $args = array() ) {		
 		global $wpdb, $pp_current_user;
 		
+		extract( array_merge( array( 'merge_additions' => false, 'exempt_post_types' => array() ), $args ), EXTR_SKIP );
+		
 		$where = '';
 		$excluded_ttids = array();
+		
+		$type_exemption_clause = ( $exempt_post_types ) ? " OR $src_table.post_type IN ('" . implode( "','", $exempt_post_types ) . "')" : '';
 		
 		$tx_args = ( $post_type ) ? array( 'object_type' => $post_type ) : array();
 		
 		foreach( pp_get_enabled_taxonomies( $tx_args ) as $taxonomy ) {
+			$tx_additional_ids = ( $merge_additions ) ? $pp_current_user->get_exception_terms( $required_operation, 'additional', $post_type, $taxonomy, array( 'status' => '', 'merge_universals' => true ) ) : array();
+
 			// post may be required to be IN a term set for one taxonomy, and NOT IN a term set for another taxonomy
 			foreach( array( 'include', 'exclude' ) as $mod ) {
 				if ( $tt_ids = $pp_current_user->get_exception_terms( $required_operation, $mod, $post_type, $taxonomy, $args ) ) {
 					if ( 'include' == $mod ) {
+						if ( $tx_additional_ids )
+							$tt_ids = array_merge( $tt_ids, $tx_additional_ids );
+						
 						$term_include_clause = apply_filters( 'pp_term_include_clause', "$src_table.ID IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $tt_ids ) . "') )", compact( 'tt_ids', 'src_table' ) );
-						$where .= " AND ( $term_include_clause )";
+						$where .= " AND ( $term_include_clause $type_exemption_clause )";
 						
 						continue 2;
 					} else {
+						if ( $tx_additional_ids )
+							$tt_ids = array_diff( $tt_ids, $tx_additional_ids );
+
 						$excluded_ttids = array_merge( $excluded_ttids, $tt_ids );
 					}
 				}
@@ -175,7 +187,7 @@ class PP_Exceptions {
 		}
 		
 		if ( $excluded_ttids ) {
-			$where .= " AND $src_table.ID NOT IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $excluded_ttids ) . "') )";
+			$where .= " AND ( $src_table.ID NOT IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ('" . implode( "','", $excluded_ttids ) . "') ) $type_exemption_clause )";
 		}
 			
 		return $where;

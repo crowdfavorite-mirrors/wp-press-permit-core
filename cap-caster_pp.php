@@ -17,6 +17,20 @@ class PP_Cap_Caster {
 	var $pattern_role_arbitrary_caps = array();
 	var $typecast_role_caps = array();
 
+	function is_valid_pattern_role( $wp_role_name, $role_caps = false ) {
+		if ( 'subscriber' != $wp_role_name ) {
+			global $wp_roles;
+		
+			if ( false === $role_caps ) {
+				$role_caps = ( isset($wp_roles->role_objects[$wp_role_name]) ) ? $wp_roles->role_objects[$wp_role_name]->capabilities : array();
+			}
+
+			$type_obj = get_post_type_object( 'post' );
+			return isset($wp_roles->role_objects[$wp_role_name]) && ! empty( $role_caps[ $type_obj->cap->edit_posts ] );
+		} else
+			return true;
+	}
+	
 	// If one of the standard WP roles is missing, define it for use as a template for type-specific role assignments
 	function define_pattern_caps() {
 		global $pp_role_defs, $wp_roles, $pp_cap_helper;
@@ -24,20 +38,20 @@ class PP_Cap_Caster {
 		$caps = array();
 	
 		foreach ( array_keys($pp_role_defs->pattern_roles) as $role_name ) {
-			if ( isset( $wp_roles->role_objects[$role_name]->capabilities ) )
+			if ( isset( $wp_roles->role_objects[$role_name]->capabilities ) ) {
 				$caps[$role_name] = array_intersect( $wp_roles->role_objects[$role_name]->capabilities, array( 1, '1', true ) );
-		}
 
-		$type_obj = get_post_type_object( 'post' );
-		
-		foreach( array( 'subscriber', 'contributor', 'author', 'editor' ) as $role_name ) {
-			if ( empty($caps[$role_name]) || ( ( 'subscriber' != $role_name ) && empty( $caps[$role_name][$type_obj->cap->edit_posts] ) ) ) {
-				require_once( dirname(__FILE__).'/default-rolecaps_pp.php' );
-				$caps[$role_name] = PP_Default_Rolecaps::get_default_rolecaps( $role_name );
+				// if a standard WP role has been deleted, revert to default rolecaps
+				if ( in_array( $role_name, array( 'subscriber', 'contributor', 'author', 'editor' ) ) && ( empty($caps[$role_name]) || ! $this->is_valid_pattern_role( $role_name, $caps[$role_name] ) ) ) {
+					require_once( dirname(__FILE__).'/default-rolecaps_pp.php' );
+					$caps[$role_name] = PP_Default_Rolecaps::get_default_rolecaps( $role_name );
+				}
 			}
 		}
 		
 		$caps = apply_filters( 'pp_pattern_role_caps', $caps );
+		
+		$type_obj = get_post_type_object( 'post' );
 		
 		$type_caps = array();
 		$type_caps['post'] = array_diff_key( get_object_vars( $type_obj->cap ), array_fill_keys( array( 'read_post', 'edit_post', 'delete_post' ), true ) );
@@ -60,7 +74,7 @@ class PP_Cap_Caster {
 			// log caps defined for the "post" type
 			$this->pattern_role_type_caps[$role_name] = array_intersect( $type_caps['post'], array_keys($caps[$role_name]) );  // intersect with values of $post_type_obj->cap to account for possible customization of "post" type capabilities
 			
-			if ( ( 'subscriber' != $role_name ) && empty( $this->pattern_role_type_caps[$role_name]['edit_posts'] ) ) {
+			if ( ! $this->is_valid_pattern_role( $role_name, $this->pattern_role_type_caps[$role_name] ) ) {
 				// role has no edit_posts cap stored, so use default rolecaps instead
 				require_once( dirname(__FILE__).'/default-rolecaps_pp.php' );
 				if ( $def_caps = PP_Default_Rolecaps::get_default_rolecaps( $role_name, false ) ) {

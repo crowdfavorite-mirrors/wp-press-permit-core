@@ -32,8 +32,10 @@ class PP_ItemExceptionsData {
 
 		extract( $args, EXTR_SKIP );
 
-		if ( ( 'term' == $via_item_source ) && ! $for_item_type )
+		if ( ( 'term' == $via_item_source ) && ! $for_item_type ) {
+			unset( $args['for_item_source'] );
 			$args['post_types'] = array( '' );
+		}
 
 		//if ( 'term' == $for_item_source )
 			$args['cols'] .= ', e.for_item_type'; 

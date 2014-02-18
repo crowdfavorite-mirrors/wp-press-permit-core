@@ -152,14 +152,14 @@ class PP_GroupRetrieval {
 			return array();
 		}
 		
-		if ( $cols == 'all' )
+		if ( ( $cols == 'all' ) || ! empty($metagroup_type) )
 			$join = apply_filters( 'pp_get_groups_for_user_join', "INNER JOIN $groups_table AS g ON $members_table.group_id = g.ID", $user_id, $args );
 		else
 			$join = '';
 
 		if ( 'any' == $status ) { $status = ''; }
 		$status_clause = ( $status ) ? $wpdb->prepare( "AND status = %s", $status ) : '';
-		$metagroup_clause = ( ! empty($metagroup_type) ) ? $wpdb->prepare( "AND $groups_table.metagroup_type = %s", $metagroup_type ) : '';
+		$metagroup_clause = ( ! empty($metagroup_type) ) ? $wpdb->prepare( "AND g.metagroup_type = %s", $metagroup_type ) : '';
 		$user_id = (int) $user_id;
 		
 		$user_groups = array();
@@ -343,8 +343,10 @@ class PP_GroupRetrieval {
 		$except = array();
 		
 		$operations = (array) $operations;
-		
-		if ( ! $operations )
+
+		if ( $operations )
+			$operations = array_intersect( $operations, pp_get_operations() );  // avoid application of exceptions which are disabled due to plugin deactivation
+		else
 			$operations = pp_get_operations();
 
 		if ( ! is_array($post_types) )

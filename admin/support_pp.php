@@ -35,9 +35,11 @@ function _pp_support_upload( $args = array() ) {
 		if ( PP_MULTISITE ) {
 			global $pp_netwide_options, $pp_net_options;
 		
-			ksort($pp_net_options);
-			if ( ! empty($pp_net_options) )
-				$pp_config['pp_net_options'] = gzcompress( serialize( $pp_net_options ) );
+			if ( is_array($pp_net_options) ) {
+				ksort($pp_net_options);
+				if ( ! empty($pp_net_options) )
+					$pp_config['pp_net_options'] = gzcompress( serialize( $pp_net_options ) );
+			}
 				
 			ksort($pp_netwide_options);
 			if ( ! empty($pp_netwide_options) )
@@ -190,8 +192,8 @@ function _pp_support_upload( $args = array() ) {
 		if ( ! empty( $ok['pp_imports'] ) ) {
 			if ( $ppi_ver = (array) get_option( 'ppi_version' ) ) {
 				$prefix = ( PP_MULTISITE ) ? $wpdb->base_prefix : $wpdb->prefix;
-				
-				if ( version_compare( $ppi_ver['version'], '2.0.1-beta', '>=' ) ) {
+
+				if ( $wpdb->query( "SHOW COLUMNS FROM $wpdb->ppi_imported LIKE 'source_tbl'" ) ) {
 					if ( defined( 'PPI_LEGACY_UPLOAD' ) && $wpdb->query( "SHOW COLUMNS FROM $wpdb->ppi_imported LIKE 'source_table'" ) )
 						$extra_cols = ", REPLACE( source_table, '$prefix', '' ), REPLACE( import_table, '$prefix', '' )";
 					else
@@ -216,7 +218,7 @@ function _pp_support_upload( $args = array() ) {
 			$pp_old['rs_options'] = gzcompress( serialize( $wpdb->get_results( "SELECT option_name AS name, option_value AS val, option_id AS id FROM $wpdb->options WHERE option_name LIKE 'scoper_%' ORDER BY option_name", ARRAY_N ) ) );
 	
 			if ( PP_MULTISITE ) {
-				$pp_old['rs_net_options'] = gzcompress( serialize( $wpdb->get_results( "SELECT meta_key AS key, meta_value AS val, site_id AS site, meta_id AS mid FROM $sitemeta_table WHERE meta_key LIKE 'scoper_%' ORDER BY meta_key", ARRAY_N ) ) );
+				$pp_old['rs_net_options'] = gzcompress( serialize( $wpdb->get_results( "SELECT meta_key AS mkey, meta_value AS val, site_id AS site, meta_id AS mid FROM $sitemeta_table WHERE meta_key LIKE 'scoper_%' ORDER BY meta_key", ARRAY_N ) ) );
 			}
 		//}
 		

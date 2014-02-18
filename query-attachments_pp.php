@@ -39,7 +39,7 @@ class PP_QueryAttachments {
 			
 			$pp_where = $query_interceptor->flt_posts_where( '', $_args );
 			$type_csv = implode( "','", $_post_types );
-			$args['subqry'] = "SELECT ID FROM $wpdb->posts AS p WHERE 1=1 AND p.post_type IN ('$type_csv') $pp_where";		// pass this into filter even if not applying here
+			$args['subqry'] = "SELECT ID FROM $wpdb->posts AS p WHERE 1=1 AND ( p.post_type IN ('$type_csv') ) $pp_where";		// pass this into filter even if not applying here
 			$args['subqry_args'] = $_args;
 			$args['subqry_typecsv'] = $type_csv;
 		}
@@ -57,7 +57,13 @@ class PP_QueryAttachments {
 			
 			$own_clause = ( apply_filters( 'pp_read_own_attachments', false, $args ) ) ? "$src_table.post_author = '{$current_user->ID}' OR " : '';
 			
-			$where = str_replace( "$src_table.post_type = 'attachment'", "( $src_table.post_type = 'attachment' AND ( $own_clause ( $attached_vis_clause ) OR ( $unattached_vis_clause ) ) )", $where );
+			if ( apply_filters( 'pp_attachments_allow_unfiltered_parent', class_exists('SlideDeckPlugin', false ) ) ) {
+				$pp_type_csv = implode( "','", array_merge( pp_get_enabled_post_types(), array( 'revision', 'attachment' ) ) );
+				$non_pp_parent_clause = " OR ( $src_table.post_parent IN ( SELECT ID FROM $wpdb->posts WHERE post_type NOT IN ('$pp_type_csv') ) )";
+			} else
+				$non_pp_parent_clause = '';
+			
+			$where = str_replace( "$src_table.post_type = 'attachment'", "( $src_table.post_type = 'attachment' AND ( $own_clause ( $attached_vis_clause ) OR ( $unattached_vis_clause ) $non_pp_parent_clause ) )", $where );
 		}
 	
 		return apply_filters( 'pp_append_attachment_clause', $where, $clauses, $args );

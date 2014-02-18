@@ -89,8 +89,10 @@ class PP_Hardway
 		extract( apply_filters( 'pp_get_pages_args', $r ), EXTR_SKIP );  // PPE filter modifies append_page, exclude_tree
 
 		// workaround for CMS Tree Page View (passes post_parent instead of parent)
-		if ( ( -1 == $parent ) && isset($args['post_parent']) )
+		if ( ( -1 == $parent ) && isset($args['post_parent']) ) {
+			$args['parent'] = $args['post_parent'];
 			$parent = $args['post_parent'];
+		}
 		
 		// Make sure the post type is hierarchical
 		$hierarchical_post_types = get_post_types( array( 'public' => true, 'hierarchical' => true ) );
@@ -246,8 +248,8 @@ class PP_Hardway
 		}
 	
 		if ( $parent >= 0 )
-			$where .= $wpdb->prepare(' AND post_parent = %d ', $parent);
-			
+			$where .= $wpdb->prepare( ' AND ' . apply_filters( 'pp_get_pages_parent', 'post_parent = %d ', $args ), $parent );
+		
 		// === BEGIN PP MODIFICATION:
 		// allow pages of multiple statuses to be displayed (requires default status=publish to be ignored)
 		//

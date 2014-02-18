@@ -47,7 +47,7 @@ class PP_AdminRoles {
 	public static function get_role_title( $role_name, $args = array() ) {
 		global $wp_roles, $pp_role_defs, $pp_cap_caster;
 
-		$defaults = array( 'plural' => false, 'slug_fallback' => true );
+		$defaults = array( 'plural' => false, 'slug_fallback' => true, 'include_warnings' => false );
 		$args = array_merge( $defaults, $args );
 		extract( $args, EXTR_SKIP );
 		
@@ -57,10 +57,15 @@ class PP_AdminRoles {
 			$arr_name = explode( ':', $role_name );
 			if ( ! empty($arr_name[2]) ) {
 				$caption_prop = ( $plural ) ? 'name' : 'singular_name';
+				$warning = '';
 				
-				if ( isset($pp_role_defs->pattern_roles[ $arr_name[0] ]) )
+				if ( isset($pp_role_defs->pattern_roles[ $arr_name[0] ]) ) {
 					$role_caption = $pp_role_defs->pattern_roles[ $arr_name[0] ]->labels->$caption_prop;
-				elseif ( $slug_fallback )
+					
+					if ( $include_warnings && isset( $wp_roles->role_names[ $arr_name[0] ] ) && ! $pp_cap_caster->is_valid_pattern_role( $arr_name[0] ) ) {
+						$warning = '<span class="pp-red"> ' . sprintf( __( '(using default capabilities due to invalid %s definition)', 'pp' ), $wp_roles->role_names[ $arr_name[0] ] ) . '</span>';
+					}
+				} elseif ( $slug_fallback )
 					$role_caption = $arr_name[0];
 				else
 					return '';
@@ -78,9 +83,9 @@ class PP_AdminRoles {
 				}
 
 				if ( $cond_caption )
-					return trim( sprintf( __('%1$s&nbsp;%2$s&nbsp;<span class="pp_nolink">-&nbsp;%3$s</span>', 'pp'), $type_caption, str_replace( ' ', '&nbsp;', $role_caption ), str_replace( ' ', '&nbsp;', $cond_caption ) ) );
+					return trim( sprintf( __('%1$s&nbsp;%2$s&nbsp;<span class="pp_nolink">-&nbsp;%3$s</span>%4$s', 'pp'), $type_caption, str_replace( ' ', '&nbsp;', $role_caption ), str_replace( ' ', '&nbsp;', $cond_caption ), $warning ) );
 				else
-					return trim( sprintf( __('%1$s&nbsp;%2$s', 'pp'), $type_caption, $role_caption ) );
+					return trim( sprintf( __('%1$s&nbsp;%2$s&nbsp;%3$s', 'pp'), $type_caption, $role_caption, $warning ) );
 			}
 		} elseif ( isset( $wp_roles->role_names[$role_name] ) )
 			return $wp_roles->role_names[$role_name];

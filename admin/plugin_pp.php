@@ -93,7 +93,7 @@ class PP_Plugin_Status {
 		if ( ! is_object($updates) )
 			$updates = (object) array( 'response' => array() );
 		
-		static $done;  // sanity check - never call more than once in a single http request (but support exception for retrieval of Available Extensions info)
+		static $done;  // sanity check - never call more than once in a single http request (but support exception to pull Available Extensions info)
 		if ( ! empty($updates->response) && isset($done) && ! ( $force_refresh || ! $return_all ) ) { return $updates; }
 		$done = true;
 

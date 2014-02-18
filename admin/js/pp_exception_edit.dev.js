@@ -561,6 +561,11 @@ jQuery(document).ready( function($) {
 		$.each(deleted_ass_ids, function(index, value) {
 			cbid = $('#pp_current_exceptions input[name="pp_edit_exception[]"][value="' + value + '"]').attr('id');
 			$('#' + cbid).closest('label').parent().remove();
+			
+			var ass_ids = value.split(','); // some checkboxes represent both an item and child exception_item
+			for (i = 0; i < ass_ids.length; ++i) {
+				$('#pp_current_exceptions label[class~="from_' + ass_ids[i] + '"]').parent().remove();
+			}
 		});
 	}
 	

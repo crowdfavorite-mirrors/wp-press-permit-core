@@ -50,11 +50,13 @@ function pp_implode( $delim, $arr, $wrap_open = ' ( ', $wrap_close = ' ) ' ) {
 		}
 		*/
 		
+		/*
 		if ( constant( 'PP_DEBUG' ) ) {
 			$test = reset( $arr );
 			if ( is_array($test) )
 				agp_bt_die();
 		}
+		*/
 		
 		return $wrap_open . implode($delim, $arr) . $wrap_close;
 	} else {

@@ -15,7 +15,7 @@ if ( is_admin() )
 
 function pp_default_options() {
 	$def = array(
-		'enabled_taxonomies' => array( 'category' => true ),
+		'enabled_taxonomies' => array( 'category' => true, 'post_tag' => true ),
 		'enabled_post_types' => array_fill_keys( array( 'post', 'page' ), true ),
 		'define_create_posts_cap' => 0,
 		'strip_private_caption' => 1,

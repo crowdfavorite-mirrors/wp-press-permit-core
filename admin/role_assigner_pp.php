@@ -79,7 +79,6 @@ class PP_RoleAssigner {
 
 		global $wpdb;
 		
-		// Propagated roles will be deleted only if the original progenetor goes away.  Removal of a "link" in the parent/child propagation chain has no effect.
 		$where = "assignment_id IN ('" . implode("', '", $delete_assignments ) . "')";
 
 		$roles = $wpdb->get_results( "SELECT * FROM $wpdb->ppc_roles WHERE $where" );	// deleted role data will be passed through action
@@ -315,7 +314,7 @@ public static function insert_exceptions( $mod_type, $operation, $via_item_sourc
 				}
 			}
 		} else {
-			$descendant_ids = pp_get_descendant_ids( $via_item_source, $item_id );
+			$descendant_ids = pp_get_descendant_ids( $via_item_source, $item_id, array( 'include_attachments' => false ) );  // don't propagate page exceptions to attachments
 		}
 	
 		if ( $descendant_ids ) {

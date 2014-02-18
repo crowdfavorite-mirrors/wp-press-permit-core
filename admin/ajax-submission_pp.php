@@ -118,7 +118,8 @@ switch ( $action ) {
 					ppc_assign_exceptions( $agents, $agent_type, $args );
 
 					$wpdb->delete( $wpdb->ppc_exception_items, array( 'assign_for' => 'children', 'exception_id' => $row->exception_id, 'item_id' => $row->item_id ) );
-					
+					$wpdb->delete( $wpdb->ppc_exception_items, array( 'inherited_from' => $row->eitem_id ) );
+
 				} elseif ( 'exceptions_children_only' == $action ) {
 					$agents = array( 'children' => array( $agent_id => true ) );
 					ppc_assign_exceptions( $agents, $agent_type, $args );

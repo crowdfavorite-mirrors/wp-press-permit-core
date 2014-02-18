@@ -26,6 +26,11 @@ class PP_TermEditUI {
 				add_action( 'edit_category_form', array( &$this, 'tx_enable_ui' ) );
 				add_action( 'edit_tag_form', array( &$this, 'tx_enable_ui' ) );
 			}
+			
+			if ( ! empty($_REQUEST['pp_universal']) ) {
+				add_action( 'edit_category_form', array( &$this, 'pp_universal_hidden_input' ) );
+				add_action( 'edit_tag_form', array( &$this, 'pp_universal_hidden_input' ) );
+			}
 		}
 
 		do_action( 'pp_term_edit_ui' );
@@ -131,7 +136,9 @@ class PP_TermEditUI {
 			return;
 		
 		submit_button( __('Update') );
-		
+
+		if ( $post_type )
+			self::universal_exceptions_note( $tag, $taxonomy, $post_type );
 		?>
 		<div id="poststuff" class="metabox-holder">
 		<div id="post-body">
@@ -151,17 +158,24 @@ class PP_TermEditUI {
 		</div> <!-- poststuff -->
 		<?php
 		
-		echo '<div style="clear:both">&nbsp;</div>';
-		
-		if ( $post_type ) {
-			$tx_obj = get_taxonomy( $taxonomy );
-			$type_obj = get_post_type_object( $post_type );
-			?>
-			<div class="form-wrap"><p>
-			<?php printf( __( 'Displayed exceptions are those assigned for the "%1$s" type. You can also %2$sdefine universal %3$s exceptions which apply to all related post types%4$s.', 'pp' ), $type_obj->labels->singular_name, "<a href='edit-tags.php?action=edit&amp;taxonomy=$taxonomy&amp;tag_ID={$tag->term_id}&amp;pp_universal=1'>", $tx_obj->labels->singular_name, '</a>' );?>
-			</p></div>
-			<?php
-		}
+		if ( $post_type )
+			self::universal_exceptions_note( $tag, $taxonomy, $post_type );
+	}
+	
+	function universal_exceptions_note( $tag, $taxonomy, $post_type ) {		
+		$tx_obj = get_taxonomy( $taxonomy );
+		$type_obj = get_post_type_object( $post_type );
+		?>
+		<div class="form-wrap"><p>
+		<?php 
+		// if _wp_original_http_referer is not passed, redirect will be from universal exceptions edit form to type-specific exceptions edit form
+		if ( ! $referer = wp_get_original_referer() )
+			$referer = wp_get_referer();
+
+		$url = add_query_arg( '_wp_original_http_referer', urlencode($referer), "edit-tags.php?action=edit&amp;taxonomy=$taxonomy&amp;tag_ID={$tag->term_id}&amp;pp_universal=1" );
+		printf( __( 'Displayed exceptions are those assigned for the "%1$s" type. You can also %2$sdefine universal %3$s exceptions which apply to all related post types%4$s.', 'pp' ), $type_obj->labels->singular_name, "<a href='$url'>", $tx_obj->labels->singular_name, '</a>' );?>
+		</p></div>
+		<?php
 	}
 	
 	function tx_enable_ui( $tag ) {
@@ -189,6 +203,12 @@ class PP_TermEditUI {
 		<?php
 		
 		echo '<div style="clear:both">&nbsp;</div>';
+	}
+	
+	function pp_universal_hidden_input() {
+	?>
+		<input type="hidden" name="pp_universal" value="1" />
+	<?php
 	}
 	
 	function draw_settings_ui( $term, $box ) {

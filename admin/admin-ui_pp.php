@@ -95,9 +95,15 @@ class PP_AdminUI
 			wp_enqueue_style( 'pp-edit-permissions', PP_URLPATH . '/admin/css/pp-edit-permissions.css', array(), PPC_VERSION );
 			wp_enqueue_style( 'pp-groups-checklist', PP_URLPATH . '/admin/css/pp-groups-checklist.css', array(), PPC_VERSION );
 			
+			if ( ! pp_wp_ver('3.8') )
+				wp_enqueue_style( 'pp-edit-perm-legacy', PP_URLPATH . '/admin/css/pp-edit-permissions-legacy.css', array(), PPC_VERSION );
+
 		} elseif ( in_array( $pp_plugin_page, array( 'pp-edit-permissions', 'pp-group-new' ) ) ) {
 			wp_enqueue_style( 'pp-edit-permissions', PP_URLPATH . '/admin/css/pp-edit-permissions.css', array(), PPC_VERSION );
 			wp_enqueue_style( 'pp-groups-checklist', PP_URLPATH . '/admin/css/pp-groups-checklist.css', array(), PPC_VERSION );
+			
+			if ( ! pp_wp_ver('3.8') )
+				wp_enqueue_style( 'pp-edit-perm-legacy', PP_URLPATH . '/admin/css/pp-edit-permissions-legacy.css', array(), PPC_VERSION );
 
 		} elseif ( 'pp-settings' == $pp_plugin_page ) {
 			wp_enqueue_style( 'pp-settings', PP_URLPATH . '/admin/css/pp-settings.css', array(), PPC_VERSION );

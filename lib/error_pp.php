@@ -55,7 +55,7 @@ class PP_Error {
 		return true;
 	}
 
-	private function error_box( $msg ) {
+	static function error_box( $msg ) {
 		global $pagenow;
 		
 		if ( isset($pagenow) && ( 'update.php' != $pagenow ) ) {

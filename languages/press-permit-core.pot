@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Press Permit Core package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Press Permit Core 2.1.22\n"
+"Project-Id-Version: Press Permit Core 2.1.37\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/press-permit-core\n"
-"POT-Creation-Date: 2013-09-25 16:38:48+00:00\n"
+"POT-Creation-Date: 2013-12-18 20:08:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,23 +38,23 @@ msgid ""
 "Settings > Install > Help"
 msgstr ""
 
-#: admin/admin-load_pp.php:120 admin/ajax-exceptions_ui_pp.php:46
+#: admin/admin-load_pp.php:123 admin/ajax-exceptions_ui_pp.php:46
 msgid "Read"
 msgstr ""
 
-#: admin/admin-load_pp.php:120
+#: admin/admin-load_pp.php:123
 msgid "Reading"
 msgstr ""
 
-#: admin/admin-load_pp.php:135 admin/ajax-exceptions_ui_pp.php:79
+#: admin/admin-load_pp.php:138 admin/ajax-exceptions_ui_pp.php:79
 msgid "Only these:"
 msgstr ""
 
-#: admin/admin-load_pp.php:136 admin/ajax-exceptions_ui_pp.php:76
+#: admin/admin-load_pp.php:139 admin/ajax-exceptions_ui_pp.php:76
 msgid "Not these:"
 msgstr ""
 
-#: admin/admin-load_pp.php:137 admin/ajax-exceptions_ui_pp.php:73
+#: admin/admin-load_pp.php:140 admin/ajax-exceptions_ui_pp.php:73
 msgid "Also these:"
 msgstr ""
 
@@ -70,21 +70,26 @@ msgid ""
 "Settings%2$s and indicate which Post Types and Taxonomies should be filtered."
 msgstr ""
 
-#: admin/admin-roles_pp.php:81
-msgid "%1$s&nbsp;%2$s&nbsp;<span class=\"pp_nolink\">-&nbsp;%3$s</span>"
+#: admin/admin-roles_pp.php:66
+msgid "(using default capabilities due to invalid %s definition)"
 msgstr ""
 
-#: admin/admin-roles_pp.php:83
-msgid "%1$s&nbsp;%2$s"
+#: admin/admin-roles_pp.php:86
+msgid "%1$s&nbsp;%2$s&nbsp;<span class=\"pp_nolink\">-&nbsp;%3$s</span>%4$s"
 msgstr ""
 
-#: admin/admin-ui-roles_pp.php:68 admin/permissions-ui_pp.php:802
+#: admin/admin-roles_pp.php:88
+msgid "%1$s&nbsp;%2$s&nbsp;%3$s"
+msgstr ""
+
+#: admin/admin-ui-roles_pp.php:68 admin/permissions-ui_pp.php:823
+#: admin/permissions-ui_pp.php:825
 msgid "%1$s %2$s"
 msgstr ""
 
 #: admin/admin-ui-roles_pp.php:157
 #: admin/includes/class-pp-groups-list-table-base.php:53
-#: admin/item-exceptions-ui_pp.php:60 admin/permissions-ui_pp.php:839
+#: admin/item-exceptions-ui_pp.php:60 admin/permissions-ui_pp.php:862
 msgid "%1$s (%2$s)"
 msgstr ""
 
@@ -191,35 +196,35 @@ msgid "view / edit group"
 msgstr ""
 
 #: admin/ajax-exceptions_ui_pp.php:44 admin/ajax-exceptions_ui_pp.php:64
-#: admin/ajax-exceptions_ui_pp.php:89 admin/ajax-exceptions_ui_pp.php:146
-#: admin/ajax-exceptions_ui_pp.php:178 admin/ajax-item_ui_pp.php:12
+#: admin/ajax-exceptions_ui_pp.php:89 admin/ajax-exceptions_ui_pp.php:137
+#: admin/ajax-exceptions_ui_pp.php:164 admin/ajax-item_ui_pp.php:12
 #: admin/ajax-ui_pp.php:22 admin/ajax-ui_pp.php:42
 msgid "(login timed out)"
 msgstr ""
 
-#: admin/ajax-exceptions_ui_pp.php:56 admin/permissions-ui_pp.php:58
+#: admin/ajax-exceptions_ui_pp.php:56 admin/permissions-ui_pp.php:61
 msgid "select..."
 msgstr ""
 
-#: admin/ajax-exceptions_ui_pp.php:106
+#: admin/ajax-exceptions_ui_pp.php:97
 msgid "selected:"
 msgstr ""
 
-#: admin/ajax-exceptions_ui_pp.php:157
+#: admin/ajax-exceptions_ui_pp.php:143
 msgid "selected %s:"
 msgstr ""
 
-#: admin/ajax-exceptions_ui_pp.php:162
+#: admin/ajax-exceptions_ui_pp.php:148
 msgid "sub-%s of:"
 msgstr ""
 
-#: admin/ajax-exceptions_ui_pp.php:184 admin/options-install_pp.php:476
-#: admin/permissions-ui_pp.php:65 admin/permissions-ui_pp.php:232
-#: admin/permissions-ui_pp.php:917
+#: admin/ajax-exceptions_ui_pp.php:170 admin/options-install_pp.php:476
+#: admin/permissions-ui_pp.php:68 admin/permissions-ui_pp.php:233
+#: admin/permissions-ui_pp.php:940
 msgid "(all)"
 msgstr ""
 
-#: admin/ajax-exceptions_ui_pp.php:195 admin/ajax-ui_pp.php:75
+#: admin/ajax-exceptions_ui_pp.php:181 admin/ajax-ui_pp.php:75
 msgid "%s Visibility"
 msgstr ""
 
@@ -227,7 +232,7 @@ msgstr ""
 msgid "(invalid role definition)"
 msgstr ""
 
-#: admin/ajax-ui_pp.php:50 admin/permissions-ui_pp.php:121
+#: admin/ajax-ui_pp.php:50 admin/permissions-ui_pp.php:126
 msgid "standard statuses"
 msgstr ""
 
@@ -330,7 +335,7 @@ msgstr ""
 
 #: admin/includes/item-menu_pp.php:239 admin/includes/item-menu_pp.php:241
 #: admin/includes/item-menu_pp.php:551 admin/includes/item-menu_pp.php:553
-#: admin/permissions-ui_pp.php:659
+#: admin/permissions-ui_pp.php:680
 msgid "(none)"
 msgstr ""
 
@@ -340,7 +345,7 @@ msgid "Select All"
 msgstr ""
 
 #: admin/includes/item-menu_pp.php:296 admin/includes/item-menu_pp.php:509
-#: admin/includes/item-menu_pp.php:692 admin/permissions-ui_pp.php:424
+#: admin/includes/item-menu_pp.php:692 admin/permissions-ui_pp.php:445
 #: admin/ui-helper_pp.php:46
 msgid "Add Exceptions"
 msgstr ""
@@ -379,6 +384,42 @@ msgstr ""
 
 #: admin/item-exceptions-render-ui_pp.php:17
 msgid "Unblocked"
+msgstr ""
+
+#: admin/item-exceptions-ui-hints_pp.php:5
+msgid ""
+"To block direct access to unreadable files, activate the PP File URL Filter "
+"plugin."
+msgstr ""
+
+#: admin/item-exceptions-ui-hints_pp.php:7
+msgid ""
+"To block direct access to unreadable files, %1$sinstall%2$s the PP File URL "
+"Filter plugin."
+msgstr ""
+
+#: admin/item-exceptions-ui-hints_pp.php:9
+msgid ""
+"To block direct access to unreadable files, %1$spurchase a support key%2$s "
+"and install the PP File URL Filter plugin."
+msgstr ""
+
+#: admin/item-exceptions-ui-hints_pp.php:16
+msgid ""
+"To customize editing permissions, activate the PP Collaborative Editing "
+"plugin."
+msgstr ""
+
+#: admin/item-exceptions-ui-hints_pp.php:18
+msgid ""
+"To customize editing permissions, %1$sinstall%2$s the PP Collaborative "
+"Editing plugin."
+msgstr ""
+
+#: admin/item-exceptions-ui-hints_pp.php:20
+msgid ""
+"To customize editing permissions, %1$spurchase a support key%2$s and install "
+"the PP Collaborative Editing plugin."
 msgstr ""
 
 #: admin/item-exceptions-ui_pp.php:31
@@ -429,25 +470,7 @@ msgstr ""
 msgid "create group"
 msgstr ""
 
-#: admin/item-exceptions-ui_pp.php:217
-msgid ""
-"To customize editing permissions, activate the PP Collaborative Editing "
-"plugin."
-msgstr ""
-
-#: admin/item-exceptions-ui_pp.php:219
-msgid ""
-"To customize editing permissions, %1$sinstall%2$s the PP Collaborative "
-"Editing plugin."
-msgstr ""
-
-#: admin/item-exceptions-ui_pp.php:221
-msgid ""
-"To customize editing permissions, %1$spurchase a support key%2$s and install "
-"the PP Collaborative Editing plugin."
-msgstr ""
-
-#: admin/item-exceptions-ui_pp.php:229
+#: admin/item-exceptions-ui_pp.php:223
 msgid ""
 "To customize <strong>for a specific post status</strong>, edit the desired "
 "role / group / user permissions directly (Permissions > Groups or Users)"
@@ -1174,84 +1197,84 @@ msgstr ""
 msgid "Group Members"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:69
+#: admin/permissions-ui_pp.php:73
 msgid "n/a"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:74
+#: admin/permissions-ui_pp.php:79
 msgid "Copy Roles and Exceptions from:"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:91
+#: admin/permissions-ui_pp.php:96
 msgid "Do Clone"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:102 admin/permissions-ui_pp.php:192
-#: admin/permissions-ui_pp.php:349 admin/permissions-ui_pp.php:381
+#: admin/permissions-ui_pp.php:107 admin/permissions-ui_pp.php:192
+#: admin/permissions-ui_pp.php:370 admin/permissions-ui_pp.php:402
 msgid "Post Type"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:104
+#: admin/permissions-ui_pp.php:109
 msgid "for Statuses"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:124
+#: admin/permissions-ui_pp.php:129
 msgid "Status: Private"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:129
+#: admin/permissions-ui_pp.php:134
 msgid "Add Role"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:140
+#: admin/permissions-ui_pp.php:145
 msgid ""
 "To assign roles for custom post statuses, activate the PP Custom Post "
 "Statuses plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:142
+#: admin/permissions-ui_pp.php:147
 msgid ""
 "To assign roles for custom post statuses, %1$sinstall%2$s the PP Custom Post "
 "Statuses plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:144
+#: admin/permissions-ui_pp.php:149
 msgid ""
 "To assign roles for custom post statuses, %1$senter%2%s or %3$spurchase%4$s "
 "a support key and install the PP Custom Post Statuses plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:153
+#: admin/permissions-ui_pp.php:158
 msgid ""
 "To assign roles for bbPress forums, activate the PP Compatibility Pack "
 "plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:155
+#: admin/permissions-ui_pp.php:160
 msgid ""
 "To assign roles for bbPress forums, %1$sinstall%2$s the PP Compatibility "
 "Pack plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:157
+#: admin/permissions-ui_pp.php:162
 msgid ""
 "To assign roles for bbPress forums, %1$senter%2$s or %3$spurchase%4$s a "
 "support key and install the PP Compatibility Pack plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:166
+#: admin/permissions-ui_pp.php:171
 msgid ""
 "To assign Revisionary exceptions, activate the PP Collaborative Editing and "
 "PP Compatibility Pack plugins."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:168
+#: admin/permissions-ui_pp.php:173
 msgid ""
 "To assign Revisionary exceptions, %1$sinstall%2$s the PP Collaborative "
 "Editing and PP Compatibility Pack plugins."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:170
+#: admin/permissions-ui_pp.php:175
 msgid ""
 "To assign Revisionary exceptions, %1$senter%2$s or %3$spurchase%4$s a "
 "support key and install the PP Collaborative Editing and PP Compatibility "
@@ -1262,11 +1285,11 @@ msgstr ""
 msgid "Post Operation"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:194 admin/permissions-ui_pp.php:383
+#: admin/permissions-ui_pp.php:194 admin/permissions-ui_pp.php:404
 msgid "Adjustment"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:195 admin/permissions-ui_pp.php:384
+#: admin/permissions-ui_pp.php:195 admin/permissions-ui_pp.php:405
 msgid "Qualification"
 msgstr ""
 
@@ -1274,186 +1297,184 @@ msgstr ""
 msgid "Statuses"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:223
+#: admin/permissions-ui_pp.php:224
 msgid "for item"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:246
+#: admin/permissions-ui_pp.php:245
+msgid ""
+"Warning: Content hidden by exceptions will be displayed if PP is "
+"deactivated. Consider setting a private Visibility on Edit Post screen "
+"instead."
+msgstr ""
+
+#: admin/permissions-ui_pp.php:273
 msgid ""
 "To assign exceptions for editing, parent selection or term assignment, "
 "activate the PP Collaborative Editing plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:248
+#: admin/permissions-ui_pp.php:275
 msgid ""
 "To assign exceptions for editing, parent selection or term assignment, "
 "%1$sinstall%2$s the PP Collaborative Editing plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:250
+#: admin/permissions-ui_pp.php:277
 msgid ""
 "To assign exceptions for editing, parent selection or term assignment, "
 "%1$senter%2$s or %3$spurchase%4$s a support key and install the PP "
 "Collaborative Editing plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:259
+#: admin/permissions-ui_pp.php:286
 msgid ""
 "To assign exceptions for bbPress forums, activate the PP Compatibility Pack "
 "plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:261
+#: admin/permissions-ui_pp.php:288
 msgid ""
 "To assign exceptions for bbPress forums, %1$sinstall%2$s the PP "
 "Compatibility Pack plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:263
+#: admin/permissions-ui_pp.php:290
 msgid ""
 "To assign exceptions for bbPress forums, %1$senter%2$s or %3$spurchase%4$s a "
 "support key and install the PP Compatibility Pack plugin."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:300
+#: admin/permissions-ui_pp.php:321
 msgid "Select %s"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:351 admin/permissions-ui_pp.php:386
+#: admin/permissions-ui_pp.php:372 admin/permissions-ui_pp.php:407
 msgid "Status"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:363
+#: admin/permissions-ui_pp.php:384
 msgid "Save Roles"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:382
+#: admin/permissions-ui_pp.php:403
 msgid "Operation"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:398
+#: admin/permissions-ui_pp.php:419
 msgid "Save Exceptions"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:422
+#: admin/permissions-ui_pp.php:443
 msgid "Add Supplemental Roles"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:434
+#: admin/permissions-ui_pp.php:455
 msgid "Clone"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:460
-msgid "Permission Group"
-msgstr ""
-
-#: admin/permissions-ui_pp.php:460 admin/pp-groups.php:137
-#: admin/profile_ui_pp.php:170
-msgid "Permission Groups"
-msgstr ""
-
-#: admin/permissions-ui_pp.php:516
+#: admin/permissions-ui_pp.php:537
 msgid "Supplemental Roles %1$s(for user)%2$s"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:516
+#: admin/permissions-ui_pp.php:537
 msgid "Supplemental Roles"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:577
+#: admin/permissions-ui_pp.php:598
 msgid "Term Management"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:581 admin/permissions-ui_pp.php:584
+#: admin/permissions-ui_pp.php:602 admin/permissions-ui_pp.php:605
 msgid "objects"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:582
+#: admin/permissions-ui_pp.php:603
 msgid "Direct-Assigned"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:585
+#: admin/permissions-ui_pp.php:606
 msgid "Disabled Type"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:590
+#: admin/permissions-ui_pp.php:611
 msgid "%s Roles"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:627 admin/permissions-ui_pp.php:945
+#: admin/permissions-ui_pp.php:648 admin/permissions-ui_pp.php:968
 msgid "Apply"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:651 admin/profile_ui_pp.php:67
+#: admin/permissions-ui_pp.php:672 admin/profile_ui_pp.php:67
 msgid "Exceptions %1$s(for user)%2$s"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:651 admin/post-listing-ui_pp.php:56
+#: admin/permissions-ui_pp.php:672 admin/post-listing-ui_pp.php:56
 msgid "Exceptions"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:791
+#: admin/permissions-ui_pp.php:812
 msgid "(all post types)"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:800
+#: admin/permissions-ui_pp.php:821
 msgid "%1$s (%2$s: %3$s)"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:800
+#: admin/permissions-ui_pp.php:821
 msgid "%1$s %2$s %3$s"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:832
+#: admin/permissions-ui_pp.php:855
 msgid "unpublished"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:846
+#: admin/permissions-ui_pp.php:869
 msgid "* %s"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:869
+#: admin/permissions-ui_pp.php:892
 msgid "%s:"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:911
+#: admin/permissions-ui_pp.php:934
 msgid "edit"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:933
+#: admin/permissions-ui_pp.php:956
 msgid "Assign for selected and sub-%s"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:934
+#: admin/permissions-ui_pp.php:957
 msgid "Assign for selected %s only"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:935
+#: admin/permissions-ui_pp.php:958
 msgid "Assign for sub-%s only"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:937
+#: admin/permissions-ui_pp.php:960
 msgid "Assign for selected and sub-terms"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:938
+#: admin/permissions-ui_pp.php:961
 msgid "Assign for selected term only"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:939
+#: admin/permissions-ui_pp.php:962
 msgid "Assign for sub-terms only"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:955
+#: admin/permissions-ui_pp.php:978
 msgid ""
 "* = exceptions redundant due to a corresponding &quot;only these&quot; entry"
 msgstr ""
 
-#: admin/permissions-ui_pp.php:962
+#: admin/permissions-ui_pp.php:985
 msgid "note: Exceptions inherited from parent %s are not displayed."
 msgstr ""
 
-#: admin/permissions-ui_pp.php:964
+#: admin/permissions-ui_pp.php:987
 msgid "note: Exceptions inherited from parent %s or terms are not displayed."
 msgstr ""
 
@@ -1477,31 +1498,31 @@ msgid ""
 "You do not have sufficient permissions to install plugins for this site."
 msgstr ""
 
-#: admin/plugin-update_pp.php:388
+#: admin/plugin-update_pp.php:312
 msgid "Reload Press Permit Install Screen"
 msgstr ""
 
-#: admin/plugin-update_pp.php:391
+#: admin/plugin-update_pp.php:315
 msgid "Return to Plugins page"
 msgstr ""
 
-#: admin/plugin-update_pp.php:443
+#: admin/plugin-update_pp.php:367
 msgid "Activate this plugin"
 msgstr ""
 
-#: admin/plugin-update_pp.php:443
+#: admin/plugin-update_pp.php:367
 msgid "Activate Plugin"
 msgstr ""
 
-#: admin/plugin-update_pp.php:446
+#: admin/plugin-update_pp.php:370
 msgid "Activate this plugin for all sites in this network"
 msgstr ""
 
-#: admin/plugin-update_pp.php:446
+#: admin/plugin-update_pp.php:370
 msgid "Network Activate"
 msgstr ""
 
-#: admin/plugin-update_pp.php:450
+#: admin/plugin-update_pp.php:374
 msgid "Reload PP Install Screen"
 msgstr ""
 
@@ -1557,7 +1578,7 @@ msgid "Customize"
 msgstr ""
 
 #: admin/post-edit-ui_pp.php:57 admin/pp-settings.php:71
-#: admin/term-edit-ui_pp.php:182
+#: admin/term-edit-ui_pp.php:196
 msgid "Press Permit Settings"
 msgstr ""
 
@@ -1565,7 +1586,7 @@ msgstr ""
 msgid "%s Exceptions"
 msgstr ""
 
-#: admin/post-edit-ui_pp.php:104 admin/term-edit-ui_pp.php:196
+#: admin/post-edit-ui_pp.php:104 admin/term-edit-ui_pp.php:216
 msgid "enable custom permissions for %s"
 msgstr ""
 
@@ -1858,6 +1879,10 @@ msgstr[1] ""
 msgid "New group created."
 msgstr ""
 
+#: admin/pp-groups.php:137 admin/profile_ui_pp.php:170
+msgid "Permission Groups"
+msgstr ""
+
 #: admin/pp-groups.php:166
 msgid ""
 "Permission Groups are sets of users to which you may assign supplemental "
@@ -2103,35 +2128,35 @@ msgid ""
 "here, even if they modify permissions"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:71
+#: admin/term-edit-ui_pp.php:76
 msgid "%1$s %2$s %3$s Exceptions"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:71
+#: admin/term-edit-ui_pp.php:76
 msgid "%1$s %2$s Exceptions (all post types)"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:73
+#: admin/term-edit-ui_pp.php:78
 msgid "%1$s %2$s Exceptions (all post statuses)"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:73
+#: admin/term-edit-ui_pp.php:78
 msgid "%1$s Exceptions (all post types, statuses)"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:75
+#: admin/term-edit-ui_pp.php:80
 msgid "%1$s %2$s Exceptions"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:75
+#: admin/term-edit-ui_pp.php:80
 msgid "%1$s Exceptions (all post types)"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:133
+#: admin/term-edit-ui_pp.php:138
 msgid "Update"
 msgstr ""
 
-#: admin/term-edit-ui_pp.php:161
+#: admin/term-edit-ui_pp.php:176
 msgid ""
 "Displayed exceptions are those assigned for the \"%1$s\" type. You can also "
 "%2$sdefine universal %3$s exceptions which apply to all related post types"
@@ -2227,6 +2252,10 @@ msgstr ""
 
 #: admin/users-ui_pp.php:105
 msgid "%s&nbsp;more"
+msgstr ""
+
+#: eyes-only-helper_pp.php:4
+msgid "Permission Group"
 msgstr ""
 
 #: groups-retrieval_pp.php:238

@@ -36,6 +36,7 @@ padding-bottom: 1em;
 .pp-options-wrapper .pp-options-table th {
 font-weight: bold;
 padding-top: 1em;
+padding-left: 10px;
 }
 .pp-form-table tr th span a {
 color: #333;

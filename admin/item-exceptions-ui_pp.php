@@ -120,7 +120,7 @@ class PP_ItemExceptionsUI {
 				) );
 
 				$pp_agents_ui = pp_init_agents_ui();
-				$pp_agents_ui->agents_ui( $agent_type, array(), "{$op}-{$for_item_type}-{$agent_type}", array(), $args );
+				$pp_agents_ui->agents_ui( $agent_type, array(), "{$op}:{$for_item_type}:{$agent_type}", array(), $args );
 				echo '</div>';
 				echo '</div>';
 					
@@ -212,18 +212,12 @@ class PP_ItemExceptionsUI {
 			<?php
 		} // end foreach group type caption
 		
-		if ( ( 'read' == $op ) && ! defined( 'PPCE_VERSION' ) && pp_get_option('display_extension_hints') ) {	
-			if ( 0 === validate_plugin( "pp-collaborative-editing/pp-collaborative-editing.php" ) )
-				$msg = __( 'To customize editing permissions, activate the PP Collaborative Editing plugin.', 'pp' );
-			elseif( true == pp_key_status() )
-				$msg = sprintf( __( 'To customize editing permissions, %1$sinstall%2$s the PP Collaborative Editing plugin.', 'pp' ), '<a href="admin.php?page=pp-settings&pp_tab=install">', '</a>' );
-			else
-				$msg = sprintf( __( 'To customize editing permissions, %1$spurchase a support key%2$s and install the PP Collaborative Editing plugin.', 'pp' ), '<a href="http://presspermit.com/purchase">', '</a>' );
-			
-			echo "<div class='pp-ext-promo' style='padding:0.5em'>$msg</div>";
-		}
-		
 		echo '</div>'; // class pp-agents
+		
+		if ( ( 'read' == $op ) && pp_get_option('display_extension_hints') && ( ( ( 'attachment' == $for_item_type ) && ! defined( 'PPFF_VERSION' ) ) || ! defined( 'PPCE_VERSION' ) ) ) {
+			require_once( dirname(__FILE__).'/item-exceptions-ui-hints_pp.php' );
+			_ppc_item_ui_hints( $for_item_type );
+		}
 		
 		if ( ( 'term' == $via_item_source ) && in_array( $op, array( 'read', 'edit' ) ) ) {
 			$msg = __( 'To customize <strong>for a specific post status</strong>, edit the desired role / group / user permissions directly (Permissions > Groups or Users)', 'pp' );
