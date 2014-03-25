@@ -132,7 +132,7 @@ function pp_get_type_object( $src_name, $object_type ) {
 }
 
 function pp_sanitize_key( $key ) {
-	return preg_replace( '/[^a-z0-9_\-]/', '', strtolower($key) );
+	return ( is_string($key) ) ? preg_replace( '/[^a-z0-9_\-]/', '', strtolower($key) ) : $key;
 }
 
 function pp_sanitize_word( $key ) {

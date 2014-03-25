@@ -48,7 +48,7 @@ case 'get_operation_options':
 	
 	if ( 'pp_group' == $agent_type ) {
 		$group = pp_get_group( $agent_id );
-		if ( in_array( $group->metagroup_id, array( 'wp_anon', 'wp_all' ) ) )
+		if ( in_array( $group->metagroup_id, array( 'wp_anon', 'wp_all' ) ) && ! defined( 'PP_ALL_ANON_FULL_EXCEPTIONS' ) )
 			$ops = array_intersect_key( $ops, array( 'read' => true ) );
 	}
 	

@@ -149,7 +149,7 @@ class PP_ItemExceptionsRenderUI {
 <td class="<?php echo ( 'children' == $assign_for ) ? 'pp-exc-children' : 'pp-exc-item';?>"><select name='pp_exceptions<?php echo "[$for_type][$op][$agent_type][$assign_for][$agent_id]'{$this->opt_class[$current_val]}";?><?php echo $disabled;?>>
 <?php
 foreach( $this->options[$option_set] as $val => $lbl ) :
-	if ( ( 'wp_role' == $agent_type ) && in_array( $agent_info->metagroup_id, array( 'wp_anon', 'wp_all' ) ) && ( 2 == $val ) )
+	if ( ( 'wp_role' == $agent_type ) && in_array( $agent_info->metagroup_id, array( 'wp_anon', 'wp_all' ) ) && ! defined( 'PP_ALL_ANON_FULL_EXCEPTIONS' ) && ( 2 == $val ) )
 		continue;
 ?>
 <option value='<?php echo "$val'{$this->opt_class[$val]}"; selected( $val, $current_val );?>><?php echo $lbl;?></option>

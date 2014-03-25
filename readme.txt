@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 3.8.1
-Stable tag: 2.1.43
+Stable tag: 2.1.44
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.44 - 26 Feb 2014 =
+* Fixed : With PP Compatibility extension enabled on Multisite and network-wide groups enabled, fatal error when clicking "Add New" link at top of Groups screen
+* Change : Allow "Also These" / "Enabled" exceptions to be assigned to {All} and {Anonymous} groups if constant PP_ALL_ANON_FULL_EXCEPTIONS is defined
+* Fixed : PHP warning when third party plugin causes an object to be passed into pp_sanitize_key() 
 
 = 2.1.43 - 4 Feb 2014 =
 * Fixed : Posts inappropriately hidden from anonymous users on some installations

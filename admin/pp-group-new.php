@@ -63,7 +63,7 @@ pp_icon();
 <h2><?php 
 $agent_type = ( isset($_REQUEST['agent_type']) && pp_group_type_editable( $_REQUEST['agent_type'] ) ) ? pp_sanitize_key($_REQUEST['agent_type']) : 'pp_group';
 
-if ( ( 'pp_group' == $agent_type ) || ! $group_type_obj = pp_get_group_type( $agent_type ) )
+if ( ( 'pp_group' == $agent_type ) || ! $group_type_obj = pp_get_group_type_object( $agent_type ) )
 	_e('Create New Permission Group', 'pp' );
 else
 	printf( __('Create New %s', 'pp'), $group_type_obj->labels->singular_name );

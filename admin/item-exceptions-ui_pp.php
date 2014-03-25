@@ -86,7 +86,7 @@ class PP_ItemExceptionsUI {
 					$current_exceptions[$op][$agent_type] = array();
 				
 				foreach( $this->data->agent_info['wp_role'] as $agent_id => $role ) {
-					if ( in_array( $role->metagroup_id, array( 'wp_anon', 'wp_all' ) ) && ( ( 'read' != $op ) || pp_get_option( 'anonymous_unfiltered' ) ) )
+					if ( in_array( $role->metagroup_id, array( 'wp_anon', 'wp_all' ) ) && ! defined( 'PP_ALL_ANON_FULL_EXCEPTIONS' ) && ( ( 'read' != $op ) || pp_get_option( 'anonymous_unfiltered' ) ) )
 						continue;
 
 					if ( ! isset( $current_exceptions[$op][$agent_type][$agent_id] ) )
