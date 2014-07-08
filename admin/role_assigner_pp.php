@@ -171,7 +171,8 @@ public static function assign_exceptions( $agents, $agent_type = 'user', $args =
 			if ( $has_access = array_intersect( $agents[$assign_for], array(true) ) ) {
 				$_stored = ( isset($stored_assignments[$mod_type][$assign_for]) ) ? $stored_assignments[$mod_type][$assign_for] : array();
 				if ( $insert_agents = array_diff_key( $has_access, $_stored ) ) {
-					$args['assign_for'] = $assign_for;			
+					$args['assign_for'] = $assign_for;
+
 					$_assigned_items = self::insert_exceptions( $mod_type, $operation, $via_item_source, $via_item_type, $for_item_source, $for_item_type, $item_id, $agent_type, $insert_agents, $args );
 					$assigned_items = array_merge( $assigned_items, $_assigned_items );
 					
@@ -434,10 +435,12 @@ public static function insert_exceptions( $mod_type, $operation, $via_item_sourc
 				$child_exception_id = $exceptions_by_type[$child_for_item_type];
 				
 				// Don't overwrite an explicitly assigned exception with a propagated exception
+				if ( ! defined( 'PP_FORCE_EXCEPTION_OVERWRITE' ) || ! PP_FORCE_EXCEPTION_OVERWRITE ) {
 				$have_direct_assignments = $wpdb->get_col( "SELECT item_id FROM $wpdb->ppc_exception_items WHERE exception_id = '$child_exception_id' AND inherited_from = '0' AND item_id IN ('$descendant_id_csv')" );
 			
 				if ( in_array( $id, $have_direct_assignments ) )
 					continue;
+				}
 					
 				if ( $eitem_ids = $wpdb->get_col( $qry_item_delete_base . " AND exception_id = '$child_exception_id' AND item_id = '$id'" ) ) {
 					self::remove_exception_items_by_id( $eitem_ids );

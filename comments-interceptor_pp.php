@@ -18,7 +18,7 @@ class CommentsInterceptor {
 		if ( is_admin() && defined( 'PP_NO_COMMENT_FILTERING' ) ) {
 			global $current_user;
 
-			if ( empty( $current_user->allcaps['moderate_comments'] ) )
+			//if ( empty( $current_user->allcaps['moderate_comments'] ) )
 				return $clauses;
 		}
 

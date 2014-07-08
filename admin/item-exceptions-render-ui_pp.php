@@ -84,7 +84,8 @@ class PP_ItemExceptionsRenderUI {
 				}
 			}
 		
-			$role_caps = isset( $wp_roles->role_objects[ $agent_info->metagroup_id ] ) ? array_intersect( $wp_roles->role_objects[ $agent_info->metagroup_id ]->capabilities, array( true, 1, '1' ) ) : array( 'read' => true, 'spectate' => true );
+			$role_obj_caps = ( empty($wp_roles->role_objects[ $agent_info->metagroup_id ]->capabilities) ) ? array() : $wp_roles->role_objects[ $agent_info->metagroup_id ]->capabilities;
+			$role_caps = isset( $wp_roles->role_objects[ $agent_info->metagroup_id ] ) ? array_intersect( $role_obj_caps, array( true, 1, '1' ) ) : array( 'read' => true, 'spectate' => true );
 			
 			if ( isset( $metagroup_caps[$agent_info->metagroup_id] ) )
 				$role_caps = array_merge( $role_caps, $metagroup_caps[$agent_info->metagroup_id] );

@@ -73,6 +73,9 @@ class PP_CapInterceptor
 		
 		$item_id = ( isset( $args[2] ) ) ? $args[2] : 0;
 	
+		if ( 'read_document' == $orig_cap )  // todo: api
+			$orig_cap = 'read_post';
+	
 		if ( ( 'read_post' == $orig_cap ) && ( count($orig_reqd_caps) > 1 || ( 'read' != reset($orig_reqd_caps) ) ) ) {
 			global $pp;
 			
@@ -186,9 +189,12 @@ class PP_CapInterceptor
 												if ( $additional_tt_ids = $pp_current_user->get_exception_terms( $op, 'additional', $item_type, $taxonomy, array( 'status' => true ) ) )
 													$additional_tt_ids = pp_array_flatten( array_intersect_key( $additional_tt_ids, $valid_stati ) );
 				
-												if ( $include_tt_ids = $pp_current_user->get_exception_terms( $op, 'include', $item_type, $taxonomy, array( 'status' => true ) ) )
-													$additional_tt_ids = array_merge( $additional_tt_ids, pp_array_flatten( array_intersect_key( $include_tt_ids, $valid_stati ) ) );
-
+												// merge in 'include' terms only if user has required caps in site-wide role
+												if ( ! array_diff( $orig_reqd_caps, array_intersect( array_keys( $pp_current_user->allcaps ), array( 1, '1', true ) ) ) ) {
+													if ( $include_tt_ids = $pp_current_user->get_exception_terms( $op, 'include', $item_type, $taxonomy, array( 'status' => true ) ) )
+														$additional_tt_ids = array_merge( $additional_tt_ids, pp_array_flatten( array_intersect_key( $include_tt_ids, $valid_stati ) ) );
+												}
+												
 												if ( $additional_tt_ids ) {
 													if ( ! $item_id || array_intersect( $additional_tt_ids, $post_ttids ) ) {
 														$pass = true;

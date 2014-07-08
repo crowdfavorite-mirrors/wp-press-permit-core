@@ -6,6 +6,10 @@ class PP_ItemSave {
 								array_merge( $defaults, array( 'via_item_type' => '', 'for_item_status' => '' ), (array) $args, compact( 'via_item_source', 'for_item_source', 'item_id' ) ), 
 								$via_item_source, $for_item_source, $item_id 
 							);
+		
+		if ( ! defined( 'PP_EXTRA_ITEM_UPDATE_ARGS' ) )
+			$args['for_item_status'] = '';
+
 		extract( $args, EXTR_SKIP );
 		
 		if ( $can_assign_roles = current_user_can( 'pp_assign_roles' ) ) {

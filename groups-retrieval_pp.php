@@ -168,11 +168,13 @@ class PP_GroupRetrieval {
 			static $all_group;
 			static $auth_group;
 		
-			if ( ! isset($all_group) )
-				$all_group = pp_get_metagroup( 'wp_role', 'wp_all' );
-				
-			if ( ! isset($auth_group) )
-				$auth_group = pp_get_metagroup( 'wp_role', 'wp_auth' );
+			if ( ! pp_is_content_administrator() || ! pp_get_option( 'suppress_administrator_metagroups' ) ) {
+				if ( ! isset($all_group) )
+					$all_group = pp_get_metagroup( 'wp_role', 'wp_all' );
+					
+				if ( ! isset($auth_group) )
+					$auth_group = pp_get_metagroup( 'wp_role', 'wp_auth' );
+			}
 		}
 		
 		if ( 'all' == $cols ) {

@@ -79,7 +79,11 @@ class PP_QueryInterceptor
 				}
 			}
 			
-			if ( ! empty($_wp_query->post_type) && is_scalar($_wp_query->post_type) ) {
+			$read_actions = apply_filters( 'pp_ajax_read_actions', array( 'infinite_scroll' ) );
+			if ( in_array( $_REQUEST['action'], $read_actions ) ) {
+				$_wp_query->query_vars['required_operation'] = 'read';
+
+			} elseif ( ! empty($_wp_query->post_type) && is_scalar($_wp_query->post_type) ) {
 				$ajax_required_operation = apply_filters( 'pp_ajax_required_operation', array( 'ai1ec_event' => 'read' ) );
 				
 				foreach( array_keys($ajax_required_operation) as $arg ) {
@@ -395,8 +399,9 @@ class PP_QueryInterceptor
 					if ( $where_arr[$post_type] ) {
 						$where_arr[$post_type] = pp_implode( 'OR', $where_arr[$post_type] );
 						$where_arr[$post_type] = "1=1 AND ( " . $where_arr[$post_type] . " )"; 
-					} else
+					} else {
 						$where_arr[$post_type] = '1=2';
+					}
 				}
 				
 				if ( $modified = apply_filters( 'pp_adjust_posts_where_clause', false, $where_arr[$post_type], $post_type, $args ) )

@@ -40,6 +40,7 @@ class PP_PostSave {
 		}
 
 		if ( empty( $_REQUEST['page'] ) || ( 'rvy-revisions' != $_REQUEST['page'] ) ) {
+			usleep(5000); // Work around intermittent failure to propagate exceptions.  Maybe storage of post row is delayed on some db servers.
 			require_once( dirname(__FILE__).'/item-save_pp.php' );
 			PP_ItemSave::item_update_process_exceptions( 'post', 'post', $post_id, compact( 'is_new', 'set_parent', 'last_parent', 'disallow_manual_entry', 'via_item_type' ) );
 		}

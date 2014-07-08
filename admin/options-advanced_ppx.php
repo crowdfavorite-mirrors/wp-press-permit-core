@@ -28,7 +28,7 @@ class PP_Options_Advanced {
 		
 		if ( $this->enabled ) {
 			$new = array_merge( $new, array(
-				'anonymous' =>			 __('Anonymous Users', 'pp'),
+				'anonymous' =>			 __('Content Filtering', 'pp'),
 				'permissions_admin' =>   __('Permissions Admin', 'pp'),
 				'capabilities' =>		 __('PP Capabilities', 'pp'),
 				'role_integration' =>	 __('Role Integration', 'pp'),
@@ -47,6 +47,7 @@ class PP_Options_Advanced {
 		if ( $this->enabled ) {
 			$opt = array_merge( $opt, array(
 				'anonymous_unfiltered' =>			sprintf( __('%1$sDisable%2$s all filtering for anonymous users', 'pp'), '<strong>', '</strong>' ),
+				'suppress_administrator_metagroups' => sprintf( __('%1$sDisable%2$s metagroup exceptions for Administrators', 'pp' ), '<strong>', '</strong>' ),
 				'user_search_by_role' =>			__('User Search: Filter by WP role', 'pp' ),
 				'display_hints' => 					__('Display Administrative Hints', 'pp'),
 				'display_extension_hints' => 		__('Display Extension Hints', 'pp'),
@@ -63,7 +64,7 @@ class PP_Options_Advanced {
 		
 		if ( $this->enabled ) {
 			$new = array_merge( $new, array(		
-				'anonymous' =>			array( 'anonymous_unfiltered' ),
+				'anonymous' =>			array( 'anonymous_unfiltered', 'suppress_administrator_metagroups' ),
 				'permissions_admin' =>  array( 'non_admins_set_read_exceptions' ),
 				'role_integration' =>	array( 'dynamic_wp_roles' ),
 				'misc' =>				array( 'user_search_by_role', 'display_hints', 'display_extension_hints' ),
@@ -130,6 +131,9 @@ class PP_Options_Advanced {
 				<?php
 				$hint =  sprintf( __('Disable PP filtering for users who are not logged in. %1$sNote that this performance enhancement will make reading exceptions ineffective%2$s.', 'pp'), '<span class="pp-warning"><strong>', '</strong></span>' );
 				$ui->option_checkbox( 'anonymous_unfiltered', $tab, $section, $hint );
+
+				$hint =  __('If checked, pages blocked from the "All" or "Authenticated" groups will still be listed to Administrators.', 'pp');
+				$ui->option_checkbox( 'suppress_administrator_metagroups', $tab, $section, $hint );
 
 				do_action( 'pp_options_ui_insertion', $tab, $section );
 				?>

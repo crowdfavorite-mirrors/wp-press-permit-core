@@ -109,7 +109,7 @@ class PP_Ancestry {
 		if ( ! $ancestors ) {
 			$ancestors = array();
 
-			$terms = get_terms($taxonomy, array( 'pp_no_filter' => true ) );
+			$terms = get_terms($taxonomy, array( 'pp_no_filter' => true, 'hide_empty' => false ) );
 
 			if ( $terms ) {
 				$parents = array();

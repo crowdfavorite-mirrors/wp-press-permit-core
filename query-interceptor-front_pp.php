@@ -116,11 +116,20 @@ class PP_QueryInterceptorFront {
 	
 	function flt_wp_link_pages_link( $pagenum_link ) {
 		$matches = array();
+		/*
 		if ( preg_match_all( '/href="([^"]*)"/', $pagenum_link, $matches ) ) {
 			$append_arg = ( strpos( $matches[1][0], '?p=' ) || strpos( $matches[1][0], '&p=' ) ) ? '&preview=1' : '?preview=1';
 			$pagenum_link = str_replace( $matches[1][0], $matches[1][0] . $append_arg, $pagenum_link );
-			//$new_url = add_query_arg('preview', true, $matches[1][0]);
-			//$pagenum_link = str_replace( $matches[1][0], $new_url, $pagenum_link );
+		}
+		*/
+
+		if ( preg_match_all( '/href="([^"]*)"/', $pagenum_link, $matches ) ) {
+			$append_arg = ( strpos( $matches[1][0], '?p=' ) || strpos( $matches[1][0], '&p=' ) ) ? '&preview=true' : '?preview=true';
+
+			// only do magic if the link does not already contain preview directive
+			if ( ! strpos( $matches[1][0], 'preview=1' ) && ! strpos( $matches[1][0], 'preview=true' ) ) {
+				$pagenum_link = str_replace( $matches[1][0], $matches[1][0] . $append_arg, $pagenum_link );
+			}
 		}
 
 		return $pagenum_link;

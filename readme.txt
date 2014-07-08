@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.8.1
-Stable tag: 2.1.44
+Tested up to: 3.9.1
+Stable tag: 2.1.45
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,20 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.45 - 11 June 2014 =
+* Compat : verified WP 3.9.1 compatibility
+* Feature : New setting on Advanced tab to force Administrators to see all pages, even if blocked from the "All" or "Authenticated" groups.
+* Fixed : Unexpected behavior when a parent category/term has no posts
+* Fixed : When "Only these" exceptions are assigned for categories/terms, ignore them if user lacks corresponding site-wide role/capability
+* Fixed : Prev / Next links were not properly filtered on some installations
+* Compat : Slim Jetpack Infinite Scroll (and new filter 'pp_ajax_read_actions' to specify other read-only ajax queries)
+* Compat : WP Document Revisions - read_document capability check was not handled correctly
+* Compat : Work around plugins that create a role with no capabilities array
+* Change : Support constant definition PP_NAV_MENU_SHOW_EMPTY_TERMS
+* Change : Apply PP_NO_COMMENT_FILTERING constant even if user has moderate_comments capability
+* Change : Attempted workaround for intermittent failure to propagate exceptions to subpages
+* Lang : Added Brazilian Portuguese translation (by Doppos)
 
 = 2.1.44 - 26 Feb 2014 =
 * Fixed : With PP Compatibility extension enabled on Multisite and network-wide groups enabled, fatal error when clicking "Add New" link at top of Groups screen

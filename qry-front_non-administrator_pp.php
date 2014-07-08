@@ -56,7 +56,8 @@ class PP_QueryInterceptorFront_NonAdmin {
 		// remove unreadable terms	
 		if ( isset( $item_types['taxonomy'] ) ) {
 			foreach( $item_types['taxonomy'] as $taxonomy => $item_ids ) {
-				$okay_ids = get_terms( $taxonomy, 'fields=ids&hide_empty=1' );
+				$hide_empty = ( defined( 'PP_NAV_MENU_SHOW_EMPTY_TERMS' ) ) ? '0' : '1';
+				$okay_ids = get_terms( $taxonomy, "fields=ids&hide_empty=$hide_empty" );
 
 				if ( $remove_ids = apply_filters( 'pp_nav_menu_hide_terms', array_diff( $item_ids, $okay_ids ), $taxonomy ) ) {
 					$item_types['taxonomy'][$taxonomy] = array_diff( $item_types['taxonomy'][$taxonomy], $remove_ids );
