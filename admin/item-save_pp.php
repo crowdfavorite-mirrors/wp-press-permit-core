@@ -41,7 +41,7 @@ class PP_ItemSave {
 						$args['for_item_type'] = $_for_type;
 						$args['operation'] = $op;
 						$args['agent_type'] = $agent_type;
-					
+						
 						if ( ppc_assign_exceptions( $posted_exceptions[$for_item_type][$op][$agent_type], $agent_type, $args ) ) {   // assignments[assign_for][agent_id] = has_access 
 							$roles_customized = true;  // may be true already based on a prior role edit
 						}
@@ -176,7 +176,8 @@ function _pp_inherit_parent_exceptions( $via_item_source, $item_id, $parent_id, 
 	}
 
 	if ( $parent_exceptions ) {
-		$item_type = get_post_field( 'post_type', $item_id );
+		if ( 'post' == $via_item_source )
+			$item_type = get_post_field( 'post_type', $item_id );
 	
 		foreach( $parent_exceptions as $exc ) {
 			$insert_agents = array( $exc->agent_id => true );
@@ -185,6 +186,8 @@ function _pp_inherit_parent_exceptions( $via_item_source, $item_id, $parent_id, 
 			//$for_item_type = ( $force_for_item_type ) ? $force_for_item_type : $exc->for_item_type;
 			if ( $force_for_item_type )
 				$for_item_type = $force_for_item_type;
+			elseif ( 'post' != $via_item_source )
+				$for_item_type = $exc->for_item_type;
 			else
 				$for_item_type = ( 'revision' == $item_type ) ? $exc->for_item_type : $item_type;
 			

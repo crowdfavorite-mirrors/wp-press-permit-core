@@ -60,7 +60,11 @@ class PP_Plugin_Status {
 		
 		$server_response = wp_remote_post( 'http://presspermit.com/' . "index.php?$query", $args );
 		
-		//dump($server_response);
+		$const = 'PP_DEBUG_' . strtoupper( str_replace( '-', '_', $request_topic ) );
+		if ( is_admin() && defined( $const ) && constant( $const ) ) {
+			dump($server_response);
+			agp_bt_die();
+		}
 		
 		$result = false;
 		

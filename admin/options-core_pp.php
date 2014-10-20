@@ -21,7 +21,9 @@ class PP_Options_Core {
 		$new = array(
 			'taxonomies' =>		__('Filtered Taxonomies', 'pp'),
 			'post_types' => 	__('Filtered Post Types', 'pp'),
+			'permissions' =>	__('Permissions', 'pp'),
 			'front_end' 	=> 	__('Front End', 'pp'),
+			'admin' =>			__('Admin Back End', 'pp'),
 			'user_profile' => 	__('User Management / Profile', 'pp'),
 			'db_maint' =>		__('Database Maintenance', 'pp'),
 		);
@@ -42,6 +44,8 @@ class PP_Options_Core {
 			'display_user_profile_roles' =>  	__('Supplemental Roles on User Profile', 'pp'),
 			'new_user_groups_ui' =>				__('Select Permission Groups at User creation', 'pp'),
 			'do_group_index_drop' =>			__('Drop old PP database indexes for better performance', 'pp'),
+			'admin_hide_uneditable_posts' =>	__('Hide non-editable posts', 'pp'),
+			'post_blockage_priority' =>			__('Post-assigned Exceptions take priority', 'pp'),
 		);
 		
 		return array_merge($captions, $opt);
@@ -51,9 +55,11 @@ class PP_Options_Core {
 		$new = array(
 			'taxonomies' 	=> 	array( 'enabled_taxonomies' ),
 			'post_types' 	=> 	array( 'enabled_post_types', 'define_create_posts_cap' ),
+			'permissions'	=>  array( 'post_blockage_priority' ),
 			'front_end' 	=> 	array( 'strip_private_caption' ),
-			'user_profile' =>	array( 'new_user_groups_ui', 'display_user_profile_groups', 'display_user_profile_roles' ),
-			'db_maint' 		 => array( 'do_group_index_drop' ),
+			'admin' 		=>	array( 'admin_hide_uneditable_posts'),
+			'user_profile' 	=>	array( 'new_user_groups_ui', 'display_user_profile_groups', 'display_user_profile_roles' ),
+			'db_maint' 		=> 	array( 'do_group_index_drop' ),
 		);
 		
 		$key = 'core';
@@ -76,6 +82,16 @@ class PP_Options_Core {
 		global $pp_default_options, $pp_options_ui;
 		$ui = $pp_options_ui;
 		$tab = 'core';
+		
+		$section = 'permissions';								// --- PERMISSIONS SECTION ---
+		if ( ! empty( $ui->form_options[$tab][$section] ) ) :?>
+			<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>
+			<?php
+			$hint = __( 'If disabled, manually "blocked" posts can be unblocked by Category / Term Exceptions.  Enabling this setting will provide more intuitive behavior, but may require configuration review and testing on prior installations.', 'pp' );
+			$ui->option_checkbox( 'post_blockage_priority', $tab, $section, $hint );
+			?>
+			</td></tr>
+		<?php endif; // any options accessable in this section
 		
 									// --- FILTERED TAXONOMIES / POST TYPES SECTION ---
 		foreach ( array( 'object' => 'post_types', 'term' => 'taxonomies' ) as $scope => $section ) {
@@ -191,6 +207,18 @@ class PP_Options_Core {
 			</td></tr>
 		<?php endif; // any options accessable in this section
 	
+		$section = 'admin';									// --- BACK END SECTION ---
+		if ( ! empty( $ui->form_options[$tab][$section] ) ) :?>
+			<tr><th scope="row"><?php echo $ui->section_captions[$tab][$section];?></th><td>
+			<?php
+			$hint = ( 0 === validate_plugin( "pp-collaborative-editing/pp-collaborative-editing.php" ) ) ? __('Note: pending further development, uneditable posts will always be hidden if the PP Collaborative Editing extension is active', 'pp') : '';
+			if ( defined( 'PPCE_VERSION' ) ) {
+				$args = array( 'val' => 1, 'disabled' => true, 'no_storage' => true );
+			}
+			$ui->option_checkbox( 'admin_hide_uneditable_posts', $tab, $section, $hint, '', $args );
+			?>
+			</td></tr>
+		<?php endif; // any options accessable in this section
 
 		$section = 'user_profile';								// --- USER PROFILE SECTION ---
 		if ( ! empty( $ui->form_options[$tab][$section] ) ) : ?>

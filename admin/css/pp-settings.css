@@ -118,3 +118,7 @@ list-style-type: decimal;
 .pp-instructions ol li{
 margin: 1em 0 1em 2em;
 }
+
+#pp_settings_form #message {
+margin-top: 35px;
+}

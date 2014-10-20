@@ -57,6 +57,13 @@ class PP_Updated {
 				break;  // no need to run through version comparisons if no previous version
 			}
 			
+			if ( version_compare( $prev_version, '2.1.47-dev', '<') ) {
+				if ( ! get_option( 'pp_post_blockage_priority' ) ) {
+					// previously, post-assigned reading/editing blockages could be overriden by category-assigned additions
+					update_option( 'ppperm_legacy_exception_handling', true );
+				}
+			} else break;
+			
 			if ( version_compare( $prev_version, '2.1.35', '<') ) {
 				require_once( dirname(__FILE__).'/update-exceptions_pp.php' );
 				

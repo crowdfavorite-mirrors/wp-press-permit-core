@@ -129,7 +129,7 @@ class PP_ItemExceptionsData {
 
 		// determine if inclusions are set for any agents
 		$where = ( 'term' == $via_item_source ) ? "AND e.via_item_type = '$via_item_type'" : '';
-		$where .= "AND e.for_item_source = '$for_item_source'";
+		$where .= ( 'term' == $via_item_source ) ? '' : " AND e.for_item_source = '$for_item_source'";
 		
 		$query_users = ( isset( $this->agent_info['user'] ) ) ? array_keys($this->agent_info['user']) : array();
 		if ( ! empty( $args['agent_type'] ) && ( 'user' == $args['agent_type'] ) && ! empty( $args['agent_id'] ) )
@@ -145,6 +145,7 @@ class PP_ItemExceptionsData {
 		// Populate only for wp roles, groups and users with stored exceptions.  Will query for additional individual users as needed.
 		foreach( $_assignment_modes as $_assign_for ) {
 			$results = $wpdb->get_results( "SELECT DISTINCT e.agent_type, e.agent_id, e.operation, e.for_item_type FROM $wpdb->ppc_exceptions AS e INNER JOIN $wpdb->ppc_exception_items AS i ON e.exception_id = i.exception_id WHERE $agents_clause AND i.assign_for = '$_assign_for' AND e.mod_type = 'include' $where" );
+			
 			foreach( $results as $row ) {
 				//$_agent_type = ( 'pp_group' == $row->agent_type ) ? 'wp_role' : $row->agent_type;
 				if ( ( 'pp_group' == $row->agent_type ) && in_array( $row->agent_id, array_keys($this->agent_info['wp_role']) ) )

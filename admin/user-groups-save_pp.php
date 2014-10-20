@@ -1,8 +1,13 @@
 <?php
 class PP_UserGroupsSave {
 	public static function add_user_groups( $user_id, $omit_group_ids = array() ) {
+		$group_types = pp_get_group_types( array( 'editable' => true ) );
+		
 		//foreach( apply_filters( 'pp_membership_editable_group_types', array( 'pp_group' ) ) as $agent_type ) {
 		foreach( pp_get_group_types( array( 'editable' => true ) ) as $agent_type ) {
+			if ( ( 'pp_group' == $agent_type ) && in_array( 'pp_net_group', $group_types ) )
+				continue;
+			
 			if ( empty( $_POST[$agent_type] ) )
 				continue;
 
@@ -43,7 +48,12 @@ class PP_UserGroupsSave {
 	}
 	
 	public static function remove_user_groups( $user_id, $omit_group_ids = array() ) {
+		$group_types = pp_get_group_types( array( 'editable' => true ) );
+		
 		foreach( pp_get_group_types( array( 'editable' => true ) ) as $agent_type ) {
+			if ( ( 'pp_group' == $agent_type ) && in_array( 'pp_net_group', $group_types ) )
+				continue;
+			
 			$posted_groups = ( isset($_POST[$agent_type] ) ) ? array_map( 'intval', $_POST[$agent_type] ) : array();
 			
 			$stored_groups = array_keys( pp_get_groups_for_user( $user_id, $agent_type, array( 'cols' => 'id' ) ) );

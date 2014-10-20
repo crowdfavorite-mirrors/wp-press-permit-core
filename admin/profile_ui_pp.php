@@ -104,9 +104,14 @@ class PP_ProfileUI {
 			$user_id = ( ! empty($profileuser) ) ? $profileuser->ID : 0;
 		}
 		
-		foreach( pp_get_group_types( array( 'editable' => true ) ) as $agent_type ) {
+		$group_types = pp_get_group_types( array( 'editable' => true ) );
+		
+		foreach( $group_types as $agent_type ) {
 			//if ( ! $agent_type = apply_filters( 'pp_query_group_type', '' ) )
 			//	$agent_type = 'pp_group';
+			
+			if ( ( 'pp_group' == $agent_type ) && in_array( 'pp_net_group', $group_types ) )
+				continue;
 			
 			if ( ! pp_has_group_cap( 'pp_manage_members', 0, $agent_type ) )
 				continue;

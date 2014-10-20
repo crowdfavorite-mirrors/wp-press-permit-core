@@ -270,6 +270,8 @@ if ( 'user' == $agent_type ): ?>
 
 			$exceptions = array_merge( $exceptions, ppc_get_exceptions( $args ) );
 		}
+		
+		$role_group_caption = sprintf( __( 'Exceptions %1$s(from primary role or %2$sgroup membership%3$s)%4$s', 'pp' ), '<small>', "<a class='pp-show-groups' href='#'>", '</a>', '</small>' );
 		PP_GroupsUI::_current_exceptions_ui( $exceptions, array( 'read_only' => true, 'class' => 'pp-group-roles', 'caption' => $role_group_caption ) );
 	} else {
 		?>

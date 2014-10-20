@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 3.9.1
-Stable tag: 2.1.45
+Tested up to: 4.0
+Stable tag: 2.1.48
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,27 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.48 - 29 Sep 2014 =
+* Fixed : Post-specific restrictions were not applied correctly if PP setting "Post-assigned Exceptions take priority" enabled
+* Fixed : Nuisance notification of "Post-assigned Exceptions take priority" setting on new installations
+
+= 2.1.47 - 4 Sep 2014 =
+* Feature : Option to change exceptions handling to make post-specific blockages take priority over term-specific additions
+* Fixed : Media Upload by non-Editors stalled on "crunching" under some configurations
+* Fixed : Edit User Permissions screen labeled group Exceptions box as "Supplemental Roles"
+* Fixed : Support key expiration message was displayed incorrectly in some situations
+
+= 2.1.46 - 24 July 2014 =
+* Feature : Option to keep non-editable posts visible in wp-admin (only if PP Collaborative Editing pack is NOT active).
+* Compat : Co-Authors Plus - basic compatibility if "hide uneditable posts" setting is disabled
+* Compat : Co-Authors Plus - compatibility with PP Pro extensions
+* Compat : Tribe Events Calendar - read access filtering for ajax-loaded displays
+* Fixed : Network Groups were not updated correctly from Edit User screen (Pro)
+* Fixed : Term Management and Association exceptions were not propagated to new sub-terms
+* Fixed : Edit Terms screen did not properly label "only these" exceptions for term Management or Association, cleared them on term update
+* Fixed : Terms list for Universal Exceptions generated invalid link for term edit
+* Fixed : Custom columns in terms listing for Universal Exceptions did not include term Management or Association exceptions
 
 = 2.1.45 - 11 June 2014 =
 * Compat : verified WP 3.9.1 compatibility

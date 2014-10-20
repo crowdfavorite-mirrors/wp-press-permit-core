@@ -223,7 +223,10 @@ class PP_TermEditUI {
 			return;
 
 		$this->init_item_exceptions_ui();
-		$args = array( 'via_item_source' => 'term', 'for_item_source' => 'post', 'for_item_type' => $box['args']['for_item_type'], 'via_item_type' => $term->taxonomy, 'item_id' => $term->term_taxonomy_id );
+		
+		$for_item_type = ( in_array( $box['args']['op'], array( 'manage', 'associate' ) ) ) ? $term->taxonomy : $box['args']['for_item_type'];
+		
+		$args = array( 'via_item_source' => 'term', 'for_item_source' => 'post', 'for_item_type' => $for_item_type, 'via_item_type' => $term->taxonomy, 'item_id' => $term->term_taxonomy_id );
 		$this->item_exceptions_ui->draw_exceptions_ui( $box, $args );
 	}
 	

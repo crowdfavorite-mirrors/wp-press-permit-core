@@ -436,10 +436,10 @@ public static function insert_exceptions( $mod_type, $operation, $via_item_sourc
 				
 				// Don't overwrite an explicitly assigned exception with a propagated exception
 				if ( ! defined( 'PP_FORCE_EXCEPTION_OVERWRITE' ) || ! PP_FORCE_EXCEPTION_OVERWRITE ) {
-				$have_direct_assignments = $wpdb->get_col( "SELECT item_id FROM $wpdb->ppc_exception_items WHERE exception_id = '$child_exception_id' AND inherited_from = '0' AND item_id IN ('$descendant_id_csv')" );
-			
-				if ( in_array( $id, $have_direct_assignments ) )
-					continue;
+					$have_direct_assignments = $wpdb->get_col( "SELECT item_id FROM $wpdb->ppc_exception_items WHERE exception_id = '$child_exception_id' AND inherited_from = '0' AND item_id IN ('$descendant_id_csv')" );
+				
+					if ( in_array( $id, $have_direct_assignments ) )
+						continue;
 				}
 					
 				if ( $eitem_ids = $wpdb->get_col( $qry_item_delete_base . " AND exception_id = '$child_exception_id' AND item_id = '$id'" ) ) {

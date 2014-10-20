@@ -51,7 +51,7 @@ function pp_admin_init() {
 		}
 	//}
 	
-	if ( ! empty($_POST['pp_submit']) || ! empty($_POST['pp_defaults']) || ! empty($_POST['pp_role_usage_defaults']) || ! empty($_REQUEST['pp_refresh_updates']) || ! empty($_REQUEST['pp_upload_config']) || ! empty($_REQUEST['pp_support_forum']) ) {
+	if ( ! empty($_POST['pp_submit']) || ! empty($_POST['pp_defaults']) || ! empty($_POST['pp_role_usage_defaults']) || ! empty($_REQUEST['pp_refresh_updates']) || ! empty($_REQUEST['pp_renewal']) || ! empty($_REQUEST['pp_upload_config']) || ! empty($_REQUEST['pp_support_forum']) ) {
 		// For 'settings' admin panels, handle updated options right after current_user load (and before pp_init).
 		// By then, check_admin_referer is available, but PP config and WP admin menu has not been loaded yet.
 		require_once( PPC_ABSPATH . '/submittee_pp.php');	
@@ -203,4 +203,19 @@ function _pp_order_types( $types, $args = array() ) {
 function _pp_can_set_exceptions( $operation, $for_item_type, $args = array() ) {
 	require_once( dirname(__FILE__).'/admin-roles_pp.php' );
 	return PP_AdminRoles::can_set_exceptions( $operation, $for_item_type, $args );
+}
+
+function _pp_dashboard_dismiss_msg() {
+	$dismissals = get_option( 'pp_dismissals' );
+	if ( ! is_array( $dismissals ) )
+		$dismissals = array();
+
+	$msg_id = ( isset( $_REQUEST['msg_id'] ) ) ? $_REQUEST['msg_id'] : 'post_blockage_priority';
+	$dismissals[$msg_id] = true;
+	update_option( 'pp_dismissals', $dismissals );
+}
+
+// thanks to GravityForms for the nifty dismissal script
+if ( in_array( basename($_SERVER['PHP_SELF']), array('admin.php', 'admin-ajax.php') ) ) {
+	add_action( 'wp_ajax_pp_dismiss_msg', '_pp_dashboard_dismiss_msg' );
 }

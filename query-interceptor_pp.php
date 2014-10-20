@@ -59,6 +59,9 @@ class PP_QueryInterceptor
 		if ( defined( 'PP_MEDIA_LIB_UNFILTERED' ) && ( ( 'upload.php' == $pagenow ) || ( defined('DOING_AJAX') && DOING_AJAX && ( 'query-attachments' == $_REQUEST['action'] ) ) ) )
 			return $clauses;
 
+		if ( is_admin() && ! defined( 'PPCE_VERSION' ) && ! pp_get_option( 'admin_hide_uneditable_posts' ) )
+			return $clauses;
+			
 		if ( defined('DOING_AJAX') && DOING_AJAX ) { // todo: separate function to eliminate redundancy with PP_Find::find_post_type()
 			if ( in_array( $_REQUEST['action'], (array) apply_filters( 'pp_unfiltered_ajax', array() ) ) )
 				return $clauses;
@@ -79,7 +82,7 @@ class PP_QueryInterceptor
 				}
 			}
 			
-			$read_actions = apply_filters( 'pp_ajax_read_actions', array( 'infinite_scroll' ) );
+			$read_actions = apply_filters( 'pp_ajax_read_actions', array( 'infinite_scroll', 'tribe_calendar', 'tribe_list', 'tribe_event_day', 'tribe_event_week', 'tribe_geosearch', 'tribe_photo' ) );
 			if ( in_array( $_REQUEST['action'], $read_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'read';
 
@@ -117,7 +120,10 @@ class PP_QueryInterceptor
 		
 		//d_echo( "filtered flt_posts_clauses: " );
 		//dump($clauses);
-		
+
+
+
+
 		return $clauses;
 	}
 	
@@ -255,6 +261,8 @@ class PP_QueryInterceptor
 		$clauses = array_merge( $defaults, $clauses );
 		$clauses['where'] .= $this->get_posts_where( $args );
 		
+		$clauses = apply_filters( 'pp_construct_posts_request_clauses', $clauses, $args );
+		
 		extract($clauses);
 		$found_rows = ( $limits ) ? 'SQL_CALC_FOUND_ROWS' : '';
 
@@ -390,9 +398,9 @@ class PP_QueryInterceptor
 					}
 
 					if ( ! empty($args['skip_stati_usage_clause']) && ! $limit_statuses && ! array_diff_key( $use_statuses, array_flip($have_site_caps['owner']) ) ) {
-						$where_arr[$post_type] ['owner']= "$parent_clause ( $src_table.post_author = '$pp_current_user->ID' )";
+						$where_arr[$post_type] ['owner']= "$parent_clause ( $src_table.post_author = $pp_current_user->ID )";
 					} else
-						$where_arr[$post_type] ['owner']= "$parent_clause ( $src_table.post_author = '$pp_current_user->ID' ) AND $src_table.post_status IN ('" . implode( "','", array_unique($have_site_caps['owner']) ) . "')";
+						$where_arr[$post_type] ['owner']= "$parent_clause ( $src_table.post_author = $pp_current_user->ID ) AND $src_table.post_status IN ('" . implode( "','", array_unique($have_site_caps['owner']) ) . "')";
 				}
 				
 				if ( is_array($where_arr[$post_type]) ) {

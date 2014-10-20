@@ -100,7 +100,9 @@ class PP_TermsAdmin {
 		} else
 			return;
 		
-		if ( empty($typenow) && empty($_REQUEST['pp_universal']) )
+		if ( ! empty($_REQUEST['pp_universal']) )
+			$typenow = '';
+		elseif ( empty($typenow) )
 			$typenow = ( isset( $_REQUEST['post_type'] ) ) ? pp_sanitize_key($_REQUEST['post_type']) : '';
 		
 		$this->exceptions = array();
@@ -111,7 +113,8 @@ class PP_TermsAdmin {
 			$post_type = ( ! empty($_REQUEST['pp_universal']) ) ? '' : $typenow;
 
 			$for_type_csv = ( $typenow ) ? "'$post_type'" : "'', '$taxonomy'";
-			$results = $wpdb->get_results( "SELECT DISTINCT i.item_id, e.operation FROM $wpdb->ppc_exceptions AS e INNER JOIN $wpdb->ppc_exception_items AS i ON e.exception_id = i.exception_id WHERE e.for_item_source = 'post' AND e.for_item_type IN ($for_type_csv) AND e.via_item_source = 'term' AND e.via_item_type = '$taxonomy' AND e.agent_type IN ('$agent_type_csv') AND i.item_id IN ('$id_csv')" );
+			
+			$results = $wpdb->get_results( "SELECT DISTINCT i.item_id, e.operation FROM $wpdb->ppc_exceptions AS e INNER JOIN $wpdb->ppc_exception_items AS i ON e.exception_id = i.exception_id WHERE e.for_item_type IN ($for_type_csv) AND e.via_item_source = 'term' AND e.via_item_type = '$taxonomy' AND e.agent_type IN ('$agent_type_csv') AND i.item_id IN ('$id_csv')" );
 			
 			foreach( $results as $row ) {
 				if ( ! isset( $this->exceptions[$row->item_id] ) )
@@ -138,6 +141,8 @@ class PP_TermsAdmin {
 	}
 	
 	function misc_js() {
+		global $post_type;
+	
 		if ( empty($_REQUEST['pp_universal'] ) )
 			return;
 	?>
@@ -157,7 +162,8 @@ class PP_TermsAdmin {
 	jQuery(document).ready( function($) {
 		$('#the-list tr').each(function(i,e){ 
 			$(e).find("a.row-title,span.edit a").each(function(ii,ee){ 
-				$(ee).attr('href', $(ee).attr('href') + '&pp_universal=1' );
+				var u = $(ee).attr('href').replace('&post_type=<?php echo $post_type;?>','');
+				$(ee).attr('href', u + '&pp_universal=1' );
 			});
 		});
 	});

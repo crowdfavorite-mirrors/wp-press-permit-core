@@ -128,14 +128,16 @@ class PP_Options_Install {
 				if ( $expired ) {
 					$class = 'activating';
 					$is_err = true;
-					$msg = sprintf( __( 'Your support key has expired. For information on renewal at a discounted rate, <a href="%s">click here</a>.', 'pp' ), 'http://presspermit.com/' . 'renewal/?pkg=press-permit-plus' );
+					$msg = sprintf( __( 'Your support key has expired. For information on renewal at a discounted rate, <a href="%s">click here</a>.', 'pp' ), 'admin.php?page=pp-settings&amp;pp_renewal=1' );
 				} elseif ( ! empty( $opt_val['expire_date_gmt'] ) ) {
 					$class = 'activating';
 					if ( $expire_days < 30 ) $is_err = true;
 					if ( $expire_days < 1 )
-						$msg = sprintf( __( 'Your support key (for plugin updates) will expire today. For information on renewal at a discounted rate, <a href="%2$s">click here</a>.', 'pp' ), $expire_days, 'http://presspermit.com/' . 'renewal/?pkg=press-permit-plus' );
+						$msg = sprintf( __( 'Your support key (for plugin updates) will expire today. For information on renewal at a discounted rate, <a href="%2$s">click here</a>.', 'pp' ), $expire_days, 'admin.php?page=pp-settings&amp;pp_renewal=1' );
+					elseif ( $expire_days < 30 )
+						$msg = sprintf( __( 'Your support key (for plugin updates) will expire in %1$s days. For information on renewal at a discounted rate, <a href="%2$s">click here</a>.', 'pp' ), $expire_days, 'admin.php?page=pp-settings&amp;pp_renewal=1' );
 					else
-						$msg = sprintf( __( 'Your support key (for plugin updates) will expire in %1$s days. For information on renewal at a discounted rate, <a href="%2$s">click here</a>.', 'pp' ), $expire_days, 'http://presspermit.com/' . 'renewal/?pkg=press-permit-plus' );
+						$class = "activating hidden";
 				} elseif ( ! $activated ) {
 					$class = 'activating';
 					$msg = sprintf( __( 'Activate your support key to install Pro extensions and access the member support forums. Available at <a href="%s">presspermit.com</a>.', 'pp' ), 'http://presspermit.com/' . 'purchase/' );
@@ -146,7 +148,7 @@ class PP_Options_Install {
 				?>
 				
 				<span style="margin-left:145px;">
-					<?php if ( $expired && ( ! empty($key[1] ) ) ) : ?>
+					<?php if ( $expired && ( ! empty($key) ) ) : ?>
 						<span class="pp-key-exired"><?php _e("Key Expired", 'pp') ?></span>
 						<button type="button" id="activation-button" name="activation-button" class="button-secondary"><?php _e('Deactivate Key','pp'); ?></button>
 						<span class="pp-key-exired pp-key-warning"> <?php _e('note: Renewal does not require deactivation. If you do deactivate, re-entry of the support key will be required.', 'pp'); ?></span>
@@ -174,7 +176,7 @@ class PP_Options_Install {
 				<br /><div id="activation-status" class="<?php echo $class?>"><?php echo $msg;?></div><div id="activation-reload" style="display:none;margin-top:10px"><a href="<?php echo admin_url('admin.php?page=pp-settings');?>"><?php _e('reload extension links', 'pp');?></a></div>
 				
 				<?php if ( ! empty($is_err) ) : ?>
-				<div id="activation-error" class="error"><?php echo $msg;?></div>
+				<div id="activation-error" class="error" style="margin-top:35px"><?php echo $msg;?></div>
 				<?php endif; ?>
 				
 				<?php 

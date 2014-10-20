@@ -23,6 +23,18 @@ class PP_Submittee {
 			wp_redirect( admin_url('admin.php?page=pp-settings&pp_refresh_done=1') );
 			exit;
 		}
+		
+		if ( ! empty( $_REQUEST['pp_renewal'] ) ) {
+			$opt_val = get_option( 'pp_support_key' );
+			$renewal_token = ( ! is_array($opt_val) || count($opt_val) < 2 ) ? '' : substr( $opt_val[1], 0, 16 );
+			
+			$url = site_url('');
+			$arr_url = parse_url( $url );
+			$site = urlencode( str_replace( $arr_url['scheme'] . '://', '', $url ) );
+			
+			wp_redirect( 'http://presspermit.com/renewal/?pkg=press-permit-pro&site=' . $site . '&rt=' . $renewal_token );
+			exit;
+		}
 	
 		if ( ! empty( $_REQUEST['pp_upload_config'] ) || ! empty( $_REQUEST['pp_support_forum'] ) ) {
 			require_once( dirname(__FILE__).'/admin/support_pp.php' );
@@ -151,6 +163,15 @@ class PP_Submittee {
 				$value[$key] = stripslashes_deep( $value[$key] );
 			
 			pp_update_option( $default_prefix . $option_basename, $value, $args );
+		}
+		
+		if ( ! empty( $_POST['post_blockage_priority'] ) ) {	 // once this is switched on manually, don't ever default-disable it again
+			if ( get_option( 'ppperm_legacy_exception_handling' ) ) {
+				delete_option( 'ppperm_legacy_exception_handling' );
+				
+				require_once( dirname(__FILE__).'/admin/admin-load_pp.php' );
+				_pp_dashboard_dismiss_msg();
+			}
 		}
 		
 		if ( ! empty( $_POST['do_group_index_drop'] ) ) {

@@ -43,10 +43,16 @@ class PP_Exceptions {
 					$where .= $append_clause;
 				}
 				
+				if ( $post_blockage_priority = pp_get_option( 'post_blockage_priority' ) )
+					$post_blockage_clause = 'AND 1=1';
+				
 				foreach( array( 'include' => 'IN', 'exclude' => 'NOT IN' ) as $mod => $logic ) {
 					if ( $ids = $pp_current_user->get_exception_posts( $required_operation, $mod, $exc_post_type ) ) {
 						$_args = array_merge( $args, compact( 'mod', 'ids', 'src_table', 'logic' ) );
-						$where .= " AND " . apply_filters( 'pp_exception_clause', "$src_table.ID $logic ('" . implode( "','", $ids ) . "')", $required_operation, $post_type, $_args );
+						
+						$clause_var = ( $post_blockage_priority ) ? 'post_blockage_clause' : 'where';
+						$$clause_var .= " AND " . apply_filters( 'pp_exception_clause', "$src_table.ID $logic ('" . implode( "','", $ids ) . "')", $required_operation, $post_type, $_args );
+						
 						break;  // don't use both include and exclude clauses
 					}
 				}
@@ -143,6 +149,9 @@ class PP_Exceptions {
 			$where = "$src_table.post_type = '$post_type' AND $where";
 			*/
 		}
+		
+		if ( $post_blockage_priority )
+			$where = "( $where ) $post_blockage_clause";
 		
 		if ( $append_post_type_clause )
 			$where = "$src_table.post_type = '$post_type' AND ( $where )";

@@ -119,6 +119,10 @@ class PP_AdminUI
 			add_action( 'network_admin_menu', array( &$this, 'reinstate_solo_submenus' ) );
 		}
 		
+		if ( in_array( $pagenow, array( 'edit.php', 'post.php', 'post-new.php', 'edit-tags.php', 'index.php' ) ) || ! empty($pp_plugin_page) ) {
+			add_action( 'admin_notices', array( &$this, 'admin_notice' ) );
+		}
+		
 		do_action( 'pp_admin_ui' );
 	}
 	
@@ -315,6 +319,36 @@ class PP_AdminUI
 			$pagenow = '';
 	}
 	
+	function admin_notice() {
+		if ( ! is_super_admin() )
+			return;
+
+		if ( get_option( 'pp_post_blockage_priority' ) || ! get_option( 'ppperm_legacy_exception_handling' ) )
+			return;
+		
+		$msg_id = 'post_blockage_priority';
+		$dismissals = (array) pp_get_option( 'dismissals' );
+
+		if ( isset( $dismissals[$msg_id] ) )
+			return;
+			
+		$message = __( 'An improvement to permissions handling is available. Please review Permissions > Settings > Core > Permissions.', 'pp' );
+		
+		global $pp_plugin_page;
+		
+		// thanks to GravityForms for the nifty dismissal script
+		?>
+		<div class='updated' style='<?php if ( $pp_plugin_page ) echo 'margin-top:30px;';?>padding:5px;line-height:18px;<?php global $pp_plugin_page; if ( ! empty ($pp_plugin_page) ) echo 'margin-right:120px;';?>position:relative;' id='pp_dashboard_message'><?php echo $message ?>&nbsp; &nbsp;
+			<a href="javascript:void(0);" onclick="PPDismissNotice();" style='fl-oat:right;'><?php _e("Dismiss", "pp") ?></a>
+		</div>
+		<script type="text/javascript">
+			function PPDismissNotice(){
+				jQuery("#pp_dashboard_message").slideUp();
+				jQuery.post(ajaxurl, {action:"pp_dismiss_msg", msg_id:"<?php echo $msg_id ?>", cookie: encodeURIComponent(document.cookie)});
+			}
+		</script>
+		<?php
+	}
 } // end class PP_Admin
 
 function pp_init_agents_ui() {

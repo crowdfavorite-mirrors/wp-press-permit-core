@@ -22,6 +22,9 @@ class PP_Error {
 	}
 	
 	public static function error_notice( $err ) {
+		global $pp_plugin_page;
+		$is_pp_plugin_page = ( ! empty($pp_plugin_page) ) || ( isset($_REQUEST['page']) && 0 === strpos( $_REQUEST['page'], 'pp-' ) );
+		
 		switch( $err ) {
 			case 'multiple_pp' :
 				global $pagenow;
@@ -35,7 +38,8 @@ class PP_Error {
 			case 'rs_active' :
 				define( 'PP_DISABLE_QUERYFILTERS', true );
 				$message = sprintf( '<strong>Note:</strong> Press Permit is running in configuration only mode. Access filtering will not be applied until Role Scoper is deactivated.' );
-				add_action('all_admin_notices', create_function('', 'echo \'<div id="message" class="error fade" style="color: black">' . $message . '</div>\';'));
+				$style = ( $is_pp_plugin_page ) ? 'margin-top:30px;color:black' : 'color:black';
+				add_action('all_admin_notices', create_function('', 'echo \'<div id="message" class="error fade" style="' . $style . '">' . $message . '</div>\';'));
 				define( 'PP_CONFIG_ONLY', true );
 				define( 'PP_DISABLE_MENU_TWEAK', true );
 				return false;

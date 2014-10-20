@@ -9,7 +9,7 @@ if ( is_admin() )
  *
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2014, Agapetry Creations LLC
  * 
 */
 
@@ -23,6 +23,8 @@ function pp_default_options() {
 		'display_user_profile_roles' => 0,
 		'new_user_groups_ui' => 1,
 		'beta_updates' => false,
+		'admin_hide_uneditable_posts' => 1,
+		'post_blockage_priority' => get_option( 'ppperm_legacy_exception_handling' ) ? 0 : 1,
 		'advanced_options' => 0,
 		
 		'support_key' => false,

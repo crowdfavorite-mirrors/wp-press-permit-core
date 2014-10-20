@@ -114,7 +114,7 @@ function _pp_bbpress_forum_only( $unfiltered_types ) {
 	
 // this fires late on the 'init' action (priority 50)
 function _pp_act_on_init() {
-	if ( defined( 'INIT_ACTION_DONE_PP' ) ) { return; }
+	if ( defined( 'INIT_ACTION_DONE_PP' ) || ppc_interrupt_init() ) { return; }
 	define ( 'INIT_ACTION_DONE_PP', true );
 
 	// --- version check ---
@@ -177,6 +177,10 @@ function _pp_act_on_init() {
 
 function _pp_act_set_current_user() {
 	global $current_user, $pp_current_user;
+	
+	if ( ppc_interrupt_init() )
+		return;
+	
 	$pp_current_user = pp_get_user($current_user->ID);
 	
 	static $done;
@@ -214,6 +218,16 @@ function pp_init_with_user() {
 	$current_user->allcaps = array_merge( $current_user->allcaps, $pp_current_user->allcaps );  // copies above changes and any 3rd party filtering
 	
 	do_action( 'pp_user_init' );
+}
+
+function ppc_interrupt_init() {
+	if ( is_admin() && strpos($_SERVER['SCRIPT_NAME'], 'async-upload.php') && ! empty($_POST['attachment_id']) && ! empty($_POST['fetch']) && ( 3 == $_POST['fetch']) ) {
+		if ( $att = get_post( $_POST['attachment_id'] ) ) {
+			global $current_user;
+			if ( $att->post_author == $current_user->ID )
+				return true;
+		}
+	}
 }
 
 function pp_supplement_user_allcaps( &$user ) {

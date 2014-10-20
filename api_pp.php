@@ -159,8 +159,10 @@ function pp_get_group_members( $group_id, $agent_type = 'pp_group', $cols = 'all
 	if ( 'pp_group' == $agent_type ) {
 		require_once( dirname(__FILE__).'/groups-retrieval_pp.php' );
 		return PP_GroupRetrieval::get_pp_group_members( $group_id, $cols, $args );
-	} else
-		return apply_filters( 'pp_get_group_members', array(), $group_id, $agent_type, $cols, $args );
+	} else {
+		$val = ( 'count' == $cols ) ? 0 : array();
+		return apply_filters( 'pp_get_group_members', $val, $group_id, $agent_type, $cols, $args );
+	}
 }
 
 /**
