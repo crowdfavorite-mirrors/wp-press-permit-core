@@ -61,7 +61,7 @@ class PP_ProfileUI {
 		$is_administrator = pp_is_user_administrator() && pp_bulk_roles_enabled() && current_user_can('list_users');
 		$edit_url = ( $is_administrator ) ? "admin.php?page=pp-edit-permissions&amp;action=edit&amp;agent_id=$user->ID&amp;agent_type=user" : '';
 
-		$roles = ppc_get_roles( 'user', $user->ID, compact( $post_types, $taxonomies ) );
+		$roles = ppc_get_roles( 'user', $user->ID, array( 'post_types' => $post_types, 'taxonomies' => $taxonomies ) );
 		$has_user_roles = PP_GroupsUI::_current_roles_ui( $roles, array( 'read_only' => true, 'caption' => sprintf( __( 'Supplemental Roles %1$s(for this user)%2$s', 'pp' ), '<small>', '</small>'), 'class' => 'pp-user-roles', 'link' => $edit_url ) );
 
 		$caption = sprintf( __( 'Exceptions %1$s(for user)%2$s', 'pp' ), '<small>', '</small>' );

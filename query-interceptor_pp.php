@@ -8,7 +8,7 @@ require_once( dirname(__FILE__).'/exceptions_pp.php' );
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 class PP_QueryInterceptor
@@ -73,7 +73,7 @@ class PP_QueryInterceptor
 				}
 			}
 
-			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'ai1ec_doing_ajax' => 'ai1ec_event', 'tribe_calendar' => 'tribe_events' ) );
+			$ajax_post_types = apply_filters( 'pp_ajax_post_types', array( 'attachment' => 'attachment', 'ai1ec_doing_ajax' => 'ai1ec_event', 'tribe_calendar' => 'tribe_events' ) );
 			
 			foreach( array_keys($ajax_post_types) as $arg ) {
 				if ( ! empty( $_REQUEST[$arg] ) || ( $arg == $_REQUEST['action'] ) ) {
@@ -82,10 +82,16 @@ class PP_QueryInterceptor
 				}
 			}
 			
+			/*
 			$read_actions = apply_filters( 'pp_ajax_read_actions', array( 'infinite_scroll', 'tribe_calendar', 'tribe_list', 'tribe_event_day', 'tribe_event_week', 'tribe_geosearch', 'tribe_photo' ) );
 			if ( in_array( $_REQUEST['action'], $read_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'read';
-
+			*/
+			
+			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
+			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {
+				$_wp_query->query_vars['required_operation'] = 'edit';
+			
 			} elseif ( ! empty($_wp_query->post_type) && is_scalar($_wp_query->post_type) ) {
 				$ajax_required_operation = apply_filters( 'pp_ajax_required_operation', array( 'ai1ec_event' => 'read' ) );
 				
@@ -95,7 +101,9 @@ class PP_QueryInterceptor
 						break;
 					}
 				}
-			}
+			} else {
+				$_wp_query->query_vars['required_operation'] = 'read';
+			}	 
 		}
 
 		if ( $_clauses = apply_filters( 'pp_posts_clauses_intercept', false, $clauses, $_wp_query, $args ) )
@@ -415,8 +423,9 @@ class PP_QueryInterceptor
 				if ( $modified = apply_filters( 'pp_adjust_posts_where_clause', false, $where_arr[$post_type], $post_type, $args ) )
 					$where_arr[$post_type] = $modified;
 					
-				if ( 'attachment' == $post_type ) {					
+				if ( 'attachment' == $post_type ) {
 					if ( ( 'read' == $required_operation ) || apply_filters( 'pp_force_attachment_parent_clause', false, $args ) ) {
+					//if ( ( 'read' == $required_operation ) || ( defined('DOING_AJAX') && DOING_AJAX && ( false != strpos( $_SERVER['REQUEST_URI'], 'async-upload.php' ) ) ) || apply_filters( 'pp_force_attachment_parent_clause', false, $args ) ) {
 						$where_arr[$post_type] = "( " . $this->append_attachment_clause( "$src_table.post_type = 'attachment'", array(), $args ) . " )";
 					}
 				}

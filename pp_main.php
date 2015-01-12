@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 class PP
@@ -26,7 +26,7 @@ class PP
 		// determine if query filtering has been disabled by option storage or API
 		global $pp_plugin_page;
 		$no_filter_uris = apply_filters( 'pp_nofilter_uris', array() );
-		if ( defined('DOING_CRON') || ( pp_unfiltered() && ! is_user_logged_in() ) || in_array( $pagenow, $no_filter_uris ) || in_array( $pp_plugin_page, (array) $no_filter_uris ) || ( defined('PP_DISABLE_QUERYFILTERS') && PP_DISABLE_QUERYFILTERS ) )
+		if ( ( defined('DOING_CRON') && pp_doing_cron() ) || ( pp_unfiltered() && ! is_user_logged_in() ) || in_array( $pagenow, $no_filter_uris ) || in_array( $pp_plugin_page, (array) $no_filter_uris ) || ( defined('PP_DISABLE_QUERYFILTERS') && PP_DISABLE_QUERYFILTERS ) )
 			$this->filtering_enabled = false;
 		
 		// legacy extension API (todo: check property instead)

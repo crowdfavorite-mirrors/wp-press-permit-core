@@ -68,7 +68,7 @@ class PP_QueryInterceptorFront {
 		
 		// possible @todo: implement in any other PP filters?
 		require_once( dirname(__FILE__).'/lib/sql-tokenizer_pp.php' );
-		$parser = new SqlTokenizer_WP();
+		$parser = new SqlTokenizer_PP();
 		$post_type = $parser->ParseArg( $where, 'post_type' );
 		
 		$where = str_replace( "WHERE ", "WHERE $wpdb->posts.post_date > 0 AND ", $where );

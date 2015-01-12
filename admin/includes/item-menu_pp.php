@@ -88,7 +88,7 @@ function pp_nav_menu_item_post_type_meta_box( $object, $post_type ) {
 	$post_type_name = $post_type['args']->name;
 
 	// paginate browsing for large numbers of post objects
-	$per_page = 50;
+	$per_page = defined( 'PP_ITEM_MENU_PER_PAGE' ) ? PP_ITEM_MENU_PER_PAGE : 100;
 	$pagenum = isset( $_REQUEST[$post_type_name . '-tab'] ) && isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 1;
 	$offset = 0 < $pagenum ? $per_page * ( $pagenum - 1 ) : 0;
 

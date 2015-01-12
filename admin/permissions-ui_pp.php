@@ -439,7 +439,7 @@ class PP_GroupsUI {
 		if ( ( 'pp_group' == $agent_type ) && ( $group = pp_get_group( $agent_id ) ) )
 			$is_wp_role = ( 'wp_role' == $group->metagroup_type );
 		
-		if ( empty($group) || ! in_array( $group->metagroup_id, array( 'wp_anon', 'wp_all' ) ) )
+		if ( empty($group) || ! in_array( $group->metagroup_id, array( 'wp_anon', 'wp_all' ) ) || defined( 'PP_ALL_ANON_ROLES' ) )
 			$perms['roles'] = __('Add Supplemental Roles', 'pp');
 		
 		$perms['exceptions'] = __('Add Exceptions', 'pp');

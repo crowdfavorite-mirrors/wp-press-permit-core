@@ -4,7 +4,7 @@
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 
@@ -61,6 +61,10 @@ class PP_TermsInterceptor {
 			return true;
 			
 		if ( 'id=>parent' == $args['fields'] ) // internal storage of {$taxonomy}_children
+			return true;
+			
+		// Kriesi Enfold theme conflict on "More Posts" query
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && in_array( $_REQUEST['action'], apply_filters( 'pp_unfiltered_ajax_termcount', array( 'avia_ajax_masonry_more' ) ) ) )
 			return true;
 	}
 	

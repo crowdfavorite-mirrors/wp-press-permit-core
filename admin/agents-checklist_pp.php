@@ -26,6 +26,8 @@ class PP_Agents_Checklist {
 		if ( 'eligible' == $agents_subset ) {
 			$caption = __('eligible (%d):', 'pp');
 
+			$item_assignments = array_intersect_key( $item_assignments, $all_agents );
+			
 			if ( ! $agent_count = count($all_agents) - count($item_assignments) )
 				return;
 		} else {

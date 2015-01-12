@@ -1,5 +1,5 @@
 <?php
-class SqlTokenizer_WP extends SqlTokenizer {
+class SqlTokenizer_PP extends SqlTokenizer_KB {
 	public function __construct() {
 		$this->separators = array_merge( $this->separators, array( 'post_status', 'post_author', 'post_date', 'post_date_gmt', 'post_parent', 'post_modified', 'post_modified_gmt', 'ID', 'post_name', 'guid' ) );
 	}
@@ -19,7 +19,7 @@ class SqlTokenizer_WP extends SqlTokenizer {
  * @license LGPL 3
  * @version 0.0.4
  */
-class SqlTokenizer {
+class SqlTokenizer_KB {
     var $querysections = array( 'alter', 'create', 'drop', 'select', 'delete', 'insert','update', 'from', 'where', 'limit', 'order' );
     var $operators = array( '=', '<>', '<', '<=', '>', '>=', 'like', 'clike', 'slike', 'not', 'is', 'in', 'between' );
     var $separators = array( 'and' );

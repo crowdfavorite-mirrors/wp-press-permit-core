@@ -62,9 +62,16 @@ case 'get_conditions_ui':
 		
 		if ( ! empty( $type_caps[ 'edit_posts' ] ) || $direct_assignment ) {
 			$html = $standard_stati_ui;
-		} else
+		} else {
 			$html = '';
-
+			
+			if ( empty($type_caps) ) {
+				$arr_role_name = explode( ':', $role_name );
+				if ( in_array( $arr_role_name[0], array( 'contributor', 'author', 'editor', 'revisor' ) ) )
+					$html = $standard_stati_ui;
+			}
+		}
+		
 		// edit_private, delete_private caps are normally cast from pattern role
 		if ( isset( $type_caps[ 'read' ] ) && ( empty( $type_caps[ 'edit_posts' ] ) || $direct_assignment )
 		//	|| isset( $type_caps['edit_published_posts'] ) && ! isset( $type_caps[ 'edit_private_posts' ] ) 

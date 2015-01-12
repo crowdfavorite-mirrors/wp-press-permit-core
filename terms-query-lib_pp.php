@@ -28,11 +28,12 @@ class PP_TermsQueryLib {
 		// Get the object and term ids and stick them in a lookup table
 		$tax_obj = get_taxonomy($taxonomy);
 		
-		$object_types = ( $post_type ) ? $post_type : esc_sql($tax_obj->object_type);
+		$object_types = ( $post_type ) ? (array) $post_type : (array) esc_sql($tax_obj->object_type);
 
 		if ( pp_unfiltered() ) {
 			$stati = get_post_stati( array( 'public' => true, 'private' => true ), 'names', 'or' );
-			$type_status_clause = "AND post_type IN ('" . implode("', '", $object_types) . "') AND post_status IN ('" . implode("', '", $stati) . "')";
+			$status_clause = ( $stati ) ? "AND post_status IN ('" . implode("', '", $stati) . "')" : '';
+			$type_status_clause = "AND post_type IN ('" . implode("', '", $object_types) . "') $status_clause";
 		} else {
 			global $query_interceptor;
 			$type_status_clause = $query_interceptor->get_posts_where( array( 'post_types' => $object_types, 'required_operation' => $required_operation ) ); // need to apply term restrictions in case post is restricted by another taxonomy

@@ -10,6 +10,9 @@ class PP_Exceptions {
 			$user = $pp_current_user;
 		}
 
+		// TODO: why is this needed on some installations?
+		$user->retrieve_exceptions( $operation, 'post' );
+		
 		// Note: this does not apply term exceptions (not needed for current implementation, which only uses this function for 'associate' op )
 		
 		$additional_ids = $user->get_exception_posts( $operation, 'additional', $post_type );
@@ -43,8 +46,8 @@ class PP_Exceptions {
 					$where .= $append_clause;
 				}
 				
-				if ( $post_blockage_priority = pp_get_option( 'post_blockage_priority' ) )
-					$post_blockage_clause = 'AND 1=1';
+				$post_blockage_priority = pp_get_option( 'post_blockage_priority' );
+				$post_blockage_clause = '';
 				
 				foreach( array( 'include' => 'IN', 'exclude' => 'NOT IN' ) as $mod => $logic ) {
 					if ( $ids = $pp_current_user->get_exception_posts( $required_operation, $mod, $exc_post_type ) ) {
@@ -137,6 +140,10 @@ class PP_Exceptions {
 		if ( $additions = apply_filters( 'pp_apply_additions', $additions, $where, $required_operation, $post_type, $args ) ) {
 			$where = "( $where ) OR ( " . pp_implode( ' OR ', $additions ) . " )";
 
+			if ( $post_blockage_clause ) {
+				$post_blockage_clause = "AND ( ( 1=1 $post_blockage_clause ) OR ( " . pp_implode( ' OR ', $additions ) . " ) )";
+			}
+			
 			/*
 			$additions = pp_implode( ' OR ', $additions );
 			

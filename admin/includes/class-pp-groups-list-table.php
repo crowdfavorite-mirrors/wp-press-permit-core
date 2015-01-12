@@ -277,11 +277,11 @@ class PP_Groups_List_Table extends PP_Groups_List_Table_Base {
 
 function pp_count_role_users( $role_name ) {
 	static $role_count = array();
-	
+
 	if ( ! $role_count ) {
 		$_user_count = count_users();
-		foreach ( $_user_count['avail_roles'] as $role_name => $count )
-			$role_count[$role_name] = $count;
+		foreach ( $_user_count['avail_roles'] as $_role_name => $count )
+			$role_count[$_role_name] = $count;
 	}
 
 	return ( isset( $role_count[$role_name] ) ) ? $role_count[$role_name] : 0;

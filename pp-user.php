@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 if ( ! class_exists('PP_User') ) {
@@ -45,6 +45,13 @@ class PP_User extends WP_User {
 			if ( 'pp_group' != $agent_type ) {
 				$this->groups[$agent_type] = pp_get_groups_for_user( $this->ID, $agent_type, array( 'cols' => 'id' ) );
 				$custom_group_type = true;
+				
+				if ( is_array( $this->groups[$agent_type] ) && ! empty($this->groups['pp_group']) ) { 
+					foreach( array_keys( $this->groups[$agent_type] ) as $_id ) {
+						if ( isset($this->groups['pp_group'][$_id]) && empty($this->groups['pp_group'][$_id]->metagroup_id) )
+							unset( $this->groups['pp_group'][$_id] );
+					}
+				}
 			}
 		}
 
@@ -60,8 +67,17 @@ class PP_User extends WP_User {
 		$arr []= "{$table_alias}agent_type = 'user' AND {$table_alias}agent_id = '$this->ID'";
 		
 		foreach( pp_get_group_types( array(), 'names' ) as $agent_type ) {
-			if ( ! empty( $this->groups[$agent_type] ) ) {
-				$arr []= "{$table_alias}agent_type = '$agent_type' AND {$table_alias}agent_id IN ('" . implode( "', '", array_keys($this->groups[$agent_type]) ) . "')";
+			$apply_groups = $this->groups[$agent_type];
+			
+			if ( ( 'pp_group' == $agent_type ) && pp_get_option( 'netwide_groups' ) ) {
+				foreach( array_keys($apply_groups) as $k ) {
+					if ( empty( $apply_groups[$k]->metagroup_type ) )
+						unset( $apply_groups[$k] );
+				}
+			}
+			
+			if ( ! empty( $apply_groups ) ) {
+				$arr []= "{$table_alias}agent_type = '$agent_type' AND {$table_alias}agent_id IN ('" . implode( "', '", array_keys($apply_groups) ) . "')";
 			}
 		}
 

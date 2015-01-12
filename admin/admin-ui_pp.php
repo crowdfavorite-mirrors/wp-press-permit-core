@@ -217,7 +217,7 @@ class PP_AdminUI
 		if ( 'pp-groups' == $pp_cred_menu )  {
 			//  Manually set menu indexes for positioning below Users menu
 			global $menu;
-			$pp_cred_key = ( ! defined( 'PP_DISABLE_MENU_TWEAK' ) && isset( $menu[70] ) && $menu[70][2] == 'users.php' && ! isset( $menu[72] ) ) ? 72 : null;
+			$pp_cred_key = ( ! defined( 'PP_DISABLE_MENU_TWEAK' ) && ! defined( 'OZH_MENU_VER' ) && isset( $menu[70] ) && $menu[70][2] == 'users.php' && ! isset( $menu[72] ) ) ? 72 : null;
 			add_menu_page( __('Permissions', 'pp'), __('Permissions', 'pp'), 'read', $pp_cred_menu, array(&$this, 'menu_handler'), PP_URLPATH . '/admin/images/menu/users-c.png', $pp_cred_key );
 		}
 
@@ -237,7 +237,8 @@ class PP_AdminUI
 		if ( $do_settings ) {
 			do_action( 'pp_permissions_menu', $pp_options_menu, $handler );
 
-			add_submenu_page($pp_options_menu, __('Settings', 'pp'), __('Settings', 'pp'), 'read', 'pp-settings', $handler );
+			$settings_caption = ( 'pp-groups' == $pp_options_menu ) ? __( 'Settings', 'pp' ) : __( 'Permissions', 'pp' );
+			add_submenu_page($pp_options_menu, $settings_caption, $settings_caption, 'read', 'pp-settings', $handler );
 		}
 
 		// satisfy WordPress' demand that all admin links be properly defined in menu
