@@ -257,9 +257,12 @@ class PP_Core_Upgrader extends PP_Upgrader {
 		// Cleanup our hooks, incase something else does a upgrade on this connection.
 		remove_filter('upgrader_clear_destination', array(&$this, 'delete_old_plugin'));
 
-		if ( ! $this->result || is_wp_error($this->result) )
+		if ( ! $this->result || is_wp_error($this->result) ) {
+			delete_site_transient( 'update_plugins' );  // force reload of plugin status in case this is due to a key expiration
+			pp_get_version_info( true, false, true );
 			return $this->result;
-
+		}
+			
 		// Force refresh of plugin update information
 		set_site_transient('ppc_update_info', false);
 	}

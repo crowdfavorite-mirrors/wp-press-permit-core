@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.1
-Stable tag: 2.1.51
+Stable tag: 2.1.53
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,16 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.53 - 4 Feb 2015 =
+* Compat : Visual Composer - invalid display of VC "add element" UI on Edit Term screen
+
+= 2.1.52 - 3 Feb 2015 =
+* Compat : The Events Calendar - Ajax refresh of calendar did not display events to subscribers or anonymous viewers
+* Compat : Visual Composer - invalid display of VC metabox on Edit Term screen
+* Change (Pro) : Refresh support key data to more promptly display expiration status
+* Fixed : White screen after cloning permissions from one role group to another
+* Fixed : PHP warning for deprecated function call on Permissions > Groups screen
 
 = 2.1.51 - 9 Jan 2015 =
 * Compat : Google Analytics by Yoast - PP filtering was disabled due to GA loading user prior to init action

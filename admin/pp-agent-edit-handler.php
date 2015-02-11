@@ -44,8 +44,10 @@ switch( $action ) {
 		
 	case 'pp_updateclone' :
 		if ( current_user_can( 'pp_assign_roles' ) && pp_bulk_roles_enabled() ) {
+			$agent_id = (int) $_REQUEST['agent_id'];
 			require_once( dirname(__FILE__).'/permissions-clone_pp.php' );
-			PP_Clone::clone_permissions( 'pp_group', (int) $_REQUEST['agent_id'], pp_sanitize_key($_REQUEST['pp_select_role']) );
+			PP_Clone::clone_permissions( 'pp_group', $agent_id, pp_sanitize_key($_REQUEST['pp_select_role']) );
+			$redirect = "$url?page=pp-edit-permissions&agent_id=$agent_id&agent_type=$agent_type&updated=1&pp_cloned=1";
 		}
 		
 		break;

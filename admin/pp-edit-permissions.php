@@ -80,8 +80,12 @@ add_contextual_help($current_screen,
 	<?php elseif( ! empty($_REQUEST['pp_exc']) ) : ?>
 	<strong><?php _e('Exceptions updated.', 'pp') ?>&nbsp;</strong>
 
+	<?php elseif( ! empty($_REQUEST['pp_cloned']) ) : ?>
+	<strong><?php _e('Permissions cloned.', 'pp') ?>&nbsp;</strong>
+	
 	<?php else : ?>
 	<strong><?php _e('Group updated.', 'pp') ?>&nbsp;</strong>
+	
 	<?php 
 	if ( $wp_http_referer ) : ?>
 		<a href="<?php echo esc_url( $wp_http_referer ); ?>"><?php _e('Back to groups list', 'pp'); ?></a>

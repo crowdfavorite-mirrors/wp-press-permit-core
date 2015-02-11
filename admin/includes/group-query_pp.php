@@ -260,8 +260,10 @@ class PP_Group_Query {
 		foreach ( $cols as $col ) {
 			if ( 'ID' == $col )
 				$searches[] = "$col = '$string'";
-			else
-				$searches[] = "$col LIKE '$leading_wild" . like_escape($string) . "$trailing_wild'";
+			else {
+				global $wpdb;
+				$searches[] = "$col LIKE '$leading_wild" . $wpdb->esc_like($string) . "$trailing_wild'";
+			}
 		}
 
 		return ' AND (' . implode(' OR ', $searches) . ')';

@@ -7,6 +7,7 @@ class PP_TermEditUI {
 		wp_enqueue_script('postbox');
 		
 		wp_enqueue_style( 'pp-item-edit', PP_URLPATH . '/admin/css/pp-item-edit.css', array(), PPC_VERSION );
+		wp_enqueue_style( 'pp-term-edit', PP_URLPATH . '/admin/css/pp-term-edit.css', array(), PPC_VERSION );
 		
 		//$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 		//wp_enqueue_script( 'pp_agent_search', PP_URLPATH . "/admin/js/listbox{$suffix}.js", array('jquery', 'jquery-form'), PPC_VERSION );  // this caused redundant loading

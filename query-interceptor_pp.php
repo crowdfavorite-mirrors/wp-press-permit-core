@@ -88,12 +88,15 @@ class PP_QueryInterceptor
 				$_wp_query->query_vars['required_operation'] = 'read';
 			*/
 			
+			$_wp_query->query_vars['required_operation'] = 'read';  // default to requiring read access for all ajax queries
+			
 			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
 			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {
 				$_wp_query->query_vars['required_operation'] = 'edit';
 			
 			} elseif ( ! empty($_wp_query->post_type) && is_scalar($_wp_query->post_type) ) {
-				$ajax_required_operation = apply_filters( 'pp_ajax_required_operation', array( 'ai1ec_event' => 'read' ) );
+				//$ajax_required_operation = apply_filters( 'pp_ajax_required_operation', array( 'ai1ec_event' => 'read' ) );
+				$ajax_required_operation = apply_filters( 'pp_ajax_required_operation', array() );
 				
 				foreach( array_keys($ajax_required_operation) as $arg ) {
 					if ( $arg == $_wp_query->post_type ) {
@@ -101,9 +104,7 @@ class PP_QueryInterceptor
 						break;
 					}
 				}
-			} else {
-				$_wp_query->query_vars['required_operation'] = 'read';
-			}	 
+			} 
 		}
 
 		if ( $_clauses = apply_filters( 'pp_posts_clauses_intercept', false, $clauses, $_wp_query, $args ) )
@@ -128,9 +129,6 @@ class PP_QueryInterceptor
 		
 		//d_echo( "filtered flt_posts_clauses: " );
 		//dump($clauses);
-
-
-
 
 		return $clauses;
 	}
@@ -303,7 +301,7 @@ class PP_QueryInterceptor
 			$required_operation = ( pp_is_front() && ! is_preview() ) ? 'read' : 'edit';
 			$args['required_operation'] = $required_operation;
 		}
-			
+		
 		if ( $query_contexts )
 			$query_contexts = (array) $query_contexts;
 			
