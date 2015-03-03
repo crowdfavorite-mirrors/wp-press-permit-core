@@ -60,9 +60,13 @@ class PP_AdminUsers {
 						if ( $group_names ) {
 							uksort($group_names, "strnatcasecmp");
 
-							foreach( $group_names as $name => $_id )
-								$all_group_names[] = "<a href='" . "admin.php?page=pp-edit-permissions&amp;action=edit&amp;agent_type=$agent_type&amp;agent_id=$_id'>$name</a>";
-
+							foreach( $group_names as $name => $_id ) {
+								if ( defined( 'PP_USERS_UI_GROUP_FILTER_LINK' ) ) {
+									$url = add_query_arg( 'pp_group', $_id, $_SERVER['REQUEST_URI'] );
+									$all_group_names[] = "<a href='$url'>$name</a>";
+								} else
+									$all_group_names[] = "<a href='" . "admin.php?page=pp-edit-permissions&amp;action=edit&amp;agent_type=$agent_type&amp;agent_id=$_id'>$name</a>";
+							}
 							//$group_names = array_merge( $group_names, $this_group_names );
 						}
 					}
@@ -154,6 +158,11 @@ class PP_AdminUsers {
 		if ( ! empty( $_REQUEST['pp_has_perms'] ) ) {
 			global $wpdb;
 			$query_obj->query_where .= " AND ID IN ( SELECT agent_id FROM $wpdb->ppc_exceptions AS e INNER JOIN $wpdb->ppc_exception_items AS i ON e.exception_id = i.exception_id WHERE e.agent_type = 'user' ) OR ID IN ( SELECT user_id FROM $wpdb->pp_group_members AS ug INNER JOIN $wpdb->ppc_exceptions AS e ON e.agent_id = ug.group_id AND e.agent_type = 'pp_group' ) OR ID IN ( SELECT agent_id FROM $wpdb->ppc_roles WHERE agent_type = 'user' ) OR ID IN ( SELECT user_id FROM $wpdb->pp_group_members AS ug INNER JOIN $wpdb->ppc_roles AS r ON r.agent_id = ug.group_id AND r.agent_type = 'pp_group' )";
+		}
+		
+		if ( ! empty( $_REQUEST['pp_group'] ) ) {
+			global $wpdb;
+			$query_obj->query_where .= " AND ID IN ( SELECT user_id FROM $wpdb->pp_group_members WHERE group_id = '" . (int) $_REQUEST['pp_group'] . "' )";
 		}
 		
 		return $query_obj;

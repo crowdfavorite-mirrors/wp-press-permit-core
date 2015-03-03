@@ -92,7 +92,7 @@ function pp_options( $args = array() ) {
 			$('li.agp-agent').addClass( 'agp-unselected_agent' );
 			$(this).parent().addClass( 'agp-selected_agent <?php echo $color_class;?>' );
 			$('.pp-options-wrapper > div').hide();
-			$('#' + $(this).attr('class') ).show();
+			pp_show_elem( $(this).attr('class'), $ );
 		});
 	});
 	/* ]]> */

@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 4.1
-Stable tag: 2.1.53
+Tested up to: 4.1.1
+Stable tag: 2.1.54
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.54 - 21 Feb 2015 =
+* Fixed : PP tabs in wp-admin broke if a third party plugin added classes to their links
+* Feature : Support filtering of WP Users listing by PP group, by appending pp_group argument to URL
+* Compat : Wiki plugin - white screen on non-Administrator access of wp-admin Wikis screen
 
 = 2.1.53 - 4 Feb 2015 =
 * Compat : Visual Composer - invalid display of VC "add element" UI on Edit Term screen

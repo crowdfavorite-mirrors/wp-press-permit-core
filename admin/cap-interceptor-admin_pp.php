@@ -2,13 +2,32 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class PP_CapInterceptorAdmin {
+	var $in_has_cap_call = false;
+
 	function __construct() {
 		add_filter( 'map_meta_cap', array(&$this, 'flt_adjust_reqd_caps'), 1, 4 );
+		
+		// prevent infinite recursion if current_user_can( 'edit_posts' ) is called from within another plugin's map_meta_cap handler
+		add_filter( 'user_has_cap', array( &$this, 'flag_has_cap_call' ), 0 );
+		add_filter( 'user_has_cap', array( &$this, 'flag_has_cap_done' ), 999 );
+	}
+	
+	function flag_has_cap_call( $caps ) {
+		$this->in_has_cap_call = true;
+		return $caps;
+	}
+	
+	function flag_has_cap_done( $caps ) {
+		$this->in_has_cap_call = false;
+		return $caps;
 	}
 	
 	// hooks to map_meta_cap
 	function flt_adjust_reqd_caps( $reqd_caps, $orig_cap, $user_id, $args ) {
 		global $pagenow, $current_user;
+		
+		if ( $this->in_has_cap_call )
+			return $reqd_caps;
 		
 		// Work around WP's occasional use of literal 'cap_name' instead of $post_type_object->cap->$cap_name
 		// note: cap names for "post" type may be customized too

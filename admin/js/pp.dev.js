@@ -28,3 +28,35 @@ jQuery(document).ready( function($) {
 function agp_escape_id(myid) { 
    return myid.replace(/(:|\.)/g,'\\$1');
 }
+
+function pp_show_elem( classAttrib, $ ) {
+	if ( -1 == classAttrib.indexOf(' ') ) {
+		$('#' + classAttrib ).show();
+	} else {
+		ppClass = pp_match_class( classAttrib );
+		if ( ppClass )
+			$('#' + ppClass).show();
+	}
+}
+
+function pp_show_class( classAttrib, $ ) {
+	if ( -1 == classAttrib.indexOf(' ') ) {
+		$('.' + classAttrib ).show();
+	} else {
+		ppClass = pp_match_class( classAttrib );
+		if ( ppClass )
+			$('.' + ppClass).show();
+	}
+}
+
+function pp_match_class( classAttrib, $ ) {
+	var elemClasses = classAttrib.split(' ');
+	for ( i = 0; i < elemClasses.length; i++ ) {
+		if ( elemClasses[i].indexOf( "pp-" ) == 0 || elemClasses[i].indexOf( "pp_" ) == 0 || elemClasses[i].indexOf( "-pp_" ) >= 0 ) {
+			return elemClasses[i];
+			break;
+		}
+	}
+	
+	return false;
+}

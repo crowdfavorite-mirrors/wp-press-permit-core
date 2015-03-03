@@ -4,8 +4,7 @@ jQuery(document).ready( function($) {
 		$(this).closest('div.inside').find('li.agp-agent').removeClass( 'agp-selected_agent' ).removeClass( 'agp-selected_agent_colorized' ).addClass( 'agp-unselected_agent' ).addClass( 'agp-unselected_agent_colorized' );
 		$(this).parent().addClass( 'agp-selected_agent' ).addClass( 'agp-selected_agent_colorized' ).removeClass( 'agp-unselected_agent' ).removeClass( 'agp-unselected_agent_colorized' );
 		$(this).closest('div.inside').find('div.pp-agents > div').hide();
-		
-		$('#' + agp_escape_id($(this).attr('class'))).show();
+		pp_show_elem( agp_escape_id($(this).attr('class')), $ );
 	});
 });
 

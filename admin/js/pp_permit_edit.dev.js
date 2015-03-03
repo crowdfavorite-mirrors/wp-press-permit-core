@@ -13,7 +13,7 @@ jQuery(document).ready( function($) {
 		$(".pp-member-type > a").parent().removeClass('agp-selected_agent').addClass('agp-unselected_agent');
 		$(this).parent().removeClass('agp-unselected_agent').addClass('agp-selected_agent');
 		$('div.pp-member-type').hide();
-		$('.' + $(this).attr('class') ).show();
+		pp_show_class( $(this).attr('class'), $ );
 		return false;
 	});
 	
@@ -25,7 +25,7 @@ jQuery(document).ready( function($) {
 		$(".pp-add-permissions > a").parent().removeClass('agp-selected_agent').addClass('agp-unselected_agent');
 		$(this).parent().removeClass('agp-unselected_agent').addClass('agp-selected_agent');
 		$('div.pp-add-permissions').hide();
-		$('.' + $(this).attr('class') ).show();
+		pp_show_class( $(this).attr('class'), $ );
 	});
 	
 	$("#pp_save_roles input.button-primary").click( function() {
