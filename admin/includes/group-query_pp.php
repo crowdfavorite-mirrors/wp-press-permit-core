@@ -262,7 +262,11 @@ class PP_Group_Query {
 				$searches[] = "$col = '$string'";
 			else {
 				global $wpdb;
-				$searches[] = "$col LIKE '$leading_wild" . $wpdb->esc_like($string) . "$trailing_wild'";
+				
+				if ( pp_wp_ver( '4.0' ) )
+					$searches[] = "$col LIKE '$leading_wild" . $wpdb->esc_like($string) . "$trailing_wild'";
+				else
+					$searches[] = "$col LIKE '$leading_wild" . like_escape($string) . "$trailing_wild'";
 			}
 		}
 

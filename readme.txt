@@ -5,7 +5,7 @@ Tags: restrict, access, permissions, cms, user, private, category, pages, privac
 License: GPLv3
 Requires at least: 3.4
 Tested up to: 4.1.1
-Stable tag: 2.1.54
+Stable tag: 2.1.55
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,11 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.1.55 - 17 Mar 2015 =
+* Fixed : Permission Groups management screen failed with fatal error / white screen on WP 3.9.x and previous (since 2.1.52)
+* Change : Editing exceptions also allow deletion if constant PP_EDIT_EXCEPTIONS_ALLOW_DELETION is defined
+* Change : Editing exceptions also allow deletion for specified post type if constant PP_EDIT_EXCEPTIONS_ALLOW_PAGE_DELETION, PP_EDIT_EXCEPTIONS_ALLOW_ATTACHMENT_DELETION, etc. is defined
 
 = 2.1.54 - 21 Feb 2015 =
 * Fixed : PP tabs in wp-admin broke if a third party plugin added classes to their links

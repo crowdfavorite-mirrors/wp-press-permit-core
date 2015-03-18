@@ -428,6 +428,12 @@ class PP_QueryInterceptor
 					}
 				}
 				
+				if ( 'delete' == $required_operation ) {
+					$const = "PP_EDIT_EXCEPTIONS_ALLOW_" . strtoupper( $post_type ) . "_DELETION";
+					if ( defined( 'PP_EDIT_EXCEPTIONS_ALLOW_DELETION' ) || defined( $const ) )
+						$required_operation = 'edit';
+				}
+				
 				$where_arr[$post_type] = PP_Exceptions::add_exception_clauses( $where_arr[$post_type], $required_operation, $post_type, $args );
 			}
 

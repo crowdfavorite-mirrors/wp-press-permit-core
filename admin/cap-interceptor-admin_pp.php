@@ -7,7 +7,7 @@ class PP_CapInterceptorAdmin {
 	function __construct() {
 		add_filter( 'map_meta_cap', array(&$this, 'flt_adjust_reqd_caps'), 1, 4 );
 		
-		// prevent infinite recursion if current_user_can( 'edit_posts' ) is called from within another plugin's map_meta_cap handler
+		// prevent infinite recursion if current_user_can( 'edit_posts' ) is called from within another plugin's user_has_cap handler
 		add_filter( 'user_has_cap', array( &$this, 'flag_has_cap_call' ), 0 );
 		add_filter( 'user_has_cap', array( &$this, 'flag_has_cap_done' ), 999 );
 	}
