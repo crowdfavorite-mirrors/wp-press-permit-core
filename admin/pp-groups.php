@@ -150,6 +150,7 @@ if ( current_user_can( 'pp_edit_groups' ) ) {
 */
 $url = 'admin.php';
 
+$group_variant = ( isset($_REQUEST['group_variant']) ) ? pp_sanitize_key($_REQUEST['group_variant']) : 'pp_group';
 if ( pp_group_type_editable( $group_variant ) && current_user_can('pp_create_groups') ) { 
 ?>
 	<a href="<?php echo add_query_arg( array( 'agent_type' => $agent_type, 'page' => 'pp-group-new' ), $url );?>" class="add-new-h2"><?php echo esc_html( __ppw( 'Add New' ) ); ?></a>

@@ -76,7 +76,7 @@ class PP_Permits_Handler {
 				wp_die( __( 'You are not permitted to do that.', 'pp' ) );
 			
 			if ( ! empty($_REQUEST['groups']) ) {
-				$redirect = add_query_arg( array('pp_action' => 'bulkdelete', 'agent_type' => $agent_type, 'wp_http_referer' => isset($_REQUEST['wp_http_referer']) ? $_REQUEST['wp_http_referer'] : '', 'groups' => $_REQUEST['groups']), $redirect);
+				$redirect = esc_url_raw( add_query_arg( array('pp_action' => 'bulkdelete', 'agent_type' => $agent_type, 'wp_http_referer' => isset($_REQUEST['wp_http_referer']) ? $_REQUEST['wp_http_referer'] : '', 'groups' => $_REQUEST['groups']), $redirect) );
 				wp_redirect($redirect);
 				exit();
 			}

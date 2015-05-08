@@ -67,8 +67,8 @@ class PP_ItemExceptionsData {
 			if ( 'user' == $agent_type ) {
 				$this->agent_info['user'] = $wpdb->get_results( "SELECT ID, user_login as name, display_name FROM $wpdb->users WHERE ID IN ('" . implode( "','", array_map( 'intval', $ids ) ) . "') ORDER BY user_login", OBJECT_K );
 			} elseif ( 'pp_group' != $agent_type ) {
-				$args = array( 'ids' => $ids );
-				$this->agent_info[$agent_type] = pp_get_groups( $agent_type, $args );
+				$_args = array( 'ids' => $ids );
+				$this->agent_info[$agent_type] = pp_get_groups( $agent_type, $_args );
 			}
 		}
 		
@@ -126,7 +126,7 @@ class PP_ItemExceptionsData {
 					$this->current_exceptions[$for_item_type][$op][$agent_type] = array_intersect_key( $this->current_exceptions[$for_item_type][$op][$agent_type], $this->agent_info[$agent_type] );
 			}
 		}
-
+		
 		// determine if inclusions are set for any agents
 		$where = ( 'term' == $via_item_source ) ? "AND e.via_item_type = '$via_item_type'" : '';
 		$where .= ( 'term' == $via_item_source ) ? '' : " AND e.for_item_source = '$for_item_source'";
@@ -136,9 +136,8 @@ class PP_ItemExceptionsData {
 			$query_users = array_merge( $query_users, (array) $args['agent_id'] );
 		
 		$user_clause = ( $query_users ) ? "OR ( e.agent_type = 'user' AND e.agent_id IN ('" . implode( "','", $query_users ) . "') )" : '';
-		
-		//$agents_clause = "( ( e.agent_type = 'pp_group' AND e.agent_id IN ('" . implode( "','", array_keys($this->agent_info['wp_role']) ) . "') ) $user_clause )";
-		$agents_clause = "( ( e.agent_type = 'pp_group' ) $user_clause )";
+		$group_clause = ( ! empty($args['agent_type']) && ( 'user' != $args['agent_type'] ) ) ? "( e.agent_type = '" . $args['agent_type'] . "' )" : '';
+		$agents_clause = ( $group_clause || $user_clause ) ? "( $group_clause $user_clause )" : '1=1';
 		
 		$_assignment_modes = ( $hierarchical ) ? array( 'item', 'children' ) : array( 'item' );
 		

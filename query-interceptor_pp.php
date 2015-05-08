@@ -88,7 +88,8 @@ class PP_QueryInterceptor
 				$_wp_query->query_vars['required_operation'] = 'read';
 			*/
 			
-			$_wp_query->query_vars['required_operation'] = 'read';  // default to requiring read access for all ajax queries
+			if ( empty( $_wp_query->query_vars['required_operation'] ) )
+				$_wp_query->query_vars['required_operation'] = 'read';  // default to requiring read access for all ajax queries
 			
 			$edit_actions = apply_filters( 'pp_ajax_edit_actions', array() );
 			if ( in_array( $_REQUEST['action'], $edit_actions ) ) {

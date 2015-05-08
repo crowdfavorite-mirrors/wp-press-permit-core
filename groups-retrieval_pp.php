@@ -426,7 +426,7 @@ class PP_GroupRetrieval {
 			$type_clause = "AND ( $type_clause )";
 		
 		if ( $via_item_source )
-			$type_clause .= $wpdb->prepare( "AND e.via_item_source = '$via_item_source'", $via_item_source );
+			$type_clause .= $wpdb->prepare( "AND e.via_item_source = %s", $via_item_source );
 		
 		if ( $agent_type && ! $ug_clause )
 			$ug_clause = $wpdb->prepare( " AND e.agent_type = %s AND e.agent_id IN ('" . implode( "','", array_map( 'intval', (array) $agent_id ) ) . "')", $agent_type );

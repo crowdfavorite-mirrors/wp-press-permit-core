@@ -119,10 +119,17 @@ if ( ! empty($retval) && is_wp_error( $retval ) ) {
 	global $pp_admin;
 	$pp_admin->errors = $retval;
 } elseif ( $redirect ) {
-	if ( ! empty( $_REQUEST['wp_http_referer'] ) )
-		$redirect = add_query_arg('wp_http_referer', urlencode($_REQUEST['wp_http_referer']), $redirect);
+	if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
+		$arr = explode( '/', $_REQUEST['wp_http_referer'] );
+		if ( $arr && ! defined( 'PP_LEGACY_HTTP_REDIRECT' ) ) {
+			$wp_http_referer = array_pop( $arr );
+			$redirect = add_query_arg('wp_http_referer', urlencode($wp_http_referer), $redirect);
+		} else {
+			$redirect = add_query_arg('wp_http_referer', urlencode($_REQUEST['wp_http_referer']), $redirect);
+		}
+	}
 	
-	$redirect = add_query_arg('update', 1, $redirect);
+	$redirect = esc_url_raw( add_query_arg('update', 1, $redirect) );
 	
 	wp_redirect($redirect);
 	exit;

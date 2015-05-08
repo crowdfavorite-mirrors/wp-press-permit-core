@@ -37,6 +37,11 @@ class PP_QueryAttachments {
 			if ( empty($_args['limit_statuses']) )
 				$_args['skip_stati_usage_clause'] = true;
 			
+			if ( 'delete' == $_args['required_operation'] ) {
+				if ( defined( 'PP_EDIT_EXCEPTIONS_ALLOW_DELETION' ) || defined( 'PP_EDIT_EXCEPTIONS_ALLOW_ATTACHMENT_DELETION' ) )
+					$_args['required_operation'] = 'edit';
+			}
+			
 			$pp_where = $query_interceptor->flt_posts_where( '', $_args );
 			$type_csv = implode( "','", $_post_types );
 			$args['subqry'] = "SELECT ID FROM $wpdb->posts AS p WHERE 1=1 AND ( p.post_type IN ('$type_csv') ) $pp_where";		// pass this into filter even if not applying here

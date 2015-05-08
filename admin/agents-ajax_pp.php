@@ -65,8 +65,11 @@ class PP_Agents_Ajax {
 		<select id='<?php echo $id_suffix;?>' name='<?php echo $id_suffix;?>[]' multiple='multiple' style='height:160px;<?php echo $width;?>float:right'>
 		
 <?php 
-	$display_property = ( 'user' == $agent_type ) ? 'user_login' : 'display_name'; 
-
+	if ( 'user' == $agent_type )
+		$display_property = ( defined( 'PP_USER_RESULTS_DISPLAY_NAME' ) ) ? 'display_name' : 'user_login';
+	else
+		$display_property = 'display_name';
+	
 	foreach ( $current_selections as $agent ) : 
 		$attribs = ( isset($agent->display_name) && ( $agent->user_login != $agent->display_name ) ) ? 'title="' . esc_attr($agent->display_name) . '"' : '';
 		?>

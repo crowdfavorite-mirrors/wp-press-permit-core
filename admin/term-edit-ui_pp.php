@@ -173,7 +173,7 @@ class PP_TermEditUI {
 		if ( ! $referer = wp_get_original_referer() )
 			$referer = wp_get_referer();
 
-		$url = add_query_arg( '_wp_original_http_referer', urlencode($referer), "edit-tags.php?action=edit&amp;taxonomy=$taxonomy&amp;tag_ID={$tag->term_id}&amp;pp_universal=1" );
+		$url = esc_url_raw( add_query_arg( '_wp_original_http_referer', urlencode($referer), "edit-tags.php?action=edit&amp;taxonomy=$taxonomy&amp;tag_ID={$tag->term_id}&amp;pp_universal=1" ) );
 		printf( __( 'Displayed exceptions are those assigned for the "%1$s" type. You can also %2$sdefine universal %3$s exceptions which apply to all related post types%4$s.', 'pp' ), $type_obj->labels->singular_name, "<a href='$url'>", $tx_obj->labels->singular_name, '</a>' );?>
 		</p></div>
 		<?php

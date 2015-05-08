@@ -50,8 +50,15 @@ if ( 'user' == $agent_type ) {
 	if ( ! $search_str && ! $role_filter ) {
 		$results = $wpdb->get_results("SELECT ID, user_login, display_name FROM $wpdb->users $join ORDER BY $orderby LIMIT 1000");
 
-	} elseif ( $search = new WP_User_Query( 'search=*' . $search_str . "*&role=$role_filter" ) ) {
-		$results = $wpdb->get_results( "SELECT ID, user_login, display_name $search->query_from $join $search->query_where ORDER BY $orderby LIMIT 1000" );
+	} else {
+		if ( defined('PP_USER_LASTNAME_SEARCH') ) {
+			if ( $search = new WP_User_Query( 'meta_key=last_name&meta_compare=LIKE=&meta_value=%' . $search_str . "%" ) ) {
+				$where = str_replace( "= '%$search_str%'", "LIKE '$search_str'", $search->query_where );
+				$results = $wpdb->get_results( "SELECT ID, user_login, display_name $search->query_from $where ORDER BY $orderby LIMIT 1000" );
+			}
+		} elseif ( $search = new WP_User_Query( 'search=*' . $search_str . "*&role=$role_filter" ) ) {
+			$results = $wpdb->get_results( "SELECT ID, user_login, display_name $search->query_from $join $search->query_where ORDER BY $orderby LIMIT 1000" );
+		}
 	}
 
 	if ( $results ) {	
@@ -73,7 +80,10 @@ if ( 'user' == $agent_type ) {
 		foreach( $results as $row ) {
 			if ( ! in_array( $row->ID, $omit_users ) ) {
 				$title = ( $row->user_login != $row->display_name ) ? " title='" . esc_attr($row->display_name) . "'" : '';
-				echo "<option value='$row->ID' class='pp-new-selection'{$title}>$row->user_login</option>";
+				if ( defined( 'PP_USER_RESULTS_DISPLAY_NAME' ) )
+					echo "<option value='$row->ID' class='pp-new-selection'{$title}>$row->display_name</option>";
+				else
+					echo "<option value='$row->ID' class='pp-new-selection'{$title}>$row->user_login</option>";
 			}
 		}
 	}
