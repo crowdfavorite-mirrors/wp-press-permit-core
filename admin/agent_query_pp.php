@@ -53,7 +53,7 @@ if ( 'user' == $agent_type ) {
 	} else {
 		if ( defined('PP_USER_LASTNAME_SEARCH') ) {
 			if ( $search = new WP_User_Query( 'meta_key=last_name&meta_compare=LIKE=&meta_value=%' . $search_str . "%" ) ) {
-				$where = str_replace( "= '%$search_str%'", "LIKE '$search_str'", $search->query_where );
+				$where = str_replace( "= '%$search_str%'", "LIKE '%$search_str%'", $search->query_where );
 				$results = $wpdb->get_results( "SELECT ID, user_login, display_name $search->query_from $where ORDER BY $orderby LIMIT 1000" );
 			}
 		} elseif ( $search = new WP_User_Query( 'search=*' . $search_str . "*&role=$role_filter" ) ) {

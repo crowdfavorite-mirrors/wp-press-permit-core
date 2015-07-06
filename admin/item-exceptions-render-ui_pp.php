@@ -118,8 +118,10 @@ class PP_ItemExceptionsRenderUI {
 		} else {
 			$title = '';
 		}
+		
+		$_name = ( ( 'user' == $agent_type ) && defined( 'PP_USER_RESULTS_DISPLAY_NAME' ) ) ? $agent_info->display_name : $agent_info->name;
 		?>
-<tr><td class='pp-exc-agent'><input type='hidden' value='<?php echo $agent_id;?>' /><a href='<?php echo "{$this->base_url}$agent_id";?>'<?php echo $title;?> target='_blank'><?php echo $agent_info->name;?></a></td>
+<tr><td class='pp-exc-agent'><input type='hidden' value='<?php echo $agent_id;?>' /><a href='<?php echo "{$this->base_url}$agent_id";?>'<?php echo $title;?> target='_blank'><?php echo $_name;?></a></td>
 <?php
 		foreach( $assignment_modes as $assign_for ) {
 			if ( ! empty( $agent_exceptions[$assign_for]['additional'] ) )

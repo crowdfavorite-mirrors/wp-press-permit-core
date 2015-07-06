@@ -44,10 +44,14 @@ class PP
 		$this->load_user_config();
 
 		if ( is_admin() && ( 'async-upload.php' != $pagenow ) && ! defined('XMLRPC_REQUEST') ) {
-			// filters which are only needed for the wp-admin UI
-			global $pp_admin;
-			require_once( dirname(__FILE__).'/admin/admin-ui_pp.php');
-			$pp_admin = new PP_AdminUI();
+			// don't load admin filters on Ajax calls, but PP Collaborative Editing < 2.2 loads post maintenance filters on 'pp_admin_ui' action
+			$skip_ui_filters = ( defined('DOING_AJAX') && DOING_AJAX && ( ! defined('PPCE_VERSION') || version_compare( PPCE_VERSION, '2.2', '>=' ) ) );
+			if ( ! $skip_ui_filters ) {
+				// filters which are only needed for the wp-admin UI
+				global $pp_admin;
+				require_once( dirname(__FILE__).'/admin/admin-ui_pp.php');
+				$pp_admin = new PP_AdminUI();
+			}
 		}
 
 		add_filter( 'the_posts', array(&$this, 'flt_posts_listing'), 50 );

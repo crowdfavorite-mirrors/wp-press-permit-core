@@ -7,6 +7,7 @@ add_action( 'pp_duplicate_extension', '_pp_duplicate_extension', 10, 2 );
 
 add_filter( 'pp_default_options', '_pp_default_admin_options', 1 );
 
+
 if ( defined( 'SSEO_VERSION' ) )
 	require_once( dirname(__FILE__).'/eyes-only-admin_pp.php' );
 

@@ -140,8 +140,8 @@ function _ppc_list_agent_exceptions( $agent_type, $id, $args = array() ) {
 	$args = array_merge( $defaults, $args );
 	extract( $args, EXTR_SKIP );
 	
-	if ( ! $query_agent_ids )
-		$query_agent_ids = (array) $id;
+	if ( empty ( $args['query_agent_ids'] ) )
+		$args['query_agent_ids'] = (array) $id;
 	
 	if ( ! isset($exception_info) || $force_refresh )
 		$exception_info = ppc_count_assigned_exceptions( $agent_type, $args );

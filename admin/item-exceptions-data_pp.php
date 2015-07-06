@@ -135,9 +135,15 @@ class PP_ItemExceptionsData {
 		if ( ! empty( $args['agent_type'] ) && ( 'user' == $args['agent_type'] ) && ! empty( $args['agent_id'] ) )
 			$query_users = array_merge( $query_users, (array) $args['agent_id'] );
 		
-		$user_clause = ( $query_users ) ? "OR ( e.agent_type = 'user' AND e.agent_id IN ('" . implode( "','", $query_users ) . "') )" : '';
-		$group_clause = ( ! empty($args['agent_type']) && ( 'user' != $args['agent_type'] ) ) ? "( e.agent_type = '" . $args['agent_type'] . "' )" : '';
-		$agents_clause = ( $group_clause || $user_clause ) ? "( $group_clause $user_clause )" : '1=1';
+		$agents_clause = array();
+		
+		if ( ! empty($args['agent_type']) && ( 'user' != $args['agent_type'] ) )
+			$agents_clause []= "( e.agent_type = '" . $args['agent_type'] . "' )";
+			
+		if ( $query_users )
+			$agents_clause []= "( e.agent_type = 'user' AND e.agent_id IN ('" . implode( "','", $query_users ) . "') )";
+		
+		$agents_clause = ( $agents_clause ) ? pp_implode( ' OR ', $agents_clause ) : '1=1';
 		
 		$_assignment_modes = ( $hierarchical ) ? array( 'item', 'children' ) : array( 'item' );
 		

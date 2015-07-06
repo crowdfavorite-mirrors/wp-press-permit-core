@@ -149,9 +149,10 @@ class PP_Options_Install {
 				
 				<span style="margin-left:145px;">
 					<?php if ( $expired && ( ! empty($key) ) ) : ?>
-						<span class="pp-key-exired"><?php _e("Key Expired", 'pp') ?></span>
+						<span class="pp-key-expired"><?php _e("Key Expired", 'pp') ?></span>
+						<input name="<?php echo($id);?>" type="text" id="<?php echo($id);?>" style="display:none" />
 						<button type="button" id="activation-button" name="activation-button" class="button-secondary"><?php _e('Deactivate Key','pp'); ?></button>
-						<span class="pp-key-exired pp-key-warning"> <?php _e('note: Renewal does not require deactivation. If you do deactivate, re-entry of the support key will be required.', 'pp'); ?></span>
+						<span class="pp-key-expired pp-key-warning"> <?php _e('note: Renewal does not require deactivation. If you do deactivate, re-entry of the support key will be required.', 'pp'); ?></span>
 					<?php else : ?>
 						<?php if ( $activated ) : ?>
 						<span class="pp-key-active"><?php _e("Key Activated", 'pp') ?></span>
@@ -187,7 +188,7 @@ class PP_Options_Install {
 			</td></tr>
 		<?php 
 			do_action( 'pp_support_key_ui' );
-			self::footer_js( $activated );		
+			self::footer_js( $activated, $expired );		
 		endif; // any options accessable in this section
 
 		
@@ -529,9 +530,10 @@ class PP_Options_Install {
 		}
 	} // end function options_ui()
 
-	function footer_js( $activated ) {
+	function footer_js( $activated, $expired ) {
 		$vars = array( 
 			'activated' => ( $activated || ! empty($expired) ) ? true : false,
+			'expired' => ! empty($expired),
 			'activateCaption' => __('Activate Key','pp'),
 			'deactivateCaption' => __('Deactivate Key','pp'),
 			'connectingCaption' => __('Connecting to presspermit.com server...','pp'),

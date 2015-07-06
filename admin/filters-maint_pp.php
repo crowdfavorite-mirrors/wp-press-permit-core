@@ -8,7 +8,7 @@ pp_load_admin_api();
  * 
  * @package PP
  * @author Kevin Behrens <kevin@agapetry.net>
- * @copyright Copyright (c) 2011-2013, Agapetry Creations LLC
+ * @copyright Copyright (c) 2011-2015, Agapetry Creations LLC
  * 
  */
 class PP_AdminFilters
@@ -57,6 +57,8 @@ class PP_AdminFilters
 
 		add_action( 'pp_deleted_group', array( &$this, 'act_deleted_group' ), 10, 2 );
 		
+		add_filter( 'editable_roles', array( &$this, 'flt_hide_pp_only_roles' ) );
+		
 		// Follow up on role creation / deletion by Capability Manager or other equivalent plugin
 		// Capability Manager doesn't actually modify the stored role def until after the option update we're hooking on, so defer our maintenance operation
 		global $wpdb;
@@ -75,6 +77,21 @@ class PP_AdminFilters
 		if ( ! empty($wp_roles) )
 			add_filter( "update_option_{$wp_roles->role_key}", array( &$this, 'flt_update_wp_roles' ) );
 	} // end function __contruct
+	
+	function flt_hide_pp_only_roles( $roles ) {
+		if ( $pp_only = (array) pp_get_option( 'supplemental_role_defs' ) ) {
+			global $pp_role_defs;
+			
+			if ( ! empty($_REQUEST['user_id']) ) {	// display role already set for this user, regardless of pp_only setting
+				$user = new WP_User( (int) $_REQUEST['user_id'] );
+				if ( ! empty($user->roles) )
+					$pp_only = array_diff( $pp_only, $user->roles );
+			}
+		
+			$roles = array_diff_key( $roles, array_fill_keys( $pp_only, true ) );
+		}
+		return $roles;
+	}
 	
 	function flt_update_wp_roles( $roles ) {
 		global $wp_roles;

@@ -4,8 +4,8 @@ Donate Link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JWZVF
 Tags: restrict, access, permissions, cms, user, private, category, pages, privacy, capabilities, role, scoper
 License: GPLv3
 Requires at least: 3.4
-Tested up to: 4.2
-Stable tag: 2.1.57
+Tested up to: 4.2.2
+Stable tag: 2.2.1
 
 Advanced yet accessible content permissions. Give users or groups type-specific roles. Enable or block access for specific posts or terms.
 
@@ -48,6 +48,20 @@ Pro [extensions](http://presspermit.com/extensions) are [available](http://press
 Initial production release
 
 == Changelog ==
+
+= 2.2.1 - 3 Jul 2015 =
+* Fixed : Pro - Extensions could not be updated
+* Fixed : Pro - On WP 4.2, extensions were deactivated following update
+
+= 2.2 - 2 Jul 2015 =
+* Fixed : If a specific user has a set of "Only these" exceptions assigned, the Edit Post/Page screen did not correctly handle new exception assignments for that user
+* Fixed : PP key could not be deactivated after expiration
+* Fixed : If PP_USER_RESULTS_DISPLAY_NAME is defined, user_login was still displayed for selected / stored exceptions
+* Fixed : If PP_USER_LASTNAME_SEARCH is defined, partial searches (entering a portion of the last name) did not work
+* Fixed : Database error when the Edit Post/Page screen was used to add a new user-specific exception
+* Fixed : PHP Warning for undefined "action" argument when accessing wp-admin
+* Perf : Don't load dashboard-specific code on Ajax or direct file access calls (if PP Collaborative Editing is inactive or >= 2.2)
+* Perf : Fixed slow query (exceptions count) on Edit Permission Groups screen
 
 = 2.1.57 - 22 Apr 2015 =
 * Fixed : Pro - If Network Groups or BuddyPress Groups had limiting "Only these" exceptions set, those exceptions were not displayed properly in the Edit Page metaboxes and could be lost on page update

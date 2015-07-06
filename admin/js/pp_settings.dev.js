@@ -16,12 +16,14 @@ jQuery(document).ready( function($) {
 		
 		if ( ! pp_is_array(data) || typeof data[0] == 'undefined' ) {
 			msg = ppSettings.errCaption;
+			$("#pp-install .pp-key-active").hide();
+			$("#pp-install .pp-key-expired").hide();
 		} else if ( ! jQuery.inArray( data[0], captions ) ) {
 			msg = ppSettings.errCaption;
 		} else { 
 			msg = captions[ data[0] ];
 			
-			if ( ( 1 == data[0] ) || ( data[0] <= -200 && data[0] >= -299 ) ) {
+			if ( ( 1 == data[0] ) ) { // || ( data[0] <= -200 && data[0] >= -299 ) ) {
 				ppSettings.activated = 1;
 				$("#pp-install #activation-button").html( ppSettings.deactivateCaption );
 				$("#pp-install #renewal-button").hide();
@@ -29,13 +31,24 @@ jQuery(document).ready( function($) {
 				$("#pp-install .pp-key-active").show();
 				$("#pp-install .pp-key-expired").hide();
 				$("#pp-install .pp-update-link").show();
-			} else if ( -1 != data[0] ) {
+			} else if ( -1 == data[0] ) {
+				ppSettings.activated = 1;
+				ppSettings.expired = 1;
+				$("#pp-install #activation-button").html( ppSettings.deactivateCaption );
+				$("#pp-install #renewal-button").show();
+				$("#pp-install #support_key").show();
+				$("#pp-install .pp-key-active").hide();
+				$("#pp-install .pp-key-expired").show();
+				$("#pp-install .pp-update-link").show();
+			} else {
 				ppSettings.activated = 0;
 				$("#pp-install #activation-button").html( ppSettings.activateCaption );
 				$("#pp-install #support_key").show();
 				$("#pp-install #support_key").val('');
-				$("#pp-install .pp-key-active").hide();
-				$("#pp-install .pp-update-link").hide();
+				$("span.pp-key-active").hide();
+				$("span.pp-key-expired").hide();
+				$("span.pp-key-warning").hide();
+				$("span.pp-update-link").hide();
 			}
 		}
 		
@@ -59,6 +72,8 @@ jQuery(document).ready( function($) {
 		e.preventDefault();
 		e.stopPropagation();
 
+		console.debug(ppSettings);
+		
 		if ( 1 == ppSettings.activated ) {
 			var data = { 'pp_ajax_settings': 'deactivate_key' };
 			$.ajax({url:ppSettings.deactivateURL, data:data, dataType:"json", cache:false, success:redraw_act_status, error:ajax_connect_failure});

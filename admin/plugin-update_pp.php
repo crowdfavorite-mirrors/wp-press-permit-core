@@ -55,7 +55,7 @@ class PP_Updater {
 			$nonce = 'upgrade-plugin_' . $plugin;
 			$url = "update.php?action={$slug}&plugin=" . $plugin;
 
-			$upgrader = new PP_Core_Upgrader( new PP_Upgrader_Skin( compact('title', 'nonce', 'url', 'plugin') ) );
+			$upgrader = new PP_Upgrader( new PP_Upgrader_Skin( compact('title', 'nonce', 'url', 'plugin') ) );
 			$upgrader->upgrade_pp_package($plugin);
 
 			define('UPDATED_PP_PLUGIN', true);
@@ -103,7 +103,7 @@ class PP_Updater {
 .press-permit p { font-family: sans-serif;font-size: 12px;line-height: 1.4em; }
 </style>
 <?php
-			$upgrader = new PP_Core_Upgrader( new PP_Installer_Skin( compact('title', 'url', 'nonce', 'plugin') ) );
+			$upgrader = new PP_Upgrader( new PP_Installer_Skin( compact('title', 'url', 'nonce', 'plugin') ) );
 			$upgrader->install_pp_package( $plugin, "http://presspermit.com/index.php?PPServerRequest=download&update=$slug&version=VERSION&key=KEY&site=URL" );
 		}
 	}
@@ -150,22 +150,7 @@ class PP_Upgrader extends Plugin_Upgrader {
 
 		return $download_file;
 	}
-}
 
-/**
- * PP_Core_Upgrader class
- *
- * Adds auto-update support for the core plugin.
- *
- * Extensions derived from the WordPress WP_Upgrader & Plugin_Upgrader classes:
- * @see wp-admin/includes/class-wp-upgrader.php
- *
- * @copyright WordPress {@link http://codex.wordpress.org/Copyright_Holders}
- *
- * @author Jonathan Davis
- * @author Kevin Behrens
- **/
-class PP_Core_Upgrader extends PP_Upgrader {
 	function upgrade_strings() {
 		$title = '';
 		
@@ -194,8 +179,10 @@ class PP_Core_Upgrader extends PP_Upgrader {
 			$this->strings['downloading_package'] = sprintf(__ppw('Downloading install package from <span class="code">%s</span>&#8230;'),untrailingslashit('http://presspermit.com/'));
 			$this->strings['unpack_package'] = __ppw('Unpacking the package&#8230;');
 			$this->strings['installing_package'] = __ppw('Installing the plugin&#8230;');
+			$this->strings['no_files'] = __ppw('The plugin contains no files.');
 			$this->strings['process_failed'] = sprintf( __ppw('%s install Failed.','pp'), $title );
 			$this->strings['process_success'] = sprintf( __ppw('%s installed successfully.','pp'), $title );
+			$this->strings['remove_old'] = __ppw('Removing the old version of the plugin&#8230;');
 		}
 	}
 	
@@ -206,13 +193,16 @@ class PP_Core_Upgrader extends PP_Upgrader {
 		add_filter('upgrader_source_selection', array(&$this, 'check_package') );
 
 		$this->run(array(
-					'package' => $package_url,
-					'destination' => WP_PLUGIN_DIR,
-					'clear_destination' => false, //Do not overwrite files.
-					'clear_working' => true,
-					'hook_extra' => array(),
-					'plugin' => "{$slug}/{$slug}.php",
-					));
+			'package' => $package_url,
+			'destination' => WP_PLUGIN_DIR,
+			'clear_destination' => true, //Do not overwrite files.
+			'clear_working' => true,
+			'hook_extra' => array(
+				'type' => 'plugin',
+				'action' => 'install',
+			),
+			'plugin' => "{$slug}/{$slug}.php",
+		) );
 
 		remove_filter('upgrader_source_selection', array(&$this, 'check_package') );
 
@@ -227,6 +217,8 @@ class PP_Core_Upgrader extends PP_Upgrader {
 	}
 
 	function upgrade_pp_package($plugin) {
+		$is_active = is_plugin_active( $plugin );
+		
 		$this->init();
 		$this->upgrade_strings();
 
@@ -242,19 +234,23 @@ class PP_Core_Upgrader extends PP_Upgrader {
 		// Get the URL to the zip file
 		$r = $current->response[ $plugin ];
 
+		add_filter('upgrader_pre_install', array($this, 'deactivate_plugin_before_upgrade'), 10, 2);
 		add_filter('upgrader_clear_destination', array(&$this, 'delete_old_plugin'), 10, 4);
 
-		$this->run(array(
-					'package' => $r->package,
-					'destination' => WP_PLUGIN_DIR,
-					'clear_destination' => true,
-					'clear_working' => true,
-					'hook_extra' => array(
-					'plugin' => $plugin
-					)
-				));
+		$this->run( array(
+			'package' => $r->package,
+			'destination' => WP_PLUGIN_DIR,
+			'clear_destination' => true,
+			'clear_working' => true,
+			'hook_extra' => array(
+				'plugin' => $plugin,
+				'type' => 'plugin',
+				'action' => 'update',
+			)
+		) );
 
 		// Cleanup our hooks, incase something else does a upgrade on this connection.
+		remove_filter('upgrader_pre_install', array($this, 'deactivate_plugin_before_upgrade'));
 		remove_filter('upgrader_clear_destination', array(&$this, 'delete_old_plugin'));
 
 		if ( ! $this->result || is_wp_error($this->result) ) {
@@ -262,9 +258,16 @@ class PP_Core_Upgrader extends PP_Upgrader {
 			pp_get_version_info( true, false, true );
 			return $this->result;
 		}
-			
+		
+		if ( ! is_multisite() && $is_active )
+			activate_plugins( $plugin );
+		
 		// Force refresh of plugin update information
 		set_site_transient('ppc_update_info', false);
+		
+		// Force refresh of plugin update information
+		delete_site_transient( 'update_plugins' );
+		wp_cache_delete( 'plugins', 'plugins' );
 	}
 }
 

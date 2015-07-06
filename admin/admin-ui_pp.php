@@ -18,7 +18,6 @@ class PP_AdminUI
 		add_action( 'show_user_profile', array( &$this, 'ui_user'), 2 );
 		add_action( 'edit_user_profile', array( &$this, 'ui_user'), 2 );
 		add_action( 'admin_print_scripts-user-new.php', array( &$this, 'insert_groups_ui') );
-		add_filter( 'editable_roles', array( &$this, 'flt_hide_pp_only_roles' ) );
 
 		add_action( 'admin_menu', array( &$this, 'ngg_uploader_workaround') );
 		
@@ -53,7 +52,7 @@ class PP_AdminUI
 				$is_post_admin = true;
 			}
 		
-		} elseif ( in_array( $pagenow, array( 'edit-tags.php' ) ) || ( defined('DOING_AJAX') && DOING_AJAX && in_array( $_REQUEST['action'], array( 'inline-save-tax', 'add-tag' ) ) ) ) {
+		} elseif ( in_array( $pagenow, array( 'edit-tags.php' ) ) || ( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && in_array( $_REQUEST['action'], array( 'inline-save-tax', 'add-tag' ) ) ) ) {
 			if ( ! empty( $_REQUEST['taxonomy'] ) && pp_is_taxonomy_enabled( $_REQUEST['taxonomy'] ) ) {
 				global $pp_admin_terms_listing;
 				require_once( dirname(__FILE__).'/term-listing-ui_pp.php' );
@@ -286,21 +285,6 @@ class PP_AdminUI
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 		wp_enqueue_script( 'pp-new-user', PP_URLPATH . "/admin/js/pp_new_user{$suffix}.js", array(), PPC_VERSION );
 		wp_localize_script( 'pp-new-user', 'ppUser', array( 'ajaxurl' => admin_url('') ) );
-	}
-	
-	function flt_hide_pp_only_roles( $roles ) {
-		if ( $pp_only = (array) pp_get_option( 'supplemental_role_defs' ) ) {
-			global $pp_role_defs;
-			
-			if ( ! empty($_REQUEST['user_id']) ) {	// display role already set for this user, regardless of pp_only setting
-				$user = new WP_User( (int) $_REQUEST['user_id'] );
-				if ( ! empty($user->roles) )
-					$pp_only = array_diff( $pp_only, $user->roles );
-			}
-		
-			$roles = array_diff_key( $roles, array_fill_keys( $pp_only, true ) );
-		}
-		return $roles;
 	}
 	
 	function ui_admin_footer() {
